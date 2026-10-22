@@ -1,0 +1,32 @@
+services:
+  portal:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATA_DIR: /data
+    ports:
+      - "10.108.0.5:${CUSTOMER_PORTAL_PORT:-8081}:8080"
+    volumes:
+      - customer_portal_data:/data
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - portal
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  customer_portal_data:
+
+networks:
+  portal:
+    internal: true
