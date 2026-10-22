@@ -7,7 +7,7 @@ En fristående intern portal för en kunds hus och bilar. Varje kund får en ege
 - Lösenordsskyddat administrationsgränssnitt.
 - Lägg till och ta bort hus och bilar.
 - SQLite-databas i den namngivna volymen `customer_portal_data`.
-- Ingen extern databas, CDN eller tredjepartstjänst krävs vid drift.
+- Ingen extern databas, CDN eller tredjepartstjänst krävs vid drift. Varje portal får ett separat Docker-nät.
 - Porten är parameterstyrd och binds endast till `10.108.0.5`.
 
 ## Ny kund

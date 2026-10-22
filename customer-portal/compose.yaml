@@ -28,5 +28,4 @@ volumes:
   customer_portal_data:
 
 networks:
-  portal:
-    internal: true
+  portal: {}
