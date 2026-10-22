@@ -1,0 +1,17 @@
+:80 {
+	root * /srv/westman
+	file_server
+
+	@blocked path /.git/* /Caddyfile /DEPLOYMENT.md
+	respond @blocked 404
+
+	header {
+		X-Content-Type-Options nosniff
+		X-Frame-Options SAMEORIGIN
+		Referrer-Policy no-referrer
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+	}
+
+	@assets path *.css *.js *.jpg *.svg
+	header @assets Cache-Control "public, max-age=604800"
+}

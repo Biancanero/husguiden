@@ -1,0 +1,10 @@
+Westman – exempel
+
+Öppna index.html i en webbläsare (dubbelklicka). Internet behövs för typsnitt och 3D.
+
+index.html            Familjeportalen: två hus och en bil – översikt, ekonomi, avtal, papper, att göra, kontakter.
+                      ALLA belopp, papper, avtal och kontakter är påhittade exempel. Ändringar sparas inte.
+husbok-palma/         Husboken för Joan Miró 87 i 3D (riktig, den publika delen).
+husbok-gotland/       Husboken för Hulehällar 418D i 3D (riktig, den publika delen).
+
+Knappen "Öppna husboken" i portalen leder till husböckerna i samma mapp.

@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bilen i 3D</title>
+<style>
+  :root { --bg1: #f4f2ee; --bg2: #e2ded7; --ink: #3b3737; --muted: #8a837c; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg1: #2a2826; --bg2: #161514; --ink: #ece7e0; --muted: #9a9289; } }
+  :root[data-theme="dark"] { --bg1: #2a2826; --bg2: #161514; --ink: #ece7e0; --muted: #9a9289; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: radial-gradient(ellipse at 50% 38%, var(--bg1), var(--bg2)); font-family: "Jost", "Helvetica Neue", Arial, sans-serif; color: var(--ink); }
+  canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+  canvas:active { cursor: grabbing; }
+  .hint { position: absolute; left: 0; right: 0; bottom: 12px; text-align: center; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); pointer-events: none; transition: opacity .6s; }
+  .views { position: absolute; top: 12px; right: 12px; display: flex; gap: 0; border: 1px solid color-mix(in srgb, var(--muted) 45%, transparent); }
+  .views button { background: none; border: 0; padding: 7px 10px; font: 11px/1 inherit; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); cursor: pointer; }
+  .views button:hover { color: var(--ink); }
+  .err { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="views" id="views"></div>
+<div class="hint" id="hint">Dra för att snurra · nyp eller scrolla för att zooma</div>
+<script type="importmap">{ "imports": { "three": "vendor/three/build/three.module.js", "three/addons/": "vendor/three/addons/" } }</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+// A stylised mid-size electric crossover in the proportions of a Model Y (4.75 × 1.92 × 1.62 m, wheelbase 2.89 m).
+// Original procedural geometry: no manufacturer models, textures or logos.
+const P = new URLSearchParams(location.search);
+const PAINT = '#' + (P.get('paint') || '4b4e53');          // dark grey ("Stealth Grey"-like)
+const L = 4.75, HALF = L / 2, WB = 2.89, FX = 1.42, RX = FX - WB, WR = .355, TRACK = .83;
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.body.prepend(renderer.domElement);
+
+const scene = new THREE.Scene();
+const pm = new THREE.PMREMGenerator(renderer);
+scene.environment = pm.fromScene(new RoomEnvironment(renderer), .04).texture;
+
+const camera = new THREE.PerspectiveCamera(30, 1, .1, 100);
+camera.position.set(6.2, 2.3, 6.6);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, .72, 0);
+controls.enableDamping = true; controls.dampingFactor = .07;
+controls.enablePan = false;
+controls.minDistance = 4.2; controls.maxDistance = 14;
+controls.minPolarAngle = .25; controls.maxPolarAngle = 1.52;
+controls.autoRotate = true; controls.autoRotateSpeed = .7;
+let idle; controls.addEventListener('start', () => { controls.autoRotate = false; clearTimeout(idle); document.getElementById('hint').style.opacity = 0; });
+controls.addEventListener('end', () => { clearTimeout(idle); idle = setTimeout(() => controls.autoRotate = true, 6000); });
+
+const key = new THREE.DirectionalLight(0xffffff, 1.6);
+key.position.set(4, 9, 5); key.castShadow = true;
+key.shadow.mapSize.set(2048, 2048); key.shadow.radius = 6;
+Object.assign(key.shadow.camera, { left: -4, right: 4, top: 4, bottom: -4, near: 1, far: 20 });
+scene.add(key, new THREE.HemisphereLight(0xffffff, 0x8a8278, .55));
+
+// ---------- materials ----------
+const paint = new THREE.MeshPhysicalMaterial({ color: 0xffffff, metalness: .5, roughness: .3, clearcoat: 1, clearcoatRoughness: .05, vertexColors: true });   // colour comes per vertex (paint, lamps, wells)
+const paintS = new THREE.MeshPhysicalMaterial({ color: PAINT, metalness: .5, roughness: .3, clearcoat: 1, clearcoatRoughness: .05 });
+const glass = new THREE.MeshPhysicalMaterial({ color: 0x050608, metalness: .35, roughness: .02, clearcoat: 1, clearcoatRoughness: .01, envMapIntensity: 2.2 });
+const black = new THREE.MeshStandardMaterial({ color: 0x141516, roughness: .65, metalness: .1 });
+const gloss = new THREE.MeshPhysicalMaterial({ color: 0x101113, roughness: .15, metalness: .3, clearcoat: 1 });
+const tyre = new THREE.MeshStandardMaterial({ color: 0x18191a, roughness: .9 });
+const rim = new THREE.MeshPhysicalMaterial({ color: 0x55585c, metalness: .85, roughness: .32, clearcoat: .6 });
+const rimDark = new THREE.MeshStandardMaterial({ color: 0x2a2c2f, metalness: .6, roughness: .45 });
+const disc = new THREE.MeshStandardMaterial({ color: 0x77797c, metalness: .9, roughness: .5 });
+const ledW = new THREE.MeshBasicMaterial({ color: 0xf4f6ff });
+const ledR = new THREE.MeshStandardMaterial({ color: 0x5a0a0c, emissive: 0xc0141a, emissiveIntensity: 1.1, roughness: .3 });
+
+// ---------- smooth profiles along the car (x: rear −2.375 → front +2.375) ----------
+const curve = pts => { const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+  return x => { if (x <= xs[0]) return ys[0]; if (x >= xs.at(-1)) return ys.at(-1);
+    let i = 0; while (x > xs[i + 1]) i++;
+    const t = (x - xs[i]) / (xs[i + 1] - xs[i]), p0 = ys[Math.max(0, i - 1)], p1 = ys[i], p2 = ys[i + 1], p3 = ys[Math.min(ys.length - 1, i + 2)];
+    return .5 * ((2 * p1) + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t * t + (-p0 + 3 * p1 - 3 * p2 + p3) * t * t * t); }; };
+const bottom = curve([[-2.375, .46], [-2.33, .36], [-2.1, .28], [-1.3, .21], [1.0, .21], [1.95, .27], [2.3, .33], [2.375, .42]]);
+const top = curve([[-2.375, .94], [-2.33, 1.03], [-2.24, 1.065], [-1.8, 1.05], [0, 1.03], [1.0, 1.02], [1.45, 1.0], [1.9, .95], [2.2, .89], [2.32, .83], [2.375, .72]]);
+const half = curve([[-2.375, .7], [-2.32, .86], [-2.1, .935], [-1.3, .96], [.6, .96], [1.6, .94], [2.1, .88], [2.3, .8], [2.375, .7]]);
+const crown = curve([[-2.375, .01], [-2.2, .03], [1.0, .02], [1.5, .06], [2.2, .05], [2.375, .02]]); // top surface bulge
+const NUP = 3.2, NLO = 5;
+// the body's own surface, so parts can sit exactly on it
+const sec = x => { const b = bottom(x), t = top(x); return { w: half(x), cy: (b + t) / 2, hh: (t - b) / 2 }; };
+const surfTop = (x, z) => { const { w, cy, hh } = sec(x), c = Math.min(1, Math.pow(Math.abs(z) / w, NUP / 2)), sn = Math.sqrt(1 - c * c); return cy + hh * Math.pow(sn, 2 / NUP) + crown(x) * Math.pow(Math.max(0, 1 - Math.abs(z) / w), 1.5); };
+const surfSide = (x, y) => { const { w, cy, hh } = sec(x), n = y >= cy ? NUP : NLO, sn = Math.min(1, Math.pow(Math.abs(y - cy) / hh, n / 2)); return w * Math.pow(Math.sqrt(1 - sn * sn), 2 / n); };
+const PAINTC = new THREE.Color(PAINT), WELL = new THREE.Color(.03, .03, .035), TRIM = new THREE.Color(.05, .05, .055), LENS = new THREE.Color(.02, .022, .026), LED = new THREE.Color(1.6, 1.6, 1.7), RED = new THREE.Color(.75, .02, .03), REDD = new THREE.Color(.28, .01, .015);
+const sm = (a, b, v) => { const t = Math.min(1, Math.max(0, (v - a) / (b - a))); return t * t * (3 - 2 * t); };
+// paint, lamps and trim as colours on the body itself (they follow the surface exactly)
+function paintAt(x, y, z) {
+  const az = Math.abs(z), c = PAINTC.clone();
+  if (y < .35) c.lerp(TRIM, sm(.37, .33, y));                                        // black lower cladding
+  if (x > 2.0 && az > .46 && az < .86) {                                              // slim headlights at the corners: smoked lens + light line
+    const yl = .86 - (x - 2.0) * .2 - (az - .46) * .12; if (y < yl && y > yl - .055) { c.copy(LENS); if (y > yl - .016) c.copy(LED); } }
+  if (x > 2.26 && y > .3 && y < .37 && az < .45) c.copy(TRIM);                        // small lower intake
+  if (x < -2.18 && y > .9 && y < 1.0) {                                               // tail lamps + light bar
+    if (az > .32 && az < .9 && y > .91) c.copy(az > .4 ? RED : REDD);
+    else if (y > .955 && y < .968) c.copy(RED); }
+  if (x < -2.25 && y > .46 && y < .5 && az > .45) c.copy(REDD);                        // rear reflectors
+  return c;
+}
+// wheel wells: inside an arch the side is pushed in and darkened
+const arch = (x, y) => { let k = 0; for (const wx of [FX, RX]) { const dx = x - wx, cy = WR + .03, R = .455, d = y > cy ? Math.hypot(dx, y - cy) : Math.abs(dx); k = Math.max(k, sm(R + .012, R - .012, d)); } return k; };
+
+function body() {
+  const NX = 300, NA = 200, pos = [], col = [], idx = [];
+  for (let i = 0; i <= NX; i++) {
+    const u = i / NX, x = -HALF + L * (.5 - .5 * Math.cos(Math.PI * u));   // denser at the ends
+    const b = bottom(x), t = top(x), e = Math.max(0, (Math.abs(x) - (HALF - .11)) / .11), f = Math.sqrt(Math.max(0, 1 - e * e));   // round the two ends off into domes
+    const w = half(x) * f, cy = (b + t) / 2, hh = (t - b) / 2 * f;
+    for (let j = 0; j < NA; j++) {
+      const a = j / NA * Math.PI * 2, c = Math.cos(a), s = Math.sin(a), n = s > 0 ? NUP : NLO;   // fuller shoulders, flat floor
+      let z = Math.sign(c) * Math.pow(Math.abs(c), 2 / n) * w;
+      let y = cy + Math.sign(s) * Math.pow(Math.abs(s), 2 / n) * hh;
+      if (s > 0) y += crown(x) * Math.pow(Math.max(0, 1 - Math.abs(z) / w), 1.5);
+      const k = Math.abs(z) > .45 ? arch(x, y) : 0;
+      if (k) z = Math.sign(z) * (Math.abs(z) * (1 - k) + .55 * k);
+      pos.push(x, y, z); const cc = paintAt(x, y, z).lerp(WELL, k); col.push(cc.r, cc.g, cc.b);
+    }
+  }
+  for (let i = 0; i < NX; i++) for (let j = 0; j < NA; j++) { const a = i * NA + j, b = i * NA + (j + 1) % NA, c = a + NA, d = b + NA; idx.push(a, c, b, b, c, d); }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('color', new THREE.Float32BufferAttribute(col, 3)); g.setIndex(idx); g.computeVertexNormals();
+  const m = new THREE.Mesh(g, paint); m.castShadow = true; m.receiveShadow = true; return m;
+}
+// the glass house: windscreen, panoramic glass roof and rear window in one dark shell, with tumblehome
+function cabin() {
+  const roof = curve([[-2.25, 1.04], [-2.12, 1.15], [-1.8, 1.37], [-1.2, 1.56], [-.2, 1.62], [.42, 1.6], [.78, 1.46], [1.12, 1.2], [1.26, 1.03]]);
+  const NX = 180, NA = 48, pos = [], idx = [], x0 = -2.25, x1 = 1.26;
+  for (let i = 0; i <= NX; i++) {
+    const x = x0 + (x1 - x0) * i / NX, end = Math.min(1, (x - x0) / .35, (x1 - x) / .3), wB = half(x) - .12 - .05 * (1 - end);
+    const base = surfTop(x, wB) - .03, t = Math.max(base, roof(x)), h = t - base, wT = .66 - .14 * (1 - Math.min(1, h / .5));
+    for (let j = 0; j <= NA; j++) { const a = Math.PI * j / NA, c = Math.cos(a), s = Math.sin(a), n = 3.4, q = Math.pow(s, 2 / n);
+      pos.push(x, base + h * q, Math.sign(c) * Math.pow(Math.abs(c), 2 / n) * (wB + (wT - wB) * q)); }
+  }
+  for (let i = 0; i < NX; i++) for (let j = 0; j < NA; j++) { const a = i * (NA + 1) + j, b = a + 1, c = a + NA + 1, d = c + 1; idx.push(a, b, c, b, d, c); }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+  const m = new THREE.Mesh(g, glass); m.castShadow = true; return m;
+}
+function wheel() {
+  const w = new THREE.Group(), tw = .255;
+  const prof = []; for (let i = 0; i <= 24; i++) { const a = -Math.PI / 2 + Math.PI * i / 24; prof.push(new THREE.Vector2(WR - .1 + .1 * Math.pow(Math.cos(a), .45), tw / 2 * Math.sin(a))); }
+  const t = new THREE.Mesh(new THREE.LatheGeometry(prof, 64), tyre); t.rotation.x = Math.PI / 2; t.castShadow = true; w.add(t);
+  const R = .228;                                                  // 18-inch rim
+  const barrel = new THREE.Mesh(new THREE.CylinderGeometry(R, R, tw * .86, 48, 1, true), rimDark); barrel.rotation.x = Math.PI / 2; w.add(barrel);
+  const face = new THREE.Group(); face.position.z = tw * .36; w.add(face);
+  const lip = new THREE.Mesh(new THREE.TorusGeometry(R - .006, .012, 10, 64), rim); face.add(lip);
+  const hub = new THREE.Mesh(new THREE.CylinderGeometry(.058, .066, .04, 32), rim); hub.rotation.x = Math.PI / 2; face.add(hub);
+  for (let k = 0; k < 5; k++) {                                    // five twin-blade spokes with an aerodynamic sweep
+    for (const off of [-.11, .11]) {
+      const s = new THREE.Mesh(new THREE.BoxGeometry(.17, .032, .022), rim);
+      const a = k / 5 * Math.PI * 2 + off;
+      s.position.set(Math.cos(a) * .13, Math.sin(a) * .13, -.006); s.rotation.z = a + .18; face.add(s);
+    }
+    const cap = new THREE.Mesh(new THREE.BoxGeometry(.05, .14, .012), rimDark); const a = (k + .5) / 5 * Math.PI * 2;
+    cap.position.set(Math.cos(a) * .165, Math.sin(a) * .165, -.012); cap.rotation.z = a + Math.PI / 2; face.add(cap);
+  }
+  const d = new THREE.Mesh(new THREE.CylinderGeometry(.17, .17, .025, 40), disc); d.rotation.x = Math.PI / 2; d.position.z = -.02; w.add(d);
+  const cal = new THREE.Mesh(new THREE.BoxGeometry(.09, .16, .06), black); cal.position.set(-.13, .06, -.01); w.add(cal);
+  return w;
+}
+
+const car = new THREE.Group(); scene.add(car);
+car.add(body(), cabin());
+for (const [x, side] of [[FX, 1], [FX, -1], [RX, 1], [RX, -1]]) {
+  const w = wheel(); w.position.set(x, WR, side * TRACK); if (side < 0) w.rotation.y = Math.PI; car.add(w);
+  // black arch trim over each wheel
+  const tr = new THREE.Mesh(new THREE.TorusGeometry(.455, .028, 10, 48, Math.PI * 1.02), black);
+  tr.position.set(x, WR + .02, side * (half(x) - .035)); tr.rotation.z = -.01; tr.scale.z = .6; car.add(tr);
+}
+// sills, mirrors, lights
+for (const side of [1, -1]) {
+  const mir = new THREE.Group(); mir.position.set(1.12, 1.0, side * (surfSide(1.12, .96) + .03));
+  const cup = new THREE.Mesh(new THREE.SphereGeometry(.1, 32, 20), paintS); cup.scale.set(.9, .55, 1.2); cup.position.z = side * .11; cup.castShadow = true; mir.add(cup);
+  const arm = new THREE.Mesh(new THREE.BoxGeometry(.1, .035, .1), black); arm.position.z = side * .02; mir.add(arm);
+  const mg = new THREE.Mesh(new THREE.CircleGeometry(.08, 24), gloss); mg.scale.set(1, .6, 1); mg.rotation.y = -Math.PI / 2; mg.position.set(-.075, 0, side * .11); mir.add(mg);
+  car.add(mir);
+}
+const spoiler = new THREE.Mesh(new THREE.BoxGeometry(.13, .018, 1.08), paintS); spoiler.position.set(-2.25, surfTop(-2.25, 0) + .005, 0); spoiler.rotation.z = .1; car.add(spoiler);
+// floor: soft contact shadow + a faint disc
+const sh = document.createElement('canvas'); sh.width = sh.height = 256; const sx = sh.getContext('2d');
+const gr = sx.createRadialGradient(128, 128, 10, 128, 128, 128); gr.addColorStop(0, 'rgba(0,0,0,.55)'); gr.addColorStop(.55, 'rgba(0,0,0,.22)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); sx.fillStyle = gr; sx.fillRect(0, 0, 256, 256);
+const blob = new THREE.Mesh(new THREE.PlaneGeometry(6.2, 2.9), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(sh), transparent: true, depthWrite: false }));
+blob.rotation.x = -Math.PI / 2; blob.position.y = .002; scene.add(blob);
+const floor = new THREE.Mesh(new THREE.CircleGeometry(9, 64), new THREE.ShadowMaterial({ opacity: .16 })); floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
+
+// preset views
+const VIEWS = { 'Fram': [7.6, 1.6, 2.2], 'Sida': [0, 1.4, 8.6], 'Bak': [-7.6, 1.9, -2.4], 'Ovan': [.01, 9.5, .01] };
+let tween = null;
+document.getElementById('views').append(...Object.entries(VIEWS).map(([n, p]) => { const b = document.createElement('button'); b.textContent = n; b.onclick = () => { controls.autoRotate = false; clearTimeout(idle); idle = setTimeout(() => controls.autoRotate = true, 8000); tween = { from: camera.position.clone(), to: new THREE.Vector3(...p), t: 0 }; }; return b; }));
+
+function size() { const w = innerWidth, h = innerHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.fov = w / h < .9 ? 42 : 30; camera.updateProjectionMatrix(); }
+addEventListener('resize', size); size();
+renderer.setAnimationLoop(() => {
+  if (tween) { tween.t = Math.min(1, tween.t + .025); const e = tween.t < .5 ? 2 * tween.t * tween.t : 1 - Math.pow(-2 * tween.t + 2, 2) / 2; camera.position.lerpVectors(tween.from, tween.to, e); if (tween.t >= 1) tween = null; }
+  controls.update(); renderer.render(scene, camera);
+});
+window.__car = { scene, camera, car };
+</script>
+<noscript><div class="err">3D-vyn behöver JavaScript.</div></noscript>
+</body>
+</html>
