@@ -1,0 +1,182 @@
+{
+ "_about": "What signed-out visitors and guests see (the snapshot) and what the database is seeded with. Articles follow db/schema.json → wiki. Write in English as the base language and add i18n.sv/es/de, or write only in Swedish and set lang 'sv' in house.json.",
+ "articles": [
+  {
+   "id": "overview",
+   "title": "The house at a glance",
+   "cat": "Overview",
+   "sort": 1,
+   "room": "",
+   "body": "An invented example house: a one-and-a-half-storey timber villa with a detached garage.\n\nReplace this text with your own: when the house was built, by whom, what it is like.",
+   "facts": [
+    {
+     "k": "Address",
+     "v": "Exempelvägen 1, Exempelby"
+    },
+    {
+     "k": "Built",
+     "v": "1934"
+    },
+    {
+     "k": "Living area",
+     "v": "136 m²"
+    },
+    {
+     "k": "Plot",
+     "v": "1 050 m²"
+    }
+   ],
+   "images": [],
+   "i18n": {
+    "sv": {
+     "title": "Huset i korthet",
+     "body": "Ett påhittat exempelhus: en timrad villa i ett och ett halvt plan med fristående garage.\n\nByt den här texten mot er egen: när huset byggdes, av vem, hur det är.",
+     "facts": [
+      [
+       "Adress",
+       "Exempelvägen 1, Exempelby"
+      ],
+      [
+       "Byggt",
+       "1934"
+      ],
+      [
+       "Boarea",
+       "136 m²"
+      ],
+      [
+       "Tomt",
+       "1 050 m²"
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "kitchen",
+   "title": "Kitchen",
+   "cat": "Rooms",
+   "sort": 2,
+   "room": "0:Kitchen",
+   "body": "Describe the kitchen: appliances (brand, model), worktop, when it was renovated.",
+   "facts": [
+    {
+     "k": "Floor",
+     "v": "Oak parquet"
+    }
+   ],
+   "images": [],
+   "i18n": {
+    "sv": {
+     "title": "Kök",
+     "body": "Beskriv köket: vitvaror (märke, modell), bänkskiva, när det renoverades.",
+     "facts": [
+      [
+       "Golv",
+       "Ekparkett"
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "h-water",
+   "title": "Water and drains",
+   "cat": "How it works",
+   "sort": 1,
+   "room": "",
+   "body": "",
+   "how": {
+    "what": "Municipal water and sewage.",
+    "where": "Main stopcock in the laundry, under the sink.",
+    "use": "Turn clockwise to close.",
+    "maintenance": "Check the floor drain once a year.",
+    "call": "The municipality's water service"
+   },
+   "images": [],
+   "i18n": {
+    "sv": {
+     "title": "Vatten och avlopp",
+     "body": "",
+     "how": {
+      "what": "Kommunalt vatten och avlopp.",
+      "where": "Huvudkranen sitter i tvättstugan under diskhon.",
+      "use": "Vrid medurs för att stänga.",
+      "maintenance": "Rensa golvbrunnen en gång om året.",
+      "call": "Kommunens VA-avdelning"
+     }
+    }
+   }
+  },
+  {
+   "id": "s-welcome",
+   "title": "Welcome",
+   "cat": "Your stay",
+   "sort": 1,
+   "room": "",
+   "body": "What guests need to know. Never write codes, wifi passwords or where the key is here – give them to guests in a message.",
+   "images": [],
+   "i18n": {
+    "sv": {
+     "title": "Välkommen",
+     "body": "Det gästerna behöver veta. Skriv aldrig koder, wifi-lösenord eller var nyckeln ligger här – ge dem till gästerna i ett meddelande."
+    }
+   }
+  },
+  {
+   "id": "doc-sources",
+   "title": "Sources",
+   "cat": "Drawings & documents",
+   "sort": 9,
+   "room": "",
+   "body": "Where the facts in this house book come from.",
+   "facts": [
+    {
+     "k": "Map and buildings",
+     "v": "© OpenStreetMap contributors (ODbL)"
+    },
+    {
+     "k": "Aerial photo",
+     "v": "See img/KÄLLOR.txt"
+    }
+   ],
+   "images": [],
+   "i18n": {
+    "sv": {
+     "title": "Källor",
+     "body": "Var uppgifterna i husboken kommer ifrån.",
+     "facts": [
+      [
+       "Karta och byggnader",
+       "© OpenStreetMaps bidragsgivare (ODbL)"
+      ],
+      [
+       "Flygfoto",
+       "Se img/KÄLLOR.txt"
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "contacts": [
+  {
+   "group": "Emergency",
+   "role": "Emergencies (police, fire, ambulance)",
+   "name": "112",
+   "company": "",
+   "phone": "112",
+   "email": "",
+   "note": "",
+   "key": true,
+   "public": true
+  }
+ ],
+ "places": [],
+ "timeline": [
+  {
+   "date": "1934-06-01",
+   "what": "House built"
+  }
+ ]
+}

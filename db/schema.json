@@ -1,0 +1,57 @@
+{
+  "_about": "The house guide's database: documents in collections, like the claude.ai artifact database the book was first built on. server/server.py stores them in SQLite and enforces these rules. Paths: 'collection/doc' (even number of segments = a document). In a family page every home except the first keeps its collections under '<home id>-' (e.g. 'hamra-private'); the rules apply to the name without that prefix.",
+  "levels": {
+    "view": "anyone who may open the guide (signed out too when PUBLIC=1)",
+    "interact": "a signed-in guest (GUEST_PASSWORD)",
+    "admin": "an editor – family, house-sitter (EDITOR_PASSWORD)",
+    "owner": "the owner (OWNER_PASSWORD)"
+  },
+  "rules": [
+    { "path": "", "read": "view", "write": "admin" },
+    { "path": "private", "read": "owner", "write": "owner" },
+    { "path": "leads", "read": "owner", "write": "owner" },
+    { "path": "leads/{self}", "read": "owner", "write": "interact" }
+  ],
+  "collections": {
+    "wiki": {
+      "about": "Public articles, plus three special documents. Everything here may be seen by guests and buyers – never wifi passwords, key locations, alarm codes or money.",
+      "docs": {
+        "<article id>": {
+          "title": "string", "cat": "Overview | Rooms | How it works | Your stay | Garden & pool | Roof terrace | Facades & exterior | Materials & finishes | Dimensions & data | Drawings & documents | …",
+          "room": "'<floor index>:<room name>' – ties the article to a room in the 3D model (e.g. '0:Kitchen')",
+          "sort": "number – order inside the category",
+          "body": "string – Markdown-light: blank lines, '## ' headings, '- ' lists",
+          "facts": [{ "k": "label", "v": "value" }],
+          "how": { "what": "what it is", "where": "where it is", "use": "how to use it", "maintenance": "care", "call": "who to call" },
+          "images": [{ "src": "img/file.jpg", "caption": "string" }],
+          "colors": [{ "name": "string", "code": "RAL / NCS", "hex": "#rrggbb", "where": "string" }],
+          "i18n": { "sv": { "title": "…", "body": "…", "facts": [["k", "v"]], "captions": ["…"], "how": {} }, "es": {}, "de": {} },
+          "updatedAt": "ISO time", "updatedBy": "user id"
+        },
+        "contacts": { "rows": [{ "group": "Emergency | Service | Tradespeople | Purchase & building | Other", "role": "", "name": "", "company": "", "phone": "", "email": "", "note": "", "key": "bool – key number", "public": true }] },
+        "places": { "rows": [{ "group": "string", "name": "", "note": "", "url": "map link" }] },
+        "timeline": { "rows": [{ "date": "YYYY-MM-DD", "approx": false, "kind": "Built | Bought | Installed | Renovated | Repaired | Serviced | …", "title": "", "note": "", "who": "", "public": true }] }
+      },
+      "i18n_rule": "i18n.<lang>.facts and i18n.<lang>.captions are aligned by index with the English facts/images: keep the lengths equal."
+    },
+    "private": {
+      "about": "Owner only. Articles (same shape as wiki, e.g. p-* notes, stay-access with codes) plus these table documents, each { rows: [...] }.",
+      "docs": {
+        "contacts": "same rows as wiki/contacts – ALL of them; the public ones are copied to wiki/contacts on save",
+        "costs": { "rows": [{ "item": "", "amount": "number", "per": "month | quarter | half-year | year | one-off", "note": "" }] },
+        "payments": { "rows": [{ "due": "date", "payee": "", "amount": "number", "estimate": "bool", "paid": "bool", "note": "" }] },
+        "upcoming": { "rows": [{ "date": "date", "task": "", "done": "bool" }] },
+        "timeline": "same rows as wiki/timeline plus cost; the public ones are copied to wiki/timeline on save",
+        "equipment": { "rows": [{ "name": "", "cat": "", "model": "", "serial": "", "bought": "date", "shop": "", "price": "number", "warranty": "date", "every": "months", "last": "date", "receipt": "link", "note": "" }] },
+        "checklist": { "rows": [{ "list": "Leaving the house | Arriving", "item": "", "done": "bool" }] },
+        "utilities": { "providers": [{ "type": "electricity | gas | water", "label": "", "company": "", "unit": "kWh | m³", "plan": "" }], "bills": [{ "type": "", "from": "date", "to": "date", "qty": "number", "amount": "number", "parts": { "waste": "number" } }], "note": "" },
+        "account": { "bank": "", "last4": "", "balance": "number", "balanceDate": "date" },
+        "rental": { "enabled": "bool", "kind": "Holiday lets | Seasonal lets | Long-term let", "rows": [{ "from": "date", "to": "date", "guest": "", "channel": "", "gross": "number", "fees": "number", "cleaning": "number", "note": "" }] }
+      }
+    },
+    "leads": {
+      "about": "Viewing requests from buyers (only when the guide is for sale, house.json buyer: true). Each visitor writes only leads/<their own id>.",
+      "docs": { "<visitor id>": { "name": "", "contact": "", "date": "date", "slot": "Morning | Midday | Afternoon | Evening", "video": "bool", "msg": "", "lang": "", "at": "ISO time" } }
+    }
+  }
+}

@@ -1,0 +1,1885 @@
+<meta charset="utf-8">
+<title>Hamra Hulehällar 418D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: full-bleed 3D model; one quiet panel on the left (a bottom sheet on phones); an info card on the right. */
+:root {
+  --paper: #efede9; --card: rgba(241, 239, 235, .95); --ink: #33302e; --muted: #807a73; --line: #d8d3cb;
+  --sage: #7f9a86; --sky: #dfe7ea;
+  --font: "Jost", "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #1d1d1c; --card: rgba(30, 30, 29, .94); --ink: #ece8e2; --muted: #a39d95; --line: #3d3b38; --sage: #9db7a4; --sky: #1f2427; color-scheme: dark } }
+:root[data-theme="dark"] { --paper: #1d1d1c; --card: rgba(30, 30, 29, .94); --ink: #ece8e2; --muted: #a39d95; --line: #3d3b38; --sage: #9db7a4; --sky: #1f2427; color-scheme: dark }
+html, body { height: 100%; }
+body { margin: 0; overflow: hidden; background: var(--sky); color: var(--ink); font-family: var(--font); font-weight: 400; }
+#stage { position: fixed; inset: 0; }
+#labels { position: fixed; inset: 0; pointer-events: none; }
+.lbl { font: 500 10px/1.2 var(--font); letter-spacing: .14em; text-transform: uppercase; background: var(--card); color: var(--ink); border: 1px solid var(--line); padding: 4px 8px; white-space: nowrap; pointer-events: auto; cursor: pointer; }
+.lbl span { display: block; font-size: 9.5px; letter-spacing: .03em; text-transform: none; color: var(--muted); font-weight: 400; font-variant-numeric: tabular-nums; }
+.lbl.bld { font-size: 11px; padding: 6px 10px; }
+.lbl.ghost { opacity: .8; border-style: dashed; }
+
+.panel { position: fixed; left: 18px; top: 18px; width: 272px; max-height: calc(100% - 36px); overflow: auto; background: var(--card); border: 1px solid var(--line); padding: 18px; display: grid; gap: 16px; backdrop-filter: blur(6px); }
+.panel header { display: grid; gap: 3px; }
+.panel h1 { margin: 0; font-size: 19px; font-weight: 400; letter-spacing: .02em; text-wrap: balance; }
+.panel .sub { font-size: 11px; color: var(--muted); letter-spacing: .06em; }
+.panel h4 { margin: 0 0 6px; font-size: 9.5px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+.row { display: flex; flex-wrap: wrap; gap: 2px 14px; }
+.row button { font: 500 10.5px var(--font); letter-spacing: .15em; text-transform: uppercase; background: none; border: 0; padding: 5px 0; color: var(--ink); cursor: pointer; box-shadow: inset 0 -1px 0 var(--line); }
+.row button:hover, .row button[aria-pressed="true"] { box-shadow: inset 0 -2px 0 var(--ink); }
+.row button:focus-visible, .pbtn:focus-visible, .sw:focus-visible, summary:focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; }
+.toggles { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px; }
+.toggle { display: flex; gap: 7px; align-items: center; font-size: 12.5px; cursor: pointer; }
+.toggle input { accent-color: var(--ink); margin: 0; }
+.sunrow { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
+.sunrow input[type=range] { width: 100%; accent-color: var(--ink); }
+.sunrow select { font: inherit; font-size: 12px; background: transparent; color: var(--ink); border: 1px solid var(--line); padding: 3px 4px; }
+.suntxt { font-size: 11.5px; color: var(--muted); margin-top: 4px; font-variant-numeric: tabular-nums; }
+details summary { cursor: pointer; list-style: none; font-size: 9.5px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+details summary::after { content: " +"; }
+details[open] summary::after { content: " –"; }
+.swatches { display: grid; gap: 4px; margin-top: 8px; }
+.sw { display: grid; grid-template-columns: 22px 1fr; gap: 9px; align-items: center; text-align: left; font: 12px/1.25 var(--font); color: var(--ink); background: none; border: 0; padding: 3px 0; cursor: pointer; }
+.sw i { width: 22px; height: 22px; border: 1px solid var(--line); display: block; }
+.sw b { font-weight: 500; font-size: 11px; letter-spacing: .04em; display: block; font-variant-numeric: tabular-nums; }
+.sw small { color: var(--muted); font-size: 11px; }
+.sw:hover b { text-decoration: underline; }
+.note { font-size: 10.5px; color: var(--muted); line-height: 1.45; margin: 6px 0 0; }
+
+.info { position: fixed; right: 18px; bottom: 18px; width: 300px; max-height: calc(100% - 36px); overflow: auto; background: var(--card); border: 1px solid var(--line); padding: 16px 18px; display: grid; gap: 10px; backdrop-filter: blur(6px); }
+.info .eyebrow { font-size: 9.5px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+.info h2 { margin: 0; font-size: 17px; font-weight: 400; text-wrap: balance; }
+.info dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 12.5px; }
+.info dt { color: var(--muted); }
+.info dd { margin: 0; font-variant-numeric: tabular-nums; }
+.info p { margin: 0; font-size: 12.5px; line-height: 1.5; }
+.info .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-flex; gap: 6px; align-items: center; font-size: 11px; border: 1px solid var(--line); padding: 3px 7px 3px 3px; }
+.chip i { width: 14px; height: 14px; display: block; }
+.info .src { font-size: 10.5px; color: var(--muted); line-height: 1.45; }
+.close { position: absolute; right: 10px; top: 8px; background: none; border: 0; font-size: 18px; color: var(--muted); cursor: pointer; }
+
+.hint { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); font-size: 11px; letter-spacing: .05em; color: var(--ink); background: var(--card); border: 1px solid var(--line); padding: 6px 12px; white-space: nowrap; }
+.pad { position: fixed; left: 50%; bottom: 54px; transform: translateX(-50%); display: none; gap: 6px; }
+.pad button { width: 48px; height: 48px; font-size: 18px; background: var(--card); color: var(--ink); border: 1px solid var(--line); touch-action: none; }
+body.walking .pad { display: flex; }
+.mob { display: none; }
+@media (max-width: 760px) {
+  .panel { left: 0; right: 0; top: auto; bottom: 0; width: auto; max-height: 52%; padding: 14px 16px calc(14px + env(safe-area-inset-bottom, 0px)); gap: 12px; border-width: 1px 0 0; }
+  .panel.collapsed > :not(header) { display: none; }
+  .mob { display: inline-block; position: absolute; right: 14px; top: 12px; font: 500 10px var(--font); letter-spacing: .16em; text-transform: uppercase; background: none; border: 1px solid var(--line); color: var(--ink); padding: 6px 9px; }
+  .info { left: 10px; right: 10px; top: 10px; bottom: auto; width: auto; max-height: 40%; }
+  .hint { display: none; }
+  .pad { bottom: calc(52% + 12px); }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+
+<div id="stage"></div>
+<div id="labels"></div>
+
+<aside class="panel" id="panel">
+  <header>
+    <h1>Hamra Hulehällar 418D</h1>
+    <div class="sub">Hulehällar 1:26 · Hamra, Gotland</div>
+    <button type="button" class="mob" id="mob">Visa meny</button>
+  </header>
+  <div><h4>Byggnad</h4><div class="row" id="blds"></div></div>
+  <div><h4>Läge</h4><div class="row" id="modes"></div></div>
+  <div><h4>Utsikt</h4><div class="row" id="views"></div></div>
+  <div><h4>Sol</h4>
+    <div class="sunrow"><input type="range" id="sun-h" min="4" max="22" step="0.25" value="15.5" aria-label="Tid på dygnet"><select id="sun-m" aria-label="Månad"></select></div>
+    <div class="suntxt" id="sun-t"></div>
+  </div>
+  <div class="toggles">
+    <label class="toggle"><input type="checkbox" id="t-furn" checked> Möbler</label>
+    <label class="toggle"><input type="checkbox" id="t-lbl" checked> Rumsnamn</label>
+    <label class="toggle"><input type="checkbox" id="t-plot" checked> Tomtgräns</label>
+    <label class="toggle"><input type="checkbox" id="t-nb" checked> Grannhus</label>
+    <label class="toggle" style="grid-column:1/-1"><input type="checkbox" id="t-plan"> Planerat 2022 (friggebod, tillbyggnad)</label>
+    <label class="toggle" style="grid-column:1/-1"><input type="checkbox" id="t-glass"> Glashuset som det blir</label>
+  </div>
+  <div><h4>Cykelförråd · förslag</h4><div class="row" id="bikes"></div></div>
+  <details id="ncs-d">
+    <summary>Kulörschema</summary>
+    <div class="swatches" id="swatches"></div>
+    <p class="note">Klicka på en kulör för att se var den sitter. NCS-koderna kommer från kulörbeskrivningen; skärmfärgerna är ungefärliga.</p>
+  </details>
+</aside>
+
+<section class="info" id="info" aria-live="polite"></section>
+<div class="pad" id="pad"><button type="button" data-k="l" aria-label="Vrid vänster">◀</button><button type="button" data-k="f" aria-label="Gå framåt">▲</button><button type="button" data-k="b" aria-label="Gå bakåt">▼</button><button type="button" data-k="r" aria-label="Vrid höger">▶</button></div>
+<div class="hint" id="hint">dra · rotera &nbsp;·&nbsp; scrolla · zooma &nbsp;·&nbsp; högerdra · panorera &nbsp;·&nbsp; klicka på ett rum</div>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+
+/* Coordinates: x = east, z = south, y = up, metres. Origin = the main house's north-west outer corner.
+   Main house 21.18 × 5.38 (A2-1/A2-2, 2010), garage 12.5 × 4.0 (A3-1), attefallshus 9.0 × 3.3 (bygganmälan 2022).
+   Placement from the 2022 situationsplan (1:200), checked against Lantmäteriet's map and aerial photos. */
+
+// ---------- renderer, scene ----------
+const stage = document.getElementById('stage');
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.02;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+stage.appendChild(renderer.domElement);
+const labelR = new CSS2DRenderer(); labelR.setSize(innerWidth, innerHeight);
+document.getElementById('labels').appendChild(labelR.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#dfe8ec');
+scene.fog = new THREE.Fog('#dfe8ec', 140, 420);
+const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, .05, 1500);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true; controls.maxPolarAngle = Math.PI * .495; controls.minDistance = 2; controls.maxDistance = 220;
+
+const hemi = new THREE.HemisphereLight('#f2f0ea', '#a8a088', 1.1);
+scene.add(hemi);
+const sun = new THREE.DirectionalLight('#fff1dc', 2.6);
+sun.castShadow = true; sun.shadow.mapSize.set(4096, 4096); sun.shadow.bias = -.0008; sun.shadow.normalBias = .05;
+const sc = sun.shadow.camera; sc.left = -46; sc.right = 46; sc.top = 46; sc.bottom = -46; sc.near = 1; sc.far = 220;
+const SCX = 12, SCZ = -4;
+sun.target.position.set(SCX, 0, SCZ);
+scene.add(sun, sun.target);
+
+// ---------- helpers ----------
+let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+function canvasTex(w, h, draw, rep) {
+  const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
+  if (rep) { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(...rep); }
+  return t;
+}
+const std = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: .9, ...o });
+
+// textures drawn on canvas
+const seamTex = canvasTex(64, 64, (g, w, h) => { g.fillStyle = '#fff'; g.fillRect(0, 0, w, h); g.fillStyle = '#c9cdd0'; g.fillRect(0, 0, 4, h); g.fillStyle = '#eef0f1'; g.fillRect(4, 0, 2, h); });
+seamTex.wrapS = seamTex.wrapT = THREE.RepeatWrapping;
+const boardTex = canvasTex(64, 128, (g, w, h) => { g.fillStyle = '#fff'; g.fillRect(0, 0, w, h); for (let y = 0; y < h; y += 16) { g.fillStyle = 'rgba(0,0,0,.35)'; g.fillRect(0, y, w, 2); g.fillStyle = 'rgba(255,255,255,.08)'; g.fillRect(0, y + 2, w, 1); } });
+boardTex.wrapS = boardTex.wrapT = THREE.RepeatWrapping;
+const vpanelTex = canvasTex(128, 64, (g, w, h) => { g.fillStyle = '#fff'; g.fillRect(0, 0, w, h); for (let x = 0; x < w; x += 32) { g.fillStyle = 'rgba(0,0,0,.22)'; g.fillRect(x, 0, 2, h); } });
+vpanelTex.wrapS = vpanelTex.wrapT = THREE.RepeatWrapping;
+const oakTex = canvasTex(256, 256, (g, w, h) => {
+  g.fillStyle = '#c9ae86'; g.fillRect(0, 0, w, h);
+  for (let y = 0; y < h; y += 16) { let x = -rnd() * 120; while (x < w) { const L = 70 + rnd() * 110; g.fillStyle = `hsl(${32 + rnd() * 6},${30 + rnd() * 12}%,${62 + rnd() * 10}%)`; g.fillRect(x, y, L - 1, 15); x += L; } g.fillStyle = 'rgba(80,60,40,.25)'; g.fillRect(0, y + 15, w, 1); }
+}, [1, 1]);
+const tileTex = canvasTex(128, 128, (g, w, h) => { g.fillStyle = '#c4c1ba'; g.fillRect(0, 0, w, h); g.strokeStyle = 'rgba(60,58,54,.45)'; g.lineWidth = 2; for (let i = 0; i <= w; i += 64) { g.beginPath(); g.moveTo(i, 0); g.lineTo(i, h); g.moveTo(0, i); g.lineTo(w, i); g.stroke(); } }, [1, 1]);
+const limeTex = canvasTex(128, 128, (g, w, h) => { g.fillStyle = '#d6d0c2'; g.fillRect(0, 0, w, h); for (let i = 0; i < 300; i++) { g.fillStyle = `rgba(120,110,95,${rnd() * .12})`; g.fillRect(rnd() * w, rnd() * h, 2, 2); } g.strokeStyle = 'rgba(90,85,75,.3)'; for (let i = 0; i <= w; i += 64) { g.beginPath(); g.moveTo(i, 0); g.lineTo(i, h); g.moveTo(0, i); g.lineTo(w, i); g.stroke(); } }, [1, 1]);
+// limestone crazy paving (photos 2025): big angular slabs, 30–120 cm, each its own tone – cream, beige, pale grey,
+// blue-grey – with faint veins and specks, brown-grey joints about 1.5 cm wide. One texture covers the whole patio
+// (5.6 × 11.2 m, no repeats): jittered points every ~0.62 m, Voronoi cells = slabs.
+const FLAG = { x0: 13.15, z0: -11.55, w: 7.1, h: 11.2 };
+const flagTex = (() => {
+  const W = 1024, H = 2048, ppm = W / FLAG.w, cell = .62 * ppm, gx = Math.ceil(W / cell) + 2, gy = Math.ceil(H / cell) + 2;
+  const P = [], tone = [], vein = [];
+  const PAL = [[226, 218, 203], [214, 207, 194], [219, 205, 180], [200, 200, 196], [208, 201, 186], [229, 222, 210], [196, 193, 186], [222, 210, 188]];
+  for (let j = 0; j < gy; j++) for (let i = 0; i < gx; i++) {
+    P.push([(i - 1 + .1 + rnd() * .8) * cell, (j - 1 + .1 + rnd() * .8) * cell]);
+    const c = PAL[(rnd() * PAL.length) | 0], dv = (rnd() - .5) * 14; tone.push([c[0] + dv, c[1] + dv, c[2] + dv * 1.1]);
+    const th = rnd() * Math.PI; vein.push([Math.cos(th), Math.sin(th), .03 + rnd() * .05, rnd() * 9, rnd() < .65 ? 1 : 0, (rnd() - .5) * 2]);
+  }
+  const c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d'), id = g.createImageData(W, H), d = id.data;
+  const JW = .016 * ppm;   // joint width
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    const ci = Math.floor(x / cell) + 1, cj = Math.floor(y / cell) + 1;
+    let a = 1e18, b = 1e18, k = 0, kb = 0;
+    for (let jj = cj - 1; jj <= cj + 1; jj++) for (let ii = ci - 1; ii <= ci + 1; ii++) {
+      if (ii < 0 || jj < 0 || ii >= gx || jj >= gy) continue; const n = jj * gx + ii, dx = x - P[n][0], dy = y - P[n][1], dd = dx * dx + dy * dy;
+      if (dd < a) { b = a; kb = k; a = dd; k = n; } else if (dd < b) { b = dd; kb = n; }
+    }
+    // distance to the joint = distance to the bisector of the two nearest points
+    const p1 = P[k], p2 = P[kb], mx = (p1[0] + p2[0]) / 2, my = (p1[1] + p2[1]) / 2, nx = p2[0] - p1[0], ny = p2[1] - p1[1], nl = Math.hypot(nx, ny) || 1;
+    const e = ((mx - x) * nx + (my - y) * ny) / nl, o = (y * W + x) * 4, noise = (Math.random() - .5) * 9;
+    let r, gg, bb;
+    if (e < JW / 2) { const m = 128 + noise * .6; r = m + 6; gg = m - 2; bb = m - 16; }      // the joint: brown-grey mortar
+    else {
+      [r, gg, bb] = tone[k];
+      const v = vein[k]; if (v[4]) { const t = (x * v[0] + y * v[1]) * v[2] + v[3] + 2.2 * Math.sin(y * .011 + x * .007 + v[3]); const s = Math.abs(Math.sin(t)); if (s < .05) { const f = (1 - s / .05) * 12 * (v[5] > 0 ? 1 : -.6); r -= f; gg -= f; bb -= f * .8; } }
+      const cloud = 6 * Math.sin(x * .02 + k) * Math.sin(y * .017 + k * 1.7); r += cloud; gg += cloud; bb += cloud;
+      if (e < JW / 2 + 2.6) { const f = 1 - (e - JW / 2) / 2.6; r -= 22 * f; gg -= 22 * f; bb -= 20 * f; }      // chipped, shadowed edge
+      if (Math.random() < .004) { r -= 40; gg -= 40; bb -= 36; }                                                // dark specks (fossils)
+      r += noise; gg += noise; bb += noise;
+    }
+    d[o] = r; d[o + 1] = gg; d[o + 2] = bb; d[o + 3] = 255;
+  }
+  g.putImageData(id, 0, 0);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = renderer.capabilities.getMaxAnisotropy(); return t;
+})();
+const gravelTex = canvasTex(256, 256, (g, w, h) => {
+  g.fillStyle = '#cfc9bd'; g.fillRect(0, 0, w, h);
+  for (let i = 0; i < 2600; i++) { const r = 1 + rnd() * 3.2; g.fillStyle = `hsl(${35 + rnd() * 20},${6 + rnd() * 8}%,${62 + rnd() * 30}%)`; g.beginPath(); g.ellipse(rnd() * w, rnd() * h, r, r * (.6 + rnd() * .4), rnd() * 3, 0, 7); g.fill(); }
+}, [1, 1]);
+const groundTex = canvasTex(512, 512, (g, w, h) => {
+  g.fillStyle = '#a49c76'; g.fillRect(0, 0, w, h);
+  for (let i = 0; i < 9000; i++) { const s = 1 + rnd() * 3; g.fillStyle = `hsl(${45 + rnd() * 40},${16 + rnd() * 20}%,${40 + rnd() * 26}%)`; g.fillRect(rnd() * w, rnd() * h, s, s); }
+  for (let i = 0; i < 220; i++) { g.fillStyle = `rgba(225,220,205,${.25 + rnd() * .4})`; g.beginPath(); g.arc(rnd() * w, rnd() * h, 1 + rnd() * 3, 0, 7); g.fill(); }
+}, [26, 26]);
+
+// ---------- NCS colours (kulörbeskrivning Hulehällar 1:26) ----------
+const NCS = [
+  ['S 1502-Y', '#d9d5c9', 'Samtliga väggar, insida fasad (silikatfärg) · förråd'],
+  ['S 2002-Y', '#cfcbc0', 'Samtliga tak'],
+  ['S 2502-Y', '#c2beb3', 'Ytterdörrar, dörrkarmar och fönster'],
+  ['S 3010-B50G', '#98aeab', 'Kapprum'],
+  ['S 3030-Y20R', '#c2994f', 'Sovrum mot öster'],
+  ['S 6500-N', '#5f5f5d', 'Passage utanför sovrummet'],
+  ['S 6005-Y20R', '#6d675d', 'Vardagsrum, bakom soffan'],
+  ['S 9000-N', '#272726', 'Väggar runt köket'],
+  ['S 6010-B50G', '#4d605e', 'Passage utanför apparatrum'],
+  ['S 2030-R80B', '#8ea6cc', 'Apparatrum'],
+  ['S 3040-G30Y', '#84a95a', 'Rum mot väster'],
+];
+const NC = Object.fromEntries(NCS.map(([k, c]) => [k, c]));
+const ncsMat = {};
+const paint = (code, tex = vpanelTex, rough = .85) => {
+  const k = code + (tex ? '' : '-p');
+  if (!ncsMat[k]) { ncsMat[k] = std(NC[code], { roughness: rough, map: tex || null }); ncsMat[k].userData.ncs = code; }
+  return ncsMat[k];
+};
+
+const M = {
+  render: std('#e2ded6', { roughness: .95 }),
+  plinth: std('#bdb8ae'),
+  inner: paint('S 1502-Y', null, .95),
+  ceil: std(NC['S 2002-Y'], { map: vpanelTex, roughness: .9 }),
+  frame: std(NC['S 2502-Y'], { roughness: .55 }),
+  glass: new THREE.MeshPhysicalMaterial({ color: '#cfe0e4', roughness: .05, metalness: .1, transparent: true, opacity: .26, depthWrite: false }),
+  roof: std('#a6abae', { map: seamTex, metalness: .45, roughness: .45 }),
+  roofEdge: std('#9aa0a3', { metalness: .45, roughness: .5 }),
+  fascia: std('#8f8678', { roughness: .95 }),
+  blackBoard: std('#2c2825', { map: boardTex, roughness: .95 }),
+  blackTrim: std('#26231f', { roughness: .9 }),
+  oak: std('#c9ae86', { map: oakTex, roughness: .7 }),
+  concrete: std('#9e9b95', { roughness: .95 }),
+  lime: std('#c9c3b5', { map: limeTex, roughness: .6 }),
+  flag: std('#ffffff', { map: flagTex, roughness: .5, side: THREE.DoubleSide }),
+  tile: std('#f1efea', { roughness: .4 }),
+  deck: std('#a39888', { map: boardTex, roughness: .95 }),
+  patio: std('#ffffff', { map: tileTex, roughness: .95 }),
+  gravel: std('#d8d2c6', { map: gravelTex, roughness: 1 }),
+  drive: std('#d9d1bf', { map: gravelTex, roughness: 1, side: THREE.DoubleSide }), track: std('#bdb39f', { roughness: 1, side: THREE.DoubleSide }),
+  ground: std('#ffffff', { map: groundTex, roughness: 1 }),
+  steel: std('#6d6d6b', { metalness: .55, roughness: .45 }),
+  inox: std('#c9cbcc', { metalness: .8, roughness: .3 }),
+  black: std('#232221', { roughness: .6 }),
+  white: std('#f3f1ec', { roughness: .6 }),
+  ash: std('#dcc9a6', { roughness: .6 }),
+  wood: std('#b8956a', { roughness: .7 }),
+  greyWood: std('#9d968b', { roughness: .95 }),
+  sofa: std('#b9b8b4'), linen: std('#f1eee6'), wool: std('#3c3a39'), leather: std('#4a2f23', { roughness: .55 }),
+  barrel: std('#b9a888', { roughness: .85 }), band: std('#7d8184', { metalness: .6, roughness: .4 }),
+  galv: std('#b8bcbe', { metalness: .7, roughness: .35 }), corr: std('#c7cbcd', { map: seamTex, metalness: .6, roughness: .35 }),
+  ghost: new THREE.MeshStandardMaterial({ color: '#9fc3d6', transparent: true, opacity: .32, roughness: .4, depthWrite: false }),
+  nb: new THREE.MeshStandardMaterial({ color: '#efece6', transparent: true, opacity: .55, roughness: .9 }),
+  fire: new THREE.MeshBasicMaterial({ color: '#ff9a3d' }), mint: std('#a9d3b6'),
+  bark: std('#6b5847'), car: std('#e9ebec', { metalness: .4, roughness: .35 }),
+};
+const rugTex = canvasTex(256, 64, (g, w, h) => { const P = ['#9b2335', '#2f8a6b', '#d9c79e', '#c7708a', '#5a2a3c', '#e8dfcc', '#b33f3f', '#8aa0b8', '#c9a64e']; let x = 0; while (x < w) { const s = 6 + rnd() * 14; g.fillStyle = P[(rnd() * P.length) | 0]; g.fillRect(x, 0, s, h); x += s; } });
+M.rug = std('#ffffff', { map: rugTex, roughness: 1 });
+const runnerTex = canvasTex(64, 256, (g, w, h) => { g.fillStyle = '#2f3138'; g.fillRect(0, 0, w, h); g.fillStyle = 'rgba(220,215,205,.55)'; for (let y = 6; y < h; y += 10) for (let x = 6; x < w - 4; x += 8) if (rnd() > .45) g.fillRect(x, y, 3, 2); g.fillStyle = '#c47c6d'; g.fillRect(3, 0, 2, h); g.fillRect(w - 5, 0, 2, h); });
+M.runner = std('#ffffff', { map: runnerTex, roughness: 1 });
+
+const boxGeo = new THREE.BoxGeometry(1, 1, 1);
+function box(g, x1, x2, y1, y2, z1, z2, mat, cast = true) {
+  const m = new THREE.Mesh(boxGeo, mat);
+  m.scale.set(Math.max(.002, Math.abs(x2 - x1)), Math.max(.002, Math.abs(y2 - y1)), Math.max(.002, Math.abs(z2 - z1)));
+  m.position.set((x1 + x2) / 2, (y1 + y2) / 2, (z1 + z2) / 2);
+  m.castShadow = cast && !mat.transparent; m.receiveShadow = true; g.add(m); return m;
+}
+// textured box: textures repeat per metre on the largest faces
+function tbox(g, x1, x2, y1, y2, z1, z2, mat, per = [1, 1]) {
+  const geo = new THREE.BoxGeometry(Math.abs(x2 - x1), Math.abs(y2 - y1), Math.abs(z2 - z1));
+  const uv = geo.attributes.uv, pos = geo.attributes.position, nrm = geo.attributes.normal;
+  for (let i = 0; i < uv.count; i++) {
+    const nx = Math.abs(nrm.getX(i)), ny = Math.abs(nrm.getY(i));
+    const px = pos.getX(i), py = pos.getY(i), pz = pos.getZ(i);
+    if (ny > .5) uv.setXY(i, px / per[0], pz / per[1]);
+    else if (nx > .5) uv.setXY(i, pz / per[0], py / per[1]);
+    else uv.setXY(i, px / per[0], py / per[1]);
+  }
+  const m = new THREE.Mesh(geo, mat); m.position.set((x1 + x2) / 2, (y1 + y2) / 2, (z1 + z2) / 2);
+  m.castShadow = !mat.transparent; m.receiveShadow = true; g.add(m); return m;
+}
+const cyl = (g, x, y, z, r, h, mat, seg = 20) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, h, seg), mat); m.position.set(x, y + h / 2, z); m.castShadow = m.receiveShadow = true; g.add(m); return m; };
+// a prism: polygon in the (z, y) plane, extruded along x from x1 to x2
+function prismZY(g, pts, x1, x2, mat) {
+  const s = new THREE.Shape(pts.map(([u, v]) => new THREE.Vector2(u, v)));
+  const geo = new THREE.ExtrudeGeometry(s, { depth: x2 - x1, bevelEnabled: false });
+  const m = new THREE.Mesh(geo, mat); m.rotation.y = -Math.PI / 2; m.position.x = x2;
+  m.castShadow = m.receiveShadow = true; g.add(m); return m;
+}
+// a sloped slab running along x between (zA, yA) and (zB, yB)
+function slab(g, x1, x2, zA, yA, zB, yB, t, mat, uvPer) {
+  const L = Math.hypot(zB - zA, yB - yA), a = Math.atan2(yB - yA, zB - zA);
+  const geo = new THREE.BoxGeometry(x2 - x1, t, L);
+  if (uvPer) { const uv = geo.attributes.uv, pos = geo.attributes.position; for (let i = 0; i < uv.count; i++) uv.setXY(i, pos.getX(i) / uvPer, pos.getZ(i) / 3); }
+  const m = new THREE.Mesh(geo, mat);
+  m.position.set((x1 + x2) / 2, (yA + yB) / 2 + t / 2 * Math.cos(a), (zA + zB) / 2 - t / 2 * Math.sin(a));
+  m.rotation.x = -a; m.castShadow = m.receiveShadow = true; g.add(m); return m;
+}
+
+// ---------- registries ----------
+const groups = {}, cuttable = [], colliders = [], furniture = [], labels = [], roofs = {}, ceilings = {};
+const F = m => (furniture.push(m), m);
+function bgroup(key, x = 0, y = 0, z = 0, ry = 0) {
+  const g = new THREE.Group(); g.position.set(x, y, z); g.rotation.y = ry; g.userData.key = key; scene.add(g); groups[key] = g;
+  roofs[key] = new THREE.Group(); ceilings[key] = new THREE.Group(); g.add(roofs[key], ceilings[key]); return g;
+}
+
+/* Walls with openings. axis 'x': the wall runs along x from a1 to a2 and is c1..c2 thick in z; axis 'z' the reverse.
+   ops: { a, b, lo, hi, kind: 'win' | 'door' | 'open' | 'leaf', mull } – a door has lo 0 and can be walked through.
+   sides: one material, or [matC1side, matC2side] which splits the wall in two skins. */
+function wall(g, axis, a1, a2, c1, c2, h, ops, sides, wallFrame = M.frame) {
+  const key = g.userData.key;
+  const skins = Array.isArray(sides) ? [[c1, (c1 + c2) / 2, sides[0]], [(c1 + c2) / 2, c2, sides[1]]] : [[c1, c2, sides]];
+  const B = (p1, p2, y1, y2) => {
+    for (const [d1, d2, mat] of skins) {
+      const m = axis === 'x' ? tbox(g, p1, p2, y1, y2, d1, d2, mat) : tbox(g, d1, d2, y1, y2, p1, p2, mat);
+      cuttable.push({ m, y1, y2, key });
+    }
+    if (y1 < 1 && y2 > .4) colliders.push({ g, ...(axis === 'x' ? { x1: p1, x2: p2, z1: c1, z2: c2 } : { x1: c1, x2: c2, z1: p1, z2: p2 }) });
+  };
+  const list = [...ops].sort((p, q) => p.a - q.a); let at = a1;
+  const cm = (c1 + c2) / 2;
+  const G = (p1, p2, y1, y2, mat, t = .025, off = 0) => {
+    const m = axis === 'x' ? box(g, p1, p2, y1, y2, cm + off - t, cm + off + t, mat, mat !== M.glass) : box(g, cm + off - t, cm + off + t, y1, y2, p1, p2, mat, mat !== M.glass);
+    cuttable.push({ m, y1, y2, key }); return m;
+  };
+  for (const o of list) {
+    if (o.a > at) B(at, o.a, 0, h);
+    if (o.lo > 0) B(o.a, o.b, 0, o.lo);
+    if (o.hi < h) B(o.a, o.b, o.hi, h);
+    const f = .06, kind = o.kind || (o.lo > 0 ? 'win' : 'door'), frameMat = o.frameMat || wallFrame;   // an opening may carry its own frame colour
+    if (kind !== 'open') {
+      // frame
+      G(o.a, o.a + f, o.lo, o.hi, frameMat, .05); G(o.b - f, o.b, o.lo, o.hi, frameMat, .05); G(o.a, o.b, o.hi - f, o.hi, frameMat, .05);
+      if (o.lo > 0) G(o.a, o.b, o.lo, o.lo + f, frameMat, .05);
+      if (kind === 'leaf') G(o.a + f, o.b - f, o.lo, o.hi - f, o.leafMat || frameMat, .03);
+      else {
+        G(o.a, o.b, o.lo, o.hi, M.glass, .012);
+        if (o.mull) for (const p of [].concat(o.mull)) G(p - .03, p + .03, o.lo, o.hi, frameMat, .04);
+        if (kind === 'door' && o.slide) { // sliding glass door: two sashes overlapping in the middle, on two tracks
+          const w = (o.b - o.a) / 2 + .04;
+          for (const [s, off] of [[o.a + f, -.025], [o.b - f - w, .025]]) { G(s, s + .06, o.lo, o.hi - f, frameMat, .018, off); G(s + w - .06, s + w, o.lo, o.hi - f, frameMat, .018, off); G(s, s + w, o.lo, o.lo + .1, frameMat, .018, off); G(s, s + w, o.hi - f - .06, o.hi - f, frameMat, .018, off); }
+        } else if (kind === 'door') { // door leaves: a slim sash frame and a rail
+          const n = o.b - o.a > 1.05 ? 2 : 1, w = (o.b - o.a) / n;
+          for (let i = 0; i < n; i++) { const s = o.a + i * w; G(s + f, s + f + .07, o.lo, o.hi - f, frameMat, .035); G(s + w - f - .07, s + w - f, o.lo, o.hi - f, frameMat, .035); G(s + f, s + w - f, o.lo, o.lo + .12, frameMat, .035); G(s + f, s + w - f, o.hi - f - .07, o.hi - f, frameMat, .035); }
+          if (o.vent) G(o.a, o.b, o.hi, o.hi + .26, M.fascia, .05);
+        }
+        if (kind === 'win') colliders.push({ g, ...(axis === 'x' ? { x1: o.a, x2: o.b, z1: c1, z2: c2 } : { x1: c1, x2: c2, z1: o.a, z2: o.b }) });
+      }
+    }
+    at = o.b;
+  }
+  if (at < a2) B(at, a2, 0, h);
+}
+
+// labels
+function label(g, x, y, z, name, sub, info, cls = '') {
+  const el = document.createElement('div'); el.className = 'lbl ' + cls;
+  el.innerHTML = name + (sub ? `<span>${sub}</span>` : '');
+  el.addEventListener('pointerdown', e => e.stopPropagation());
+  el.addEventListener('click', e => { e.stopPropagation(); showInfo(info); });
+  const o = new CSS2DObject(el); o.position.set(x, y, z); g.add(o);
+  labels.push({ o, key: g.userData.key, cls }); return o;
+}
+const fmt = n => n.toLocaleString('sv-SE', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+// a room: floor + label + info
+function room(g, name, x1, x2, z1, z2, floorMat, info = {}, lx, lz) {
+  if (floorMat) { const f = tbox(g, x1, x2, -.02, .01, z1, z2, floorMat, floorMat === M.oak ? [2.5, 2.5] : [1, 1]); f.castShadow = false; }
+  const area = (x2 - x1) * (z2 - z1);
+  const inf = { eyebrow: g.userData.title, title: name, rows: [['Golvyta', `ca ${fmt(info.area ?? area)} m²`], ...(info.rows || [])], colors: info.colors, text: info.text, focus: [g, (x1 + x2) / 2, (z1 + z2) / 2] };
+  label(g, lx ?? (x1 + x2) / 2, 1.1, lz ?? (z1 + z2) / 2, name, info.noArea ? '' : `${fmt(info.area ?? area)} m²`, inf);
+  return inf;
+}
+
+// ======================================================================
+//  MAIN HOUSE — arbetsritningar A2-1, A2-2 (Jan Jansson ark., 2010)
+// ======================================================================
+const L = 21.18, W = 5.38, T = .39, HW = 2.75, HC = 2.40, PIT = Math.tan(16 * Math.PI / 180);
+const RIDGE = HW + (W / 2) * PIT;      // ≈ 3.52 above floor (permit: 3 550)
+const main = bgroup('main', 0, .35, 0);   // floor 0.35 above the ground: ~35 cm plinth south and west, ~20 cm towards the courtyard where a gravel bank rises 15 cm (photos 2025/26) main.userData.title = 'Huvudhuset';
+// plinth under the slab
+box(scene, -.02, L + .02, 0, .35, -.02, W + .02, M.plinth); box(scene, -2.52, -.02, 0, .35, 2.16, 5.2, M.plinth);   // plinth under the house and the glasveranda
+
+// exterior walls: render outside, S 1502-Y inside
+const EXT = (side) => side === 'out' ? M.render : M.inner;
+wall(main, 'x', 0, L, 0, T, HW, [
+  { a: 3.6, b: 4.5, lo: 1.42, hi: 2.03 },                // F7 förråd
+  { a: 7.14, b: 8.34, lo: 0, hi: 2.1 },                  // D6 entré
+  { a: 9.54, b: 14.34, lo: 1.42, hi: 2.03, mull: 11.94 },// F6 band window
+  { a: 16.49, b: 17.69, lo: 1.42, hi: 2.03 },            // F5 dusch
+], [M.render, M.inner]);
+wall(main, 'x', 0, L, W - T, W, HW, [
+  { a: 1.3, b: 2.8, lo: .05, hi: 2.14 },                 // F2
+  { a: 7.1, b: 8.3, lo: 0, hi: 2.1 },                    // D7
+  { a: 9.5, b: 14.3, lo: .05, hi: 2.14, mull: 11.9 },    // F3
+  { a: 18.08, b: 20.48, lo: .05, hi: 2.14 },             // F4
+], [M.inner, M.render]);
+wall(main, 'z', T, W - T, 0, T, HW, [
+  { a: .39, b: 1.89, lo: .05, hi: 2.14 },                // F1
+  { a: 4.0, b: 4.9, lo: 0, hi: 2.1 },                    // D2 to glasveranda
+], [M.render, M.inner]);
+wall(main, 'z', T, W - T, L - T, L, HW, [
+  { a: 4.06, b: 4.96, lo: 0, hi: 2.1, vent: true },      // D11
+], [M.inner, M.render]);
+// gable triangles above the wall line
+for (const [x1, x2] of [[0, T], [L - T, L]]) prismZY(main, [[0, HW], [W, HW], [W / 2, RIDGE - .05]], x1, x2, M.render).userData.roofPart = true;
+main.children.slice(-2).forEach(m => { roofs.main.add(m); });
+// wooden band under the eaves (photos), long sides
+box(roofs.main, -.05, L + .05, HW - .32, HW, -.04, 0, M.fascia); box(roofs.main, -.05, L + .05, HW - .32, HW, W, W + .04, M.fascia);
+// roof: 16°, standing-seam sheet, 0.6 m eaves, 0.3 m gables
+{
+  const ov = .6, g2 = .3, t = .09;
+  slab(roofs.main, -g2, L + g2, -ov, HW - ov * PIT, W / 2, RIDGE, t, M.roof, .5);
+  slab(roofs.main, -g2, L + g2, W + ov, HW - ov * PIT, W / 2, RIDGE, t, M.roof, .5);
+  box(roofs.main, -g2, L + g2, RIDGE - .02, RIDGE + .12, W / 2 - .12, W / 2 + .12, M.roofEdge);
+  // gutters
+  for (const z of [-ov - .05, W + ov + .05]) { const gm = new THREE.Mesh(new THREE.CylinderGeometry(.065, .065, L + 2 * g2, 12, 1, false, 0, Math.PI), M.inox); gm.rotation.z = Math.PI / 2; gm.rotation.x = Math.PI; gm.position.set(L / 2, HW - ov * PIT - .02, z); roofs.main.add(gm); }
+  // exposed rafter ends under the eaves
+  for (let x = .3; x < L; x += 1.2) for (const z of [[-ov + .02, 0], [W, W + ov - .02]]) box(roofs.main, x, x + .07, HW - .2, HW - .02, z[0], z[1], M.fascia);
+  // chimneys: 0.55 wide at x 5.75 and 12.08 (A2-2), steel flue pipes to 4.35 m (A2-2 section)
+  for (const cx of [5.75, 12.08]) {
+    box(roofs.main, cx, cx + .55, RIDGE - .3, RIDGE + .55, W / 2 - .3, W / 2 + .3, M.inox);
+    cyl(roofs.main, cx + .275, RIDGE + .55, W / 2, .11, 4.35 - RIDGE - .55 + .35, M.inox);
+    cyl(roofs.main, cx + .275, 4.6, W / 2, .17, .08, M.inox);
+  }
+}
+// ceiling (wood boards, S 2002-Y) – hidden in cut views
+tbox(ceilings.main, T, L - T, HC, HC + .03, T, W - T, M.ceil, [.6, 1.2]);
+
+// interior walls (wood stud, panelled). Colours from the kulörbeskrivning.
+const P = c => paint(c);
+const TH = .14;
+// core: arbetsrum | förråd/kapprum/apparatrum + skafferi | kitchen – detail plan A2-5 rev B (2011, 1:20)
+wall(main, 'z', T, 2.12, 2.99, 3.13, HC, [], [P('S 3040-G30Y'), P('S 1502-Y')]);
+wall(main, 'z', 2.12, 3.45, 2.99, 3.13, HC, [], [P('S 3040-G30Y'), P('S 2030-R80B')]);
+wall(main, 'z', 3.45, W - T, 2.99, 3.13, HC, [{ a: 4.16, b: W - T - .01, lo: 0, hi: 2.05, kind: 'open' }], [P('S 3040-G30Y'), P('S 6010-B50G')]);   // D3: sliding door at the south end
+box(main, 3.13, 3.17, 0, 2.05, 3.34, 4.16, P('S 6010-B50G'));                  // D3 leaf, parked
+wall(main, 'x', 3.13, 4.88, 2.06, 2.18, HC, [], [P('S 1502-Y'), P('S 2030-R80B')]);
+wall(main, 'x', 4.88, 6.06, 2.06, 2.18, HC, [], [P('S 3010-B50G'), P('S 2030-R80B')]);
+wall(main, 'z', T, 2.06, 4.82, 4.94, HC, [{ a: .47, b: 1.37, lo: 0, hi: 1.2, kind: 'leaf', leafMat: P('S 1502-Y') }], [P('S 1502-Y'), P('S 3010-B50G')]);   // D5 900×1200 from the kapprum
+wall(main, 'x', 3.13, 6.06, 3.39, 3.52, HC, [{ a: 3.87, b: 4.77, lo: 0, hi: 2.05, kind: 'leaf', leafMat: P('S 2030-R80B') }], [P('S 2030-R80B'), P('S 6010-B50G')]);  // D4
+// the black kitchen wall: 2.9 m long with 0.85 m openings at both ends (section B-B)
+wall(main, 'z', 1.24, 1.82, 6.06, 6.19, HC, [], [P('S 3010-B50G'), P('S 9000-N')]);
+wall(main, 'z', 1.82, 3.42, 6.06, 6.19, HC, [], [P('S 2030-R80B'), P('S 9000-N')]);
+wall(main, 'z', 3.42, 4.14, 6.06, 6.19, HC, [], [P('S 6010-B50G'), P('S 9000-N')]);
+box(main, 6.06, 6.19, 0, HC, 4.14, 4.16, P('S 9000-N'));
+// east block: sofa wall | dusch/toa | passage | sovrum
+wall(main, 'z', T, 3.38, 15.74, 15.89, HC, [], [P('S 6005-Y20R'), M.tile]);
+wall(main, 'z', 3.38, W - T, 15.74, 15.89, HC, [{ a: 3.65, b: 4.45, lo: 0, hi: 2.05, kind: 'open' }], [P('S 6005-Y20R'), P('S 6500-N')]);   // D8 sliding
+wall(main, 'x', 15.89, 17.55, 3.31, 3.45, HC, [{ a: 16.7, b: 17.45, lo: 0, hi: 2.05, kind: 'leaf', leafMat: M.white }], [M.tile, P('S 6500-N')]);   // D9
+wall(main, 'z', T, 3.38, 17.55, 17.69, HC, [], [M.tile, P('S 3030-Y20R')]);
+wall(main, 'z', 3.38, W - T, 17.55, 17.69, HC, [{ a: 3.65, b: 4.45, lo: 0, hi: 2.05, kind: 'open' }], [P('S 6500-N'), P('S 3030-Y20R')]);   // D10 sliding
+
+// rooms
+const R = {};
+R.arb = room(main, 'Arbets-/gästrum', T, 2.99, T, W - T, M.oak, { colors: ['S 3040-G30Y', 'S 1502-Y'], text: 'Rummet mot väster. Fönster F1 mot väster, F2 mot söder, glasdörr D2 till glasverandan.' });
+R.forrad = room(main, 'Förråd', 3.13, 4.82, T, 2.06, M.oak, { colors: ['S 1502-Y'], text: 'Hyllor. Lucka D5 (900 × 1200) från kapprummet, ventilationsfönster F7 mot norr.' }, 3.95, 1.2);
+R.kapp = room(main, 'Kapprum', 4.94, 6.06, T, 2.06, M.oak, { colors: ['S 3010-B50G'], rows: [['Elcentral', 'På östra väggen']], text: 'Hallen innanför entrén D6 – öppen mot köket. Klädstång, lucka D5 in till förrådet, elcentralen på väggen.' }, 5.5, 1.1);
+R.app = room(main, 'Tvätt/apparatrum', 3.13, 6.06, 2.18, 3.39, M.lime, { colors: ['S 2030-R80B'], rows: [['Golvbrunn', 'Mitt i rummet'], ['Dörr', 'D4 från passagen']], text: 'Tvättmaskin (TM) vid västra väggen, varmvattenberedare (BV) och fördelare för vatten och värme vid östra. Bergvärme med vattenburna radiatorer; ingången för bergvärmens kollektor kommer in här.' });
+R.skaff = room(main, 'Skafferi', 4.92, 6.06, 3.52, 4.14, null, { rows: [['Skåp', 'Sval + kyl/frys']], text: 'Höga skåp under apparatrummet, öppnas mot passagen och köket: ett svalskåp och ett kyl/frys-skåp (A2-5).' }, 5.5, 3.83);
+R.passV = room(main, 'Passage', 3.13, 6.06, 3.52, W - T, M.oak, { colors: ['S 6010-B50G'], text: 'Passagen utanför apparatrummet, från köket till arbetsrummet (skjutdörr D3).' });
+R.kok = room(main, 'Kök', 6.19, 9.3, T, W - T, M.oak, { area: (15.74 - 6.19) * (W - 2 * T), rows: [['Bänk', 'Rostfri, laminatluckor'], ['Köksö', 'Såpad ask']], colors: ['S 9000-N'], text: 'Allrummet kök – matplats – vardagsrum är ett sammanhängande rum på ca 44 m². Ytan ovan gäller hela allrummet.' }, 7.6, 2.5);
+label(main, 10.5, 1.1, 1.3, 'Matplats', '', R.kok);
+R.vard = room(main, 'Vardagsrum', 12.69, 15.74, T, W - T, null, { area: (15.74 - 6.19) * (W - 2 * T), colors: ['S 6005-Y20R'], text: 'Öppen spis i obehandlad 6 mm stålplåt, 1600 × 670 × 1500 (ritning A2-40-1). Väggen bakom soffan i S 6005-Y20R.' }, 14.2, 4.3);
+R.dusch = room(main, 'Dusch/toa', 15.89, 17.55, T, 3.31, M.lime, { colors: ['S 1502-Y'], rows: [['Golv', 'Kalksten, elvärme'], ['Väggar', 'Helkaklat']], text: 'Duravit Happy D, Hansgrohe Axor (ritning A2-6).' });
+R.passO = room(main, 'Passage', 15.89, 17.55, 3.45, W - T, M.oak, { colors: ['S 6500-N'], text: 'Passagen utanför sovrummet, skjutdörrar D8 och D10.' });
+R.sov = room(main, 'Sovrum', 17.69, L - T, T, W - T, M.oak, { colors: ['S 3030-Y20R'], text: 'Sovrummet mot öster. Fönster F4 (2400 × 2090) mot söder, egen ytterdörr D11 mot öster.' });
+// living areas share one floor
+tbox(main, 9.3, 15.74, -.02, .01, T, W - T, M.oak, [2.5, 2.5]).castShadow = false;
+
+// --- the open fireplace (A2-40-1): 1600 wide, 670 deep, 1500 high, centred in the room ---
+{
+  const x1 = 12.02, x2 = 12.69, z1 = W / 2 - .8, z2 = W / 2 + .8, g = main;
+  box(g, 12.69, 13.5, 0, .012, W / 2 - .65, W / 2 + .65, M.steel).castShadow = false;   // spark plate 1300 × 1700
+  box(g, x1, x2, 0, 1.5, z1 + .5, z2 - .5, M.steel);                  // firebox body 600
+  box(g, x1, x2, 0, .1, z1, z1 + .5, M.steel); box(g, x1, x2, 1.4, 1.5, z1, z1 + .5, M.steel); box(g, x2 - .02, x2, .1, 1.4, z1, z1 + .5, M.steel); box(g, x1, x1 + .02, .1, 1.4, z1, z1 + .5, M.steel);
+  box(g, x1, x2, 0, .1, z2 - .5, z2, M.steel); box(g, x1, x2, 1.4, 1.5, z2 - .5, z2, M.steel); box(g, x2 - .02, x2, .1, 1.4, z2 - .5, z2, M.steel); box(g, x1, x1 + .02, .1, 1.4, z2 - .5, z2, M.steel);
+  box(g, x2 - .01, x2 + .005, .62, 1.25, W / 2 - .316, W / 2 + .316, M.black);   // opening 632
+  F(box(g, x2 - .04, x2 - .03, .66, .95, W / 2 - .2, W / 2 + .2, M.fire));
+  for (const z of [z1 + .05, z2 - .45]) for (let y = .12; y < 1.35; y += .22) F(box(g, x1 + .05, x2 - .05, y, y + .2, z, z + .4, M.ash));   // logs in the side bays
+  cyl(g, (x1 + x2) / 2, 1.5, W / 2, .1, HC - 1.5, M.steel);
+}
+
+// --- kitchen ---
+{
+  const g = main;
+  box(g, 6.19, 6.82, 0, .86, 1.3, 4.1, M.black);
+  box(g, 6.19, 6.84, .86, .9, 1.3, 4.1, M.inox);
+  box(g, 6.3, 6.7, .82, .9, 1.7, 2.45, M.steel);            // double sink
+  box(g, 6.27, 6.72, .9, .905, 3.15, 3.75, M.black);        // hob
+  box(g, 6.75, 6.825, .15, .7, 3.15, 3.75, M.inox);         // oven front
+  for (const y of [1.45, 1.85]) box(g, 6.19, 6.48, y, y + .04, 1.35, 3.0, M.wood);
+  box(g, 6.19, 6.72, 1.55, 2.25, 3.2, 3.9, M.black);        // hood box
+  box(g, 6.2, 6.6, 2.25, HC, 3.35, 3.75, M.inox);           // duct
+  // island, ash top
+  box(g, 8.25, 8.95, 0, .86, 1.3, 3.8, M.black);
+  box(g, 8.2, 9.0, .86, .91, 1.25, 3.85, M.ash);
+  F(cyl(g, 8.6, .91, 2.0, .09, .3, M.glass)); F(cyl(g, 8.6, .91, 3.2, .17, .03, M.wood));
+  // runner rug between the bench and the island
+  F(box(g, 6.95, 7.75, .01, .02, 1.6, 4.0, M.runner)).castShadow = false;
+}
+// --- furniture ---
+function chair(g, x, z, rot, mat = M.wood) {
+  const c = new THREE.Group(); c.position.set(x, 0, z); c.rotation.y = rot; g.add(c);
+  box(c, -.24, .24, .43, .47, -.22, .22, mat); for (const [a, b] of [[-.2, -.18], [.2, -.18], [-.2, .18], [.2, .18]]) box(c, a - .02, a + .02, 0, .43, b - .02, b + .02, mat);
+  const back = new THREE.Mesh(new THREE.TorusGeometry(.24, .02, 6, 20, Math.PI), mat); back.position.set(0, .72, .2); c.add(back); box(c, -.015, .015, .47, .72, .19, .21, mat);
+  return F(c);
+}
+{
+  const g = main;
+  // dining: black table, wishbone chairs, three-arm candelabrum
+  box(g, 10.13, 11.08, .72, .75, 1.69, 3.69, M.black); for (const [x, z] of [[10.23, 1.79], [10.98, 1.79], [10.23, 3.59], [10.98, 3.59]]) box(g, x - .03, x + .03, 0, .72, z - .03, z + .03, M.black);
+  [...g.children].slice(-5).forEach(F);
+  for (const z of [2.09, 2.69, 3.29]) { chair(g, 9.8, z, -Math.PI / 2); chair(g, 11.41, z, Math.PI / 2); }
+  F(box(g, 10.55, 10.65, .75, 1.15, 2.64, 2.74, M.black)); for (const dx of [-.18, 0, .18]) F(cyl(g, 10.6 + dx, 1.12, 2.69, .012, .22, M.white, 8));
+  // living: corner sofa against the panelled wall, chaise to the north, Kallax under the band window
+  box(g, 14.85, 15.74, 0, .42, 1.15, 3.6, M.sofa); box(g, 15.5, 15.74, .42, .82, 1.15, 3.6, M.sofa);
+  box(g, 13.9, 14.85, 0, .42, 1.15, 2.05, M.sofa); box(g, 14.85, 15.5, .42, .62, 3.4, 3.6, M.sofa);
+  box(g, 14.0, 14.7, .42, .47, 1.3, 1.95, M.wool);
+  box(g, 15.25, 15.45, .42, .9, 1.5, 1.95, M.ash); box(g, 15.25, 15.45, .42, .88, 2.2, 2.65, M.linen); box(g, 15.25, 15.45, .42, .88, 2.9, 3.3, M.wool);
+  [...g.children].slice(-8).forEach(F);
+  F(box(g, 13.75, 15.6, 0, 1.47, T, .78, M.white));
+  for (let x = 13.8; x < 15.5; x += .37) for (const y of [.05, .78]) F(box(g, x, x + .3, y, y + .3, .45, .72, [M.wool, M.ash, M.sofa, M.leather][(rnd() * 4) | 0]));
+  F(box(g, 12.85, 13.6, 0, .45, .42, .8, M.white)); F(box(g, 12.95, 13.55, .45, .85, .55, .58, M.black));
+  F(box(g, 12.95, 15.35, .01, .02, 1.25, 4.1, M.rug)).castShadow = false;
+  F(cyl(g, 14.2, .5, 2.75, .35, .02, M.white, 28)); F(cyl(g, 14.2, 0, 2.75, .02, .5, M.ash, 6));
+  const arm = new THREE.Group(); arm.position.set(13.4, 0, 3.85); arm.rotation.y = .8; g.add(arm);
+  box(arm, -.38, .38, .38, .46, -.35, .35, M.leather); box(arm, -.38, .38, .46, .85, .28, .36, M.leather); box(arm, -.4, -.32, .46, .7, -.35, .35, M.leather); box(arm, .32, .4, .46, .7, -.35, .35, M.leather);
+  for (const [a, b] of [[-.34, -.3], [.34, -.3], [-.34, .3], [.34, .3]]) box(arm, a - .02, a + .02, 0, .4, b - .02, b + .02, M.leather);
+  F(arm);
+  // bedroom
+  box(g, 18.45, 20.05, 0, .45, T, 2.45, M.linen); box(g, 18.45, 20.05, .45, 1.05, T, .5, M.wood); box(g, 18.55, 19.95, .45, .5, 1.6, 2.4, M.ash);
+  box(g, 18.0, 18.4, 0, .5, .45, .85, M.wood); box(g, 20.1, 20.5, 0, .5, .45, .85, M.wood);
+  [...g.children].slice(-5).forEach(F);
+  // arbets-/gästrum
+  box(g, 1.9, 2.85, 0, .45, 1.6, 3.6, M.linen); box(g, .45, 1.15, .72, .76, .6, 1.8, M.ash); box(g, .5, .55, 0, .72, .65, .7, M.black); box(g, .5, .55, 0, .72, 1.7, 1.75, M.black);
+  [...g.children].slice(-5).forEach(F); chair(g, 1.35, 1.2, -Math.PI / 2, M.black);
+  // dusch/toa
+  box(g, 15.95, 17.0, 0, .02, .45, 1.45, M.lime); box(g, 16.96, 17.0, 0, 2.0, .45, 1.45, M.glass);
+  box(g, 15.89, 16.4, .38, .42, 1.95, 2.35, M.white); box(g, 15.89, 16.2, .0, .8, 2.0, 2.3, M.white);
+  box(g, 17.05, 17.55, .82, .87, 2.45, 3.05, M.white); box(g, 17.52, 17.55, 1.2, 1.91, 2.5, 3.0, M.glass);
+  // apparatrum: TM + BV
+  box(g, 3.2, 3.8, 0, .85, 2.24, 2.82, M.white); box(g, 3.2, 3.8, 0, .85, 2.84, 3.36, M.white);   // TM + bench (A2-5)
+  cyl(g, 5.35, 0, 2.52, .3, 1.75, M.white);                                                         // BV
+  box(g, 5.86, 6.04, .35, 1.45, 2.3, 3.3, M.inox);                                                  // vatten- och värmefördelare
+  // shelves in förråd, coat rail and fuse box in the kapprum
+  for (const y of [.5, 1.0, 1.5, 2.0]) box(g, 3.15, 4.8, y, y + .03, T, .8, M.wood);
+  box(g, 5.0, 5.04, 1.75, 1.78, .55, 1.85, M.inox);
+  box(g, 6.0, 6.06, 1.25, 1.95, 1.35, 1.85, M.white);                                               // elcentral
+  // skafferi: svalskåp + kyl/frys, tall cabinets facing the passage
+  box(g, 4.92, 6.06, 0, 2.1, 3.52, 4.12, M.white); box(g, 5.48, 5.5, .05, 2.05, 4.12, 4.14, M.black);
+  for (const x of [5.4, 5.58]) box(g, x, x + .02, .9, 1.3, 4.12, 4.16, M.inox);
+}
+
+var VERANDA_W = [], GARAGE = { leaves: [], t: 0, target: 0 };
+// open / close the garage doors D15 (a short ease, driven by its own rAF loop)
+function setGarage(open) { GARAGE.target = open ? 1 : 0; if (GARAGE.run) return; GARAGE.run = true;
+  const step = () => { const d = GARAGE.target - GARAGE.t; GARAGE.t += Math.sign(d) * Math.min(Math.abs(d), .025); const e = GARAGE.t * GARAGE.t * (3 - 2 * GARAGE.t);
+    GARAGE.leaves.forEach(l => l.piv.rotation.y = l.open * e); if (GARAGE.t !== GARAGE.target) requestAnimationFrame(step); else GARAGE.run = false; }; step(); }
+// --- glasveranda: 2.5 × 3.0, glass in five panes, D1 to the north, D2 into the house (A2-7, A2-23) ---
+{
+  const g = bgroup('main_v', 0, .35, 0); g.userData.key = 'main'; g.userData.title = 'Huvudhuset';
+  const x1 = -2.5, z1 = 2.18, z2 = 5.18, H = 2.42, G = M.glass;
+  tbox(g, x1, 0, -.02, .01, z1, z2, M.lime, [.6, .6]);
+  wall(g, 'x', x1, 0, z1, z1 + .08, H, [{ a: x1 + .08, b: x1 + 1.55, lo: .08, hi: H - .1 }, { a: -.98, b: -.08, lo: 0, hi: 2.1 }], M.frame);
+  wall(g, 'x', x1, 0, z2 - .08, z2, H, [{ a: x1 + .08, b: -.08, lo: .08, hi: H - .1, mull: -1.24 }], M.frame);
+  const n0 = g.children.length;
+  wall(g, 'z', z1 + .08, z2 - .08, x1, x1 + .08, H, [{ a: z1 + .12, b: z2 - .12, lo: .08, hi: H - .1, mull: 3.68 }], M.frame);
+  VERANDA_W.push(...g.children.slice(n0));   // hidden when the 1.7 m extension is shown with the glass house
+  slab(roofs.main_v = roofs.main, x1 - .15, 0, z1 - .15, H + .05, (z1 + z2) / 2, H + .25, .08, M.roof, .5);
+  slab(roofs.main, x1 - .15, 0, z2 + .15, H + .05, (z1 + z2) / 2, H + .25, .08, M.roof, .5);
+  F(chair(g, -1.7, 3.0, 2.4, M.greyWood)); F(chair(g, -1.0, 3.0, -2.4, M.greyWood));
+  label(g, -1.25, 1.1, 3.9, 'Glasveranda', '7,5 m²', { eyebrow: 'Huvudhuset', title: 'Glasveranda', rows: [['Yta', '7,5 m² BTA'], ['Glas', 'Isolerglas, fem rutor 1 175–1 524 × 2 325'], ['Trädetaljer', 'NCS S 2502-Y']], colors: ['S 2502-Y'], text: 'Entré med dörr D1 mot norr och glasdörr D2 in till arbets-/gästrummet. Ritning A2-7 och A2-23.', focus: [g, -1.25, 3.7] });
+  // a ghost of the 2022 extension (+1.7 m to the west), shown with "Planerat 2022"
+  const pg = new THREE.Group(); pg.userData.planned = true; g.add(pg);
+  box(pg, -4.2, -2.5, 0, 2.6, z1, z2, M.ghost, false);
+}
+
+// ======================================================================
+//  GARAGE / GÄSTSTUGA — A3-1, A3-2: 12.5 × 4.0, pulpettak 3.0 (söder) → 2.5 (norr)
+// ======================================================================
+const gar = bgroup('gar', -1.47, .05, -12.55); gar.userData.title = 'Gäststuga, bod och garage';
+{
+  const g = gar, Lg = 12.5, Wg = 4.0, t = .15, HN = 2.5, HS = 3.0, sl = (HS - HN) / Wg;
+  const Y = z => HN + z * sl;     // roof underside at z
+  wall(g, 'x', 0, Lg, 0, t, HN, [{ a: 3.43, b: 4.33, lo: 1.0, hi: 2.1 }], [M.blackBoard, P('S 1502-Y')], M.frame);   // F11
+  wall(g, 'x', 0, Lg, Wg - t, Wg, HN - .05, [
+    { a: 1.1, b: 2.0, lo: 0, hi: 2.1, frameMat: M.blackTrim },   // D12 gäststuga: glazed, black frame (Gustav 24 Oct: the doors are black like the house)
+    { a: 3.55, b: 4.35, lo: 0, hi: 2.1, kind: 'leaf', leafMat: M.blackBoard, frameMat: M.blackTrim },   // D13 bod: black board door
+    { a: 4.45, b: 5.45, lo: 1.0, hi: 2.1 },              // F9
+    { a: 6.85, b: 7.65, lo: 0, hi: 2.1, kind: 'leaf', leafMat: M.blackBoard, frameMat: M.blackTrim },   // D14 förråd: black board door
+    { a: 8.5, b: 10.1, lo: 1.45, hi: 2.1 },              // F10
+  ], [P('S 1502-Y'), M.blackBoard], M.frame);
+  box(g, 0, Lg, HN - .05, HS, Wg - t, Wg, M.blackBoard);
+  wall(g, 'z', t, Wg - t, 0, t, HN - .05, [{ a: 2.6, b: 3.7, lo: .05, hi: 2.1 }], [M.blackBoard, P('S 3040-G30Y')], M.frame);   // F8
+  wall(g, 'z', t, Wg - t, Lg - t, Lg, HN - .05, [{ a: .8, b: 3.2, lo: 0, hi: 2.1, kind: 'open' }], [M.inner, M.blackBoard], M.frame);   // D15
+  { // D15: a pair of black board doors with a light frame, each hinged at its outer edge and swinging out to the east
+    for (const [hz, dir] of [[.8, 1], [3.2, -1]]) { const piv = new THREE.Group(); piv.position.set(Lg - .03, 0, hz); g.add(piv);
+      const leaf = new THREE.Group(); piv.add(leaf);
+      box(leaf, -.025, .025, .02, 2.08, 0, 1.2 * dir, M.blackBoard);
+      for (const [y1, y2, za, zb] of [[.02, .08, 0, 1.2], [2.02, 2.08, 0, 1.2], [.02, 2.08, 0, .06], [.02, 2.08, 1.14, 1.2]]) box(leaf, .025, .04, y1, y2, za * dir, zb * dir, M.frame);
+      box(leaf, .04, .07, .95, 1.1, (1.1) * dir, (1.13) * dir, M.inox);
+      GARAGE.leaves.push({ piv, open: dir * Math.PI / 2 * .92 }); }
+  }
+  for (const [x1, x2] of [[0, t], [Lg - t, Lg]]) prismZY(g, [[0, HN - .05], [Wg, HN - .05], [Wg, Y(Wg)], [0, Y(0)]], x1, x2, M.blackBoard);
+  // partitions: gäststuga | arb/bod | förråd + garage
+  wall(g, 'z', t, Wg - t, 3.29, 3.41, HN - .1, [], [P('S 3040-G30Y'), M.wood]);
+  wall(g, 'z', t, Wg - t, 5.74, 5.86, HN - .1, [], [M.wood, M.wood]);   // closed: no opening between the workshop and the garage (Gustav 24 Oct)
+  // roof 0.4 m over the north side, 0.3 m over the south; corrugated canopy over D12/D13 (photos)
+  slab(roofs.gar, -.3, Lg + .3, -.4, Y(-.4), Wg + .3, Y(Wg + .3), .14, M.roof, .5);
+  box(roofs.gar, -.3, Lg + .3, Y(Wg + .3) - .05, Y(Wg + .3) + .2, Wg + .3, Wg + .34, M.blackTrim);
+  for (let x = .1; x < Lg; x += 1.2) box(roofs.gar, x, x + .07, Y(Wg) - .18, Y(Wg) - .02, Wg, Wg + .28, M.blackTrim);
+  slab(roofs.gar, .3, Lg - .15, Wg + 1.25, 2.28, Wg, 2.45, .03, M.corr, .25);   // canopy along almost the whole courtyard side, from 0.3 m inside the west gable (Gustav 24 Oct)   // canopy over the east part only: bod, förråd door and F10 (photo 2026), cut 0.5 m at each end (Gustav 19 Oct)
+  for (const x of [.45, 3.85, 6.3, 10.4]) { box(g, x - .03, x + .03, 1.75, 2.42, Wg, Wg + .05, M.blackTrim); const br = box(g, x - .025, x + .025, 2.0, 2.05, Wg, Wg + 1.1, M.blackTrim); br.rotation.x = -.5; }
+  tbox(ceilings.gar, t, 5.74, HN - .1, HN - .07, t, Wg - t, std('#e9e4d8', { map: vpanelTex }), [.6, 1.2]);
+  // floors and rooms
+  R.gast = room(g, 'Gäststuga', t, 3.29, t, Wg - t, M.oak, { colors: ['S 3040-G30Y'], rows: [['Golv', 'Trä']], text: 'Glasdörr D12 mot gården, fönster F8 (1200 × 2100) mot väster. De gröna väggarna syns på foton; kulören tolkas som "rum mot väster" (S 3040-G30Y).' });
+  R.bod = room(g, 'Arbetsrum/bod', 3.41, 5.74, t, Wg - t, M.wood, { rows: [['Golv', 'Trä']], text: 'Snickarbod med dörr D13 och fönster F9 mot söder, F11 mot norr.' });
+  R.garage = room(g, 'Förråd/garage', 5.86, Lg - t, t, Wg - t, M.concrete, { rows: [['Golv', 'Betong'], ['Port', 'D15, pardörrar mot öster']], text: 'Dörr D14 och högt fönster F10 (2400 × 650) mot gården.' });
+  // furniture
+  // one 180 cm double bed, head against the north wall (Gustav 24 Oct), with two pillows
+  box(g, .82, 2.62, 0, .45, .3, 2.3, M.linen); box(g, .82, 2.62, .45, .95, .2, .3, M.wood);
+  box(g, .95, 1.65, .45, .57, .38, .8, M.white); box(g, 1.79, 2.49, .45, .57, .38, .8, M.white);
+  [...g.children].slice(-4).forEach(F);
+  F(box(g, 3.5, 5.6, .85, .9, .2, .8, M.wood)); F(box(g, 3.55, 5.55, 0, .85, .25, .3, M.wood));
+  // no car in this garage – it never stands here (Gustav 24 Oct)
+  label(g, 6.25, 3.6, 2.0, 'Gäststuga · bod · garage', '50 m²', { eyebrow: 'Byggnad', title: 'Gäststuga, bod och garage', rows: [['Yta', '50 m² BTA, 43,5 m² BOA'], ['Mått', '12,5 × 4,0 m'], ['Tak', 'Pulpettak, pannplåt'], ['Höjd', '3,0 m mot söder, 2,5 m mot norr'], ['Väggar', 'Regelstomme, svart träpanel']], text: 'Ritad av Jan Jansson ark., bygglov 2009-03-13 (dnr 90346). Ritningar A3-1, A3-2.', focus: [g, 6.25, 2] }, 'bld');
+}
+
+// ======================================================================
+//  ATTEFALLSHUS — bygganmälan 2022 (Jörgen Åström ark.): 9.0 × 3.3, pulpettak 11°, porch to the west
+// ======================================================================
+const att = bgroup('att', 19.9, .12, -11.5);   // moved 1.2 m east (Gustav's photo 19 Oct: its south gable stands east of the main house's east gable) att.userData.title = 'Attefallshuset';
+{
+  const g = att, Wa = 3.3, La = 9.0, t = .15, HWe = 2.55, HEa = 3.2, tan = Math.tan(11 * Math.PI / 180);
+  const Y = x => 3.45 - (3.6 - x) * tan - .16;   // roof underside at x (roof edge 3.45 m at x 3.6)
+  wall(g, 'z', 0, La, 0, t, HWe, [
+    { a: 1.0, b: 2.2, lo: 0, hi: 2.1, slide: true }, { a: 3.7, b: 4.9, lo: 0, hi: 2.1, slide: true }, { a: 6.8, b: 8.0, lo: 0, hi: 2.1, slide: true },   // three glazed sliding doors (every door in this house slides – Gustav 19 Oct)
+  ], [M.blackBoard, M.white], M.black);
+  // back (east) wall, photo 2026: three window bands high up, each a big fixed pane + a square opening (vädrings) pane in
+  // dark grey frames with white sills; three round vents and an outdoor tap. (local z 0 = north end)
+  const BW = [[5.6, 7.35, 6.28, 5.6], [3.12, 4.54, 3.96, 3.96], [.99, 2.2, 1.74, 1.74]];   // [a, b, mullion, opening pane starts at]
+  const wlo = 2.13, whi = 2.75;
+  wall(g, 'z', 0, La, Wa - t, Wa, HEa, BW.map(([a, b, m]) => ({ a, b, lo: wlo, hi: whi, mull: m })), [M.white, M.blackBoard], M.black);
+  for (const [a, b, m, o] of BW) {
+    box(g, Wa, Wa + .06, wlo - .04, wlo - .01, a - .03, b + .03, M.white);                         // sill
+    const o2 = o === m ? b : m, z1 = o === m ? m : a;                                              // the opening pane
+    const sash = std('#3b3e41', { roughness: .5 });
+    for (const [y1, y2, za, zb] of [[wlo + .03, wlo + .07, z1 + .04, o2 - .04], [whi - .07, whi - .03, z1 + .04, o2 - .04], [wlo + .03, whi - .03, z1 + .04, z1 + .08], [wlo + .03, whi - .03, o2 - .08, o2 - .04]]) box(g, Wa, Wa + .025, y1, y2, za, zb, sash);
+    box(g, Wa + .02, Wa + .04, (wlo + whi) / 2 - .06, (wlo + whi) / 2 + .02, (o === m ? o2 : z1) + (o === m ? -.1 : .07), (o === m ? o2 : z1) + (o === m ? -.08 : .09), M.inox);   // handle
+  }
+  for (const z of [8.0, 4.92, .62]) { const v = cyl(g, Wa + .005, 0, z, .06, .02, M.white, 16); v.rotation.z = Math.PI / 2; v.position.set(Wa + .01, 2.62, z); }   // round vents
+  box(g, Wa, Wa + .08, .66, .72, 2.98, 3.03, M.inox);                                              // outdoor tap
+  // east eave: light wood soffit with the rafter ends showing (photo)
+  box(roofs.att, Wa, 3.6, Y(3.45) - .03, Y(3.45) - .005, -.25, La + .25, M.wood);
+  for (let z = .05; z < La; z += .95) box(roofs.att, Wa, 3.56, Y(3.4) - .16, Y(3.4) - .02, z, z + .07, M.wood);
+  for (const [z1, z2] of [[0, t], [La - t, La]]) {
+    const s = new THREE.Shape([[t, 0], [Wa - t, 0], [Wa - t, Y(Wa - t)], [t, Y(t)]].map(([u, v]) => new THREE.Vector2(u, v)));
+    s.holes.push(new THREE.Path([[.23, .02], [.93, .02], [.93, 1.97], [.23, 1.97]].map(([u, v]) => new THREE.Vector2(u, v))));   // tall window in the south gable (photo 2026)
+    const m = new THREE.Mesh(new THREE.ExtrudeGeometry(s, { depth: z2 - z1, bevelEnabled: false }), M.blackBoard); m.position.z = z1; m.castShadow = m.receiveShadow = true; g.add(m);
+  }
+  // the tall fixed window in each gable (south: photo 2026; north: the same, mirrored – Gustav 19 Oct): slim dark frame,
+  // a deep white reveal, aluminium sill
+  for (const sgn of [1, -1]) {
+    const zf = sgn > 0 ? La - .03 : .03, zi = sgn > 0 ? La - t : t, zo = sgn > 0 ? La : 0, fr = std('#3b3e41', { roughness: .5 });
+    for (const [u1, u2, v1, v2] of [[.23, .93, .02, .06], [.23, .93, 1.93, 1.97], [.23, .27, .02, 1.97], [.89, .93, .02, 1.97]]) box(g, u1, u2, v1, v2, zf - .02, zf + .02, fr);
+    box(g, .27, .89, .06, 1.93, zf - .005, zf + .005, M.glass);
+    for (const [u1, u2, v1, v2] of [[.23, .25, .02, 1.97], [.91, .93, .02, 1.97], [.23, .93, 1.95, 1.97]]) box(g, u1, u2, v1, v2, Math.min(zi, zf - .02 * sgn), Math.max(zi, zf - .02 * sgn), M.white);
+    box(g, .2, .96, -.01, .02, Math.min(zo - .02 * sgn, zo + .06 * sgn), Math.max(zo - .02 * sgn, zo + .06 * sgn), M.galv);
+  }
+  // interior from 'kompletteringar 220614' as built (Gustav 19 Oct): bedroom N | hall with a black pentry + open shelf, and
+  // the bathroom east of it (the old right-hand wardrobe is now its shower) | bedroom S. Every door slides.
+  // plan scale: z = (px − 8) / 161, x from the west wall = (830 − py) / 161 on Gustav's crop
+  const ZN = 2.98, ZS = 5.95, BX = 1.71, HX = .99, sl = std('#f1efea', { roughness: .6 }), blk = std('#232221', { roughness: .55 });
+  const slider = (axis, a, b, c, w) => { // a parked sliding door leaf on the hall side + a top track
+    if (axis === 'x') { box(g, a, b, 0, 2.05, c, c + .03, sl); box(g, a - w, b, 2.07, 2.11, c - .01, c + .04, M.steel); }
+    else { box(g, c, c + .03, 0, 2.05, a, b, sl); box(g, c - .01, c + .04, 2.07, 2.11, a - w, b, M.steel); } };
+  wall(g, 'x', t, BX, ZN, ZN + .12, 2.4, [{ a: t, b: HX, lo: 0, hi: 2.05, kind: 'open' }], [M.white, M.white]);    // bedroom N | hall
+  slider('x', HX, HX + .84, ZN + .12, .84);
+  wall(g, 'x', BX, Wa - t, 3.6, 3.72, 2.4, [], [M.white, M.white]);                                                   // wardrobe back | bathroom
+  wall(g, 'z', ZN + .12, ZS, BX - .12, BX, 2.4, [{ a: 4.55, b: 5.23, lo: 0, hi: 2.05, kind: 'open' }], [M.white, M.white]);   // hall | bathroom
+  box(g, BX, BX + .03, 0, 2.05, 3.85, 4.55, sl); box(g, BX - .01, BX + .04, 2.07, 2.11, 3.85, 5.23, M.steel);         // bath door slid open (bath side)
+  wall(g, 'x', t, Wa - t, ZS, ZS + .12, 2.4, [{ a: t, b: HX, lo: 0, hi: 2.05, kind: 'open' }], [M.white, M.white]);   // hall | bedroom S
+  slider('x', HX, HX + .84, ZS - .03, .84);
+  { // wardrobe (G) opening into the north bedroom: white sliding doors, oak plinth
+    box(g, BX, Wa - t, .08, 2.25, ZN + .02, 3.6, M.white); box(g, BX, Wa - t, 0, .08, ZN + .05, 3.6, M.oak);
+    box(g, BX + .02, BX + .74, .1, 2.23, ZN - .01, ZN + .02, sl); box(g, BX + .7, Wa - t - .02, .1, 2.23, ZN - .04, ZN - .01, sl);
+    for (const x of [BX + .06, Wa - t - .08]) box(g, x - .01, x + .01, .9, 1.4, ZN - .05, ZN - .03, M.steel);
+  }
+  { // bathroom: white 15 × 15 tiles, limestone 300 × 600 floor; basin + WC on the north wall, the water heater above,
+    // the shower where the right-hand wardrobe was
+    const tl = std('#f4f3ef', { roughness: .3, map: canvasTex(64, 64, (c, w, h) => { c.fillStyle = '#f4f3ef'; c.fillRect(0, 0, w, h); c.fillStyle = '#d8d6d0'; c.fillRect(0, 0, w, 2); c.fillRect(0, 0, 2, h); }, [10, 14]) });
+    box(g, BX, Wa - t, 0, .02, 3.72, ZS, std('#cfc6b4', { roughness: .55, map: canvasTex(128, 64, (c, w, h) => { c.fillStyle = '#cfc6b4'; c.fillRect(0, 0, w, h); for (let i = 0; i < 60; i++) { c.fillStyle = `rgba(150,140,120,${rnd() * .25})`; c.fillRect(rnd() * w, rnd() * h, 2 + rnd() * 6, 1 + rnd() * 3); } c.fillStyle = '#a99f8c'; c.fillRect(0, 0, w, 1); c.fillRect(0, 0, 1, h); }, [4.8, 3.7]) }));
+    box(g, Wa - t - .02, Wa - t, .02, 2.1, 3.72, ZS, tl); box(g, BX, Wa - t, .02, 2.1, 3.72, 3.74, tl); box(g, BX, Wa - t, .02, 2.1, ZS - .02, ZS, tl);
+    box(g, 2.43, 2.95, .78, .86, 3.72, 4.2, M.white); box(g, 2.48, 2.9, .45, .78, 3.74, 4.15, M.oak); cyl(g, 2.69, .86, 3.8, .016, .14, M.steel, 12);   // basin
+    box(g, 2.43, 2.95, 1.2, 1.85, 3.72, 3.85, std('#e6e4df')); box(g, 2.45, 2.93, 1.22, 1.83, 3.85, 3.855, M.glass);   // mirror cabinet
+    box(g, 1.86, 2.3, .02, 1.1, 3.72, 3.95, M.white); box(g, 1.88, 2.28, .32, .45, 3.95, 4.4, M.white); box(g, 1.88, 2.28, .44, .46, 3.95, 4.4, std('#ecebe7'));   // WC
+    cyl(g, 2.08, 1.45, 3.95, .2, .55, M.white, 24);                                                                   // water heater (VVB)
+    { // corner shower in the south-east corner (Gustav 20 Oct): a quadrant tray, curved glass sliding doors, rain shower
+      const cx = Wa - t, cz = ZS, rr = .9, arc = (r, h, y, mat, open = true) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, h, 32, 1, open, Math.PI, Math.PI / 2), mat); m.position.set(cx, y + h / 2, cz); g.add(m); return m; };
+      arc(rr, .04, .02, std('#f2f1ed', { roughness: .4 }), false);                                                     // tray
+      arc(rr, 1.9, .06, std('#cfe0e4', { roughness: .05, metalness: .1, transparent: true, opacity: .3, side: THREE.DoubleSide, depthWrite: false }));   // curved glass
+      for (const y of [.06, 1.94]) arc(rr + .005, .03, y, std('#c9cccd', { metalness: .8, roughness: .3, side: THREE.DoubleSide }));   // top + bottom rails
+      for (const a of [Math.PI * 1.25 - .04, Math.PI * 1.25 + .04]) box(g, cx + rr * Math.sin(a) - .01, cx + rr * Math.sin(a) + .01, .9, 1.25, cz + rr * Math.cos(a) - .01, cz + rr * Math.cos(a) + .01, M.inox);   // the two door handles where the doors meet
+      for (const [x, z] of [[cx - rr, cz], [cx, cz - rr]]) box(g, x - .015, x + .015, .06, 1.97, z - .015, z + .015, M.steel);   // wall profiles
+      box(g, cx - .03, cx - .01, 1.0, 2.05, cz - .38, cz - .35, M.steel); cyl(g, cx - .25, 2.05, cz - .3, .1, .015, M.steel, 20);   // rain shower
+    }
+    box(g, Wa - t - .06, Wa - t - .02, 1.3, 1.33, 4.4, 5.0, M.steel);                                                // towel rail
+  }
+  { // black pentry in the middle of the hall against the bathroom wall (sink, two-zone hob, fridge), black open shelf beside it
+    const px1 = HX, px2 = BX - .12, pz1 = 3.14, pz2 = 4.47;
+    box(g, px1 + .02, px2, .08, .86, pz1, pz2, blk); box(g, px1 + .06, px2, 0, .08, pz1, pz2, std('#111'));
+    for (const z of [pz1 + .45, pz1 + .9]) box(g, px1 + .015, px1 + .02, .1, .84, z - .003, z + .003, std('#3a3938'));
+    box(g, px1 - .02, px2, .86, .89, pz1, pz2, blk);                                                                    // black top
+    box(g, px1 + .1, px1 + .48, .87, .895, pz1 + .1, pz1 + .5, M.steel); cyl(g, px2 - .06, .89, pz1 + .3, .014, .22, blk, 12);   // sink + tap
+    box(g, px1 + .06, px1 + .5, .89, .895, pz2 - .55, pz2 - .08, std('#0e0e0e', { roughness: .2 }));                 // hob
+    for (const z of [pz2 - .43, pz2 - .2]) cyl(g, px1 + .28, .896, z, .08, .002, std('#3a3a3a'), 24);
+    box(g, px2 - .3, px2, 1.45, 2.15, pz1, pz2, blk);                                                                    // wall cabinets
+    const z1 = 5.25, z2 = ZS;                                                                                           // the open shelf
+    for (const z of [z1, z2 - .02]) box(g, px1 + .02, px2, 0, 2.0, z, z + .02, blk);
+    box(g, px2 - .02, px2, 0, 2.0, z1, z2, blk);
+    for (const y of [.05, .45, .85, 1.25, 1.65, 1.98]) box(g, px1 + .02, px2, y, y + .02, z1, z2, blk);
+  }
+  // hall: hooks for coats by the door, a doormat
+  box(g, t, t + .02, 1.6, 1.64, ZN + .2, ZN + .9, M.oak); for (const z of [ZN + .3, ZN + .55, ZN + .8]) box(g, t + .02, t + .08, 1.55, 1.6, z - .01, z + .01, M.black);
+  box(g, t, .72, 0, .012, 3.8, 4.8, std('#8a7a60', { roughness: 1 }));
+  // roof: pannplåt, 3.45 m at the east edge down to 2.45 m over the porch
+  { const s = new THREE.Shape([[-.45, Y(-.45)], [3.6, Y(3.6)], [3.6, Y(3.6) + .16], [-.45, Y(-.45) + .16]].map(([u, v]) => new THREE.Vector2(u, v)));
+    const geo = new THREE.ExtrudeGeometry(s, { depth: La + .5, bevelEnabled: false }); const m = new THREE.Mesh(geo, M.roof); m.position.z = -.25; m.castShadow = m.receiveShadow = true; roofs.att.add(m);
+    const uv = geo.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * 2, uv.getY(i) / 3); }
+  // short eave over the doors: light wood soffit with exposed rafter ends (photos)
+  for (let z = .2; z < La; z += .9) box(roofs.att, -.42, 0, Y(-.2) - .14, Y(-.2) - .01, z, z + .07, M.wood);
+  box(roofs.att, -.45, -.42, Y(-.45) - .02, Y(-.45) + .16, -.25, La + .25, M.blackTrim);
+  tbox(ceilings.att, t, Wa - t, 2.4, 2.43, t, La - t, std('#efece6', { map: vpanelTex }), [.6, 1.2]);
+  // rooms
+  R.attN = room(g, 'Sovrum norr', t, Wa - t, t, ZN, M.concrete, { rows: [['Säng', '140 cm'], ['Förvaring', 'Garderob med skjutdörrar + öppen garderob med hyllplan vid norra gaveln']], text: 'Egen glasad skjutdörr ut mot verandan och en skjutdörr till hallen.' });
+  R.attT = room(g, 'Hall & pentry', t, BX - .12, ZN + .12, ZS, M.concrete, { rows: [['Pentry', 'Svart: diskbänk, två plattor, kylskåp'], ['Hylla', 'Öppen svart hylla bredvid pentryt'], ['Dörrar', 'Skjutdörrar till båda sovrummen och badrummet']], text: 'Egen glasad skjutdörr från verandan. Pentryt står mitt i hallen mot badrumsväggen.' }, .55, 3.6);
+  R.attB = room(g, 'Dusch & WC', BX, Wa - t, 3.72, ZS, M.lime, { rows: [['Inredning', 'Handfat med spegelskåp och WC mot norra väggen, varmvattenberedare ovanför, duschhörna med rundade glasdörrar i sydöstra hörnet (där garderoben var)'], ['Ytor', 'Vitt kakel 15 × 15, golv kalksten 300 × 600'], ['Ventilation', 'Frånluftsfläkt ut genom taket']], text: 'Garderoben mot högra sovrummet byggdes om till dusch, så badrummet blev större. Skjutdörr från hallen.' }, 2.4, 4.75);
+  R.attS = room(g, 'Sovrum söder', t, Wa - t, ZS + .12, La - t, M.concrete, { rows: [['Säng', '140 cm']], text: 'Egen glasad skjutdörr ut mot verandan och en skjutdörr till hallen. Ingen garderob.' });
+  { // open wardrobe with shelves in the north bedroom, along the north gable beside the bed's head (Gustav 20 Oct):
+    // white sides, half shelves, half a hanging rail with a few garments
+    const ox1 = 1.7, ox2 = Wa - t, oz1 = t, oz2 = t + .48, sh = std('#f1efea', { roughness: .6 });
+    for (const x of [ox1, (ox1 + ox2) / 2, ox2 - .02]) box(g, x, x + .02, 0, 2.1, oz1, oz2, sh);
+    box(g, ox1, ox2, 2.08, 2.1, oz1, oz2, sh); box(g, ox1, ox2, 0, .06, oz1, oz2, sh);
+    for (const y of [.4, .75, 1.1, 1.45, 1.8]) box(g, ox1 + .02, (ox1 + ox2) / 2, y, y + .02, oz1, oz2, sh);
+    for (const [y, c] of [[.42, '#8c8577'], [.77, '#c9c2b4'], [1.12, '#55606a'], [1.47, '#b08f6a']]) box(g, ox1 + .08, ox1 + .55, y + .02, y + .14, oz1 + .05, oz2 - .08, std(c, { roughness: .95 }));   // folded things
+    box(g, (ox1 + ox2) / 2 + .02, ox2 - .02, 1.82, 1.84, (oz1 + oz2) / 2 - .01, (oz1 + oz2) / 2 + .01, M.steel);   // rail
+    for (let i = 0; i < 6; i++) { const x = (ox1 + ox2) / 2 + .1 + i * .11; box(g, x, x + .03, 1.0 + (i % 3) * .08, 1.8, oz1 + .06, oz2 - .06, std(['#3b3e41', '#e8e4dc', '#6b7a6a', '#a89a82', '#2e2e2e', '#c8b9a6'][i], { roughness: .95 })); }
+  }
+  box(g, 1.1, Wa - t, 0, .45, .86, 2.26, M.linen); box(g, Wa - t - .08, Wa - t, .45, 1.05, .86, 2.26, M.wood);   // 140 bed, head at the east wall (Gustav 20 Oct)
+  box(g, 1.1, Wa - t, 0, .45, 6.76, 8.16, M.linen); box(g, Wa - t - .08, Wa - t, .45, 1.05, 6.76, 8.16, M.wood);   // 140 bed here too
+  [...g.children].slice(-4).forEach(F);
+  label(g, 1.65, 4.0, 4.5, 'Attefallshus', '30 m²', { eyebrow: 'Byggnad', title: 'Attefallshuset', rows: [['Yta', '30 m² BTA, 25 m² BOA'], ['Mått', '9,0 × 3,3 m'], ['Uteplats', 'Kalkstensplatta ca 52 m²'], ['Tak', 'Pulpettak 11°, pannplåt'], ['Höjd', '3,45 m / 2,45 m'], ['Takutsprång', 'ca 0,45 m över dörrarna'], ['Grund', 'Platta på mark']], text: 'Två sovrum och en hall med svart pentry och dusch/WC, var och en med egen glasad skjutdörr ut mot kalkstensplattan (ca 55 m²) i väster. Bygganmälan 2022-04-06, Jörgen Åström ark. Står norr om huvudhusets östra del med kalkstensplattan mellan husen.', focus: [g, 1.65, 4.5] }, 'bld');
+}
+
+// ======================================================================
+//  PLANNED 2022 (not built): friggebod / glashus 5.6 × 2.7 with kamin
+// ======================================================================
+const plannedG = new THREE.Group(); plannedG.visible = false; scene.add(plannedG);
+{
+  const g = plannedG; g.userData.key = 'plan';
+  const x1 = -4.21, x2 = -1.51, z1 = -7.07, z2 = -1.43;
+  const s = new THREE.Shape([[z1, 0], [z2, 0], [z2, 2.4], [z1, 3.0]].map(([u, v]) => new THREE.Vector2(u, v)));
+  const m = new THREE.Mesh(new THREE.ExtrudeGeometry(s, { depth: x2 - x1, bevelEnabled: false }), M.ghost); m.rotation.y = -Math.PI / 2; m.position.x = x2; g.add(m);
+  label(g, (x1 + x2) / 2, 3.4, (z1 + z2) / 2, 'Friggebod / glashus', 'planerad 2022', { eyebrow: 'Planerat, ej byggt', title: 'Friggebod / glashus', rows: [['Yta', '15 m² BTA'], ['Mått', '5,6 × 2,7 m'], ['Tak', 'Pulpet 11°, 3,0 / 2,4 m']], text: 'Glasat lusthus med kamin, ur bygganmälan 2022. Visas som spöke eftersom det inte är byggt.' }, 'ghost');
+  label(g, -3.35, 3.0, 3.7, 'Tillbyggnad 1,7 m', 'planerad 2022', { eyebrow: 'Planerat, ej byggt', title: 'Tillbyggnad av glasverandan', rows: [['Yta', '+5,1 m² BTA'], ['Mått', '1,7 × 3,0 m']], text: 'Förlängning av glasverandan med 1,7 m mot väster enligt Attefallsreglerna (bygganmälan 2022).' }, 'ghost');
+}
+// the glass house as it will actually be built (Gustav 19 Oct): black steel frames, glass walls and glass mono-pitch
+// roof (3.0 m north → 2.4 m south, as in the 2022 notice), the north (right-hand, high) end a solid black-boarded wall
+// with a wood stove; double glass doors towards the courtyard. Toggle "Glashuset som det blir".
+const glassG = new THREE.Group(); glassG.visible = false; scene.add(glassG);
+var GLASS_LIME = {};
+{
+  // the informationsritning / bygganmälan BA4 'Glashus / friggebod' (Jörgen Åström 2022-04-06, Gustav 19 Oct: 'enligt
+  // skiss'): 5.6 × 2.7, a black sheet-metal mono-pitch 3.0 m on the west down to 2.4 m on the east with three square roof
+  // lights along the high edge; the north end black boards (the gable plus a 0.55 m strip on both long sides, bench and
+  // stove inside it); six tall glass panels to the west, three pairs of glazed doors to the east, a three-panel glass
+  // south gable; a tall steel chimney outside the east wall at the north end
+  const g = glassG, x1 = -4.21, x2 = -1.51, z1 = -7.07, z2 = -1.43, fr = std('#151617', { metalness: .5, roughness: .45 });
+  const TAN = Math.tan(11 * Math.PI / 180), Y = x => 2.4 + (x2 - x) * TAN, y0 = .17, zb = z1 + .55, ang = Math.atan(TAN);   // 11° like the attefallshus
+  box(g, x1 - .05, x2 + .05, 0, .15, z1 - .05, z2 + .05, M.plinth);
+  // limestone floor (Gustav 19 Oct): pale Gotland limestone slabs 600 × 400 laid in a running bond
+  const limeSlab = std('#ffffff', { roughness: .7, map: canvasTex(512, 256, (c, w, h) => { const cw = w / 4, ch = h / 3;
+    for (let r = 0; r < 3; r++) for (let i = -1; i < 5; i++) { const x = i * cw + (r % 2) * cw / 2; c.fillStyle = `hsl(${38 + rnd() * 10},${8 + rnd() * 8}%,${70 + rnd() * 9}%)`; c.fillRect(x, r * ch, cw, ch);
+      for (let k = 0; k < 18; k++) { c.fillStyle = `rgba(120,110,95,${rnd() * .12})`; c.fillRect(x + rnd() * cw, r * ch + rnd() * ch, 2 + rnd() * 9, 1 + rnd() * 3); }
+      c.fillStyle = '#9d9483'; c.fillRect(x, r * ch, 2, ch); c.fillRect(x, r * ch, cw, 2); } }) });
+  GLASS_LIME.m = limeSlab;
+  const fl = tbox(g, x1, x2, .15, .17, z1, z2, limeSlab, [2.4, 1.2]); fl.castShadow = false;
+  const post = (x, z, h) => box(g, x - .035, x + .035, y0, h, z - .035, z + .035, fr);
+  const gable = (z, d, mat) => { const sh = new THREE.Shape([[x1, y0], [x2, y0], [x2, Y(x2)], [x1, Y(x1)]].map(([u, v]) => new THREE.Vector2(u, v))); const m = new THREE.Mesh(new THREE.ExtrudeGeometry(sh, { depth: d, bevelEnabled: false }), mat); m.position.z = z; m.castShadow = mat !== M.glass; g.add(m); return m; };
+  // north end: black boards, a small high window towards the west
+  gable(z1, .12, M.blackBoard);
+  box(g, x1 + .25, x1 + .8, Y(x1 + .5) - .62, Y(x1 + .5) - .4, z1 - .015, z1 + .13, M.glass);
+  box(g, x1 + .22, x1 + .83, Y(x1 + .5) - .65, Y(x1 + .5) - .62, z1 - .02, z1 + .13, fr);
+  for (const x of [x1, x2]) { const m = new THREE.Mesh(new THREE.ExtrudeGeometry(new THREE.Shape([[z1, y0], [zb, y0], [zb, Y(x)], [z1, Y(x)]].map(([u, v]) => new THREE.Vector2(u, v))), { depth: .1, bevelEnabled: false }), M.blackBoard);
+    m.rotation.y = -Math.PI / 2; m.position.x = x + .05; m.castShadow = m.receiveShadow = true; g.add(m); }
+  // west: six tall glass panels; east: three pairs of glazed doors up to the low eave
+  const n = 6, zs = Array.from({ length: n + 1 }, (_, i) => zb + (z2 - zb) * i / n);
+  for (const z of zs) { post(x1, z, Y(x1)); post(x2, z, Y(x2)); }
+  for (let i = 0; i < n; i++) { const za = zs[i], zc = zs[i + 1];
+    box(g, x1 - .03, x1 + .03, y0, y0 + .06, za, zc, fr); box(g, x1 - .03, x1 + .03, Y(x1) - .06, Y(x1), za, zc, fr);
+    box(g, x1 - .006, x1 + .006, y0 + .06, Y(x1) - .06, za + .035, zc - .035, M.glass);
+    box(g, x2 - .006, x2 + .006, y0 + .08, Y(x2) - .1, za + .1, zc - .1, M.glass);                                   // door leaf
+    for (const [p, q] of [[za + .035, za + .1], [zc - .1, zc - .035]]) box(g, x2 - .025, x2 + .025, y0, Y(x2) - .06, p, q, fr);
+    box(g, x2 - .025, x2 + .025, y0, y0 + .08, za, zc, fr); box(g, x2 - .025, x2 + .025, Y(x2) - .1, Y(x2), za, zc, fr); }
+  for (let k = 0; k < 3; k++) { const zm2 = zs[2 * k + 1]; for (const d of [-.14, .14]) box(g, x2 + .03, x2 + .06, 1.0, 1.04, zm2 + d - .05, zm2 + d + .05, M.inox); }
+  // south gable: glass in three panels under the sloping edge
+  for (const x of [x1, x1 + (x2 - x1) / 3, x1 + 2 * (x2 - x1) / 3, x2]) post(x, z2, Y(x));
+  box(g, x1, x2, y0, y0 + .06, z2 - .03, z2 + .03, fr);
+  gable(z2 - .006, .012, M.glass);
+  // roof: the same as the attefallshus – grey pannplåt at 11°, 0.16 thick, a short eave over the doors with light-wood
+  // soffit and rafter ends, a black edge trim; three square roof lights near the high (west) edge
+  { const W2 = (x2 - x1 + .75) / Math.cos(ang), m = new THREE.Mesh(new THREE.BoxGeometry(W2, .16, z2 - z1 + .5), M.roof);
+    m.position.set((x1 + x2) / 2 + .075, (Y(x1 - .3) + Y(x2 + .45)) / 2 + .08, (z1 + z2) / 2); m.rotation.z = -ang; m.castShadow = m.receiveShadow = true; g.add(m);
+    for (let z = z1 + .1; z < z2; z += .9) box(g, x2, x2 + .42, Y(x2 + .2) - .12, Y(x2 + .2) - .01, z, z + .07, M.wood);
+    box(g, x2, x2 + .45, Y(x2 + .45) - .02, Y(x2 + .45) + .0, z1 - .25, z2 + .25, M.wood); }
+  box(g, x1 - .33, x1 - .3, Y(x1 - .3) - .02, Y(x1 - .3) + .18, z1 - .25, z2 + .25, M.blackTrim); box(g, x2 + .45, x2 + .48, Y(x2 + .45) - .02, Y(x2 + .45) + .18, z1 - .25, z2 + .25, M.blackTrim);
+  for (const d of [1.24, 2.84, 4.41]) { const z = z2 - d, xa = x1 + .15, xb = x1 + .75, yy = Y((xa + xb) / 2) + .16;
+    const f = new THREE.Group(); f.position.set((xa + xb) / 2, yy, z); f.rotation.z = -ang; g.add(f);
+    box(f, -.32, .32, 0, .1, -.32, .32, fr); box(f, -.27, .27, .1, .105, -.27, .27, M.glass); }
+  // stove in the north-east corner, the flue out through the east wall into a tall steel chimney
+  box(g, x2 - .7, x2 - .25, y0, y0 + .8, zb - .48, zb - .06, M.black);
+  box(g, x2 - .45, x2 + .3, y0 + .62, y0 + .7, zb - .3, zb - .22, M.inox);
+  cyl(g, x2 + .3, .05, zb - .26, .09, 3.6, M.inox, 20); cyl(g, x2 + .3, 3.65, zb - .26, .13, .05, M.inox, 20);
+  box(g, x2 + .12, x2 + .48, 0, .05, zb - .44, zb - .08, M.concrete);
+  // furniture as drawn: a long table with six chairs in the south half, two armchairs, a bench along the north end
+  { const fg = new THREE.Group(); fg.position.y = y0; g.add(fg);
+    const tx1 = x1 + .7, tx2 = x1 + 1.4, tz1 = z2 - 2.4, tz2 = z2 - .55;
+    F(box(fg, tx1, tx2, .71, .75, tz1, tz2, M.oak)); for (const x of [tx1 + .06, tx2 - .06]) for (const z of [tz1 + .1, tz2 - .1]) F(box(fg, x - .03, x + .03, 0, .71, z - .03, z + .03, M.oak));
+    for (const z of [tz1 + .3, (tz1 + tz2) / 2, tz2 - .3]) { chair(fg, tx1 - .35, z, -Math.PI / 2, M.oak); chair(fg, tx2 + .35, z, Math.PI / 2, M.oak); }
+    for (const [z, r] of [[z2 - 3.1, .7], [z2 - 3.85, 0]]) { const a = new THREE.Group(); a.position.set(x1 + 1.3, 0, z); a.rotation.y = r; fg.add(a);
+      box(a, -.36, .36, 0, .4, -.34, .34, M.linen); box(a, -.36, .36, .4, .82, -.34, -.2, M.linen); for (const sx of [-.36, .26]) box(a, sx, sx + .1, .4, .6, -.34, .34, M.linen); F(a); }
+    F(box(fg, x1 + .1, x2 - .8, 0, .45, z1 + .14, zb, M.oak)); F(box(fg, x1 + .12, x2 - .82, .45, .53, z1 + .16, zb - .02, M.linen)); }
+  // the glasveranda's 1.7 m extension to the west (bygganmälan BA3 'Glasveranda, tillbyggnad (attefallsregel)', 2022-04-06),
+  // shown together with the glass house: same frames, glass on three sides with a door to the north, the low gable roof
+  // carried on, limestone floor; the veranda's present west wall is hidden while it shows
+  { const ve = new THREE.Group(); ve.position.y = .35; g.add(ve); const ex1 = -4.2, ex2 = -2.5, vz1 = 2.18, vz2 = 5.18, VH = 2.42;
+    box(g, ex1, ex2, 0, .35, vz1, vz2, M.plinth);
+    const vf = tbox(ve, ex1, ex2 + .02, -.02, .01, vz1, vz2, limeSlab, [2.4, 1.2]); vf.castShadow = false;
+    tbox(ve, ex2, 0, .011, .013, vz1 + .08, vz2 - .08, limeSlab, [2.4, 1.2]).castShadow = false;   // the old veranda floor in limestone too
+    wall(ve, 'x', ex1, ex2, vz1, vz1 + .08, VH, [{ a: ex1 + .1, b: ex1 + 1.0, lo: 0, hi: 2.1 }, { a: ex1 + 1.04, b: ex2, lo: .08, hi: VH - .1 }], M.frame);
+    wall(ve, 'x', ex1, ex2, vz2 - .08, vz2, VH, [{ a: ex1 + .08, b: ex2, lo: .08, hi: VH - .1 }], M.frame);
+    wall(ve, 'z', vz1 + .08, vz2 - .08, ex1, ex1 + .08, VH, [{ a: vz1 + .12, b: vz2 - .12, lo: .08, hi: VH - .1, mull: [3.18, 4.18] }], M.frame);
+    { // roof as on BA3's takplan: the veranda's low roof (≈ 8°) in the same plåt, hipped at the west end, two roof lights
+      const E = VH + .05, R = VH + .25, zA = vz1 - .15, zB = vz2 + .15, zm = (vz1 + vz2) / 2, xw = ex1 - .15, xr = xw + (zm - zA), xe = ex2;
+      const P = [[xw, E, zA], [xe, E, zA], [xe, R, zm], [xr, R, zm], [xw, E, zB], [xe, E, zB]];
+      const geo = new THREE.BufferGeometry(), idx = [0, 2, 1, 0, 3, 2, 4, 5, 2, 4, 2, 3, 0, 4, 3];
+      const pos = [], uv = []; for (const i of idx) { const [x, y, z] = P[i]; pos.push(x, y + .08, z); uv.push(x * 2, z / 3); }
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); geo.computeVertexNormals();
+      const rm = M.roof.clone(); rm.side = THREE.DoubleSide; const roof = new THREE.Mesh(geo, rm); roof.castShadow = roof.receiveShadow = true; ve.add(roof);
+      for (const [za, zb] of [[zA + .3, zm - .35], [zm + .35, zB - .3]]) { const zc = (za + zb) / 2, yc = E + .08 + (R - E) * (1 - Math.abs(zc - zm) / (zm - zA)), a = Math.atan2(R - E, zm - zA) * (zc < zm ? 1 : -1);
+        const f = new THREE.Group(); f.position.set(xe - .55, yc + .01, zc); f.rotation.x = a; ve.add(f); box(f, -.3, .3, 0, .07, -.3, .3, std('#151617', { metalness: .5, roughness: .45 })); box(f, -.25, .25, .07, .075, -.25, .25, M.glass); }
+    }
+    label(g, (ex1 + ex2) / 2, 3.1, (vz1 + vz2) / 2, 'Tillbyggnad glasveranda', '+1,7 m', { eyebrow: 'Huvudhuset · som det blir', title: 'Glasverandan förlängd 1,7 m', rows: [['Mått', '1,7 × 3,0 m, +5,1 m² BTA'], ['Väggar', 'Glas i samma ramar som verandan, dörr mot norr'], ['Tak', 'Verandans låga tak i samma plåt som huset, valmat mot väster, två takfönster (BA3)'], ['Golv', 'Kalksten'], ['Ritning', 'BA3 Glasveranda, tillbyggnad (attefallsregel), 2022-04-06']] });
+    labels[labels.length - 1].key = 'glass';
+  }
+  glassG.userData.onToggle = on => VERANDA_W.forEach(m => m.visible = !on);
+  label(g, (x1 + x2) / 2, 3.5, (z1 + z2) / 2, 'Glashuset', 'som det blir', { eyebrow: 'Planerat', title: 'Glashuset – som det blir', rows: [['Mått', '5,6 × 2,7 m, ca 15 m²'], ['Tak', 'Samma som attefallshuset: grå pannplåt, pulpet 11°, högst mot väster, kort takfot över dörrarna, tre takfönster'], ['Stomme', 'Svarta stålprofiler'], ['Norra änden', 'Svart panel: gaveln med ett litet högt fönster och en remsa på båda långsidorna'], ['Öster', 'Tre par glasdörrar mot gården'], ['Skorsten', 'Hög stålskorsten utanför östra väggen'], ['Väster', 'Sex höga glaspartier'], ['Kamin', 'I nordöstra hörnet, bänk längs norra gaveln'], ['Ritning', 'Informationsritning och bygganmälan BA4 Glashus/friggebod, 2022-04-06 (Jörgen Åström ark.)']], text: 'Glas med svarta profiler; den höga norra gaveln stängd i svart panel med kaminen. Pardörrar i glas mot innergården.', focus: [g, (x1 + x2) / 2, (z1 + z2) / 2] });
+  labels[labels.length - 1].key = 'glass';
+}
+for (const o of scene.children.flatMap(c => c.children || [])) if (o.userData?.planned) { o.parent.remove(o); plannedG.add(o); o.position.set(0, .2, 0); }
+labels.forEach(l => { if (l.cls === 'ghost') l.key = 'plan'; });
+
+// ======================================================================
+//  THE SITE: ground, gravel, plot, courtyard, decks, vegetation
+// ======================================================================
+const site = new THREE.Group(); scene.add(site); site.userData.key = 'site';
+const canopy = new THREE.Group(); scene.add(canopy); canopy.position.y = .15;   // the canopies sit on the raised house
+{
+  const gr = new THREE.Mesh(new THREE.PlaneGeometry(320, 320), M.ground); gr.rotation.x = -Math.PI / 2; gr.position.set(15, 0, -5); gr.receiveShadow = true; site.add(gr);
+  const gravel = (x1, x2, z1, z2, y = .012) => { const m = tbox(site, x1, x2, 0, y, z1, z2, M.gravel, [1.6, 1.6]); m.castShadow = false; return m; };
+  gravel(-2.9, L + .9, -1.0, W + .8);                     // pebble strip around the main house (photos)
+  gravel(-2.2, 21.2, -9.3, -1.0);                          // courtyard between house and garage
+  gravel(-2.1, 11.9, -13.4, -9.3);
+  gravel(11.0, 24.2, -13.0, -9.3); gravel(22.4, 24.2, -9.3, -1.0);   // around the attefallshus
+  // gravelled parking space at the north-east corner of the plot, by the road to 418C, with a Tesla charger (Gustav 19 Oct)
+  // the parking bay as on the aerial photo (Gustav 19 Oct): a gravel pocket on the east side of the drive's bend,
+  // ~30 m north of the house, the car standing roughly north–south at its east end
+  var PARK_POLY = [[6.4, -35.2], [9.6, -36.6], [13.2, -35.6], [15.4, -32.8], [15.4, -27.4], [13.0, -26.2], [9.4, -27.4], [5.9, -29.6]];
+  var PARK = [12.0, 15.2, -32.6, -27.2];   // the car's own space at the east end (charger beside it)
+  {
+    const gt = gravelTex.clone(); gt.wrapS = gt.wrapT = THREE.RepeatWrapping; gt.repeat.set(1 / 1.6, 1 / 1.6); gt.needsUpdate = true;
+    const sh = new THREE.Shape(PARK_POLY.map(([x, z]) => new THREE.Vector2(x, -z))), bay = new THREE.Mesh(new THREE.ShapeGeometry(sh, 12), std('#d8d2c6', { map: gt, roughness: 1 }));
+    bay.rotation.x = -Math.PI / 2; bay.position.y = .016; bay.receiveShadow = true; site.add(bay);
+    const [x1, x2, z1, z2] = PARK;
+    // (no kerb: the bay runs straight on from the drive)
+    const ch = new THREE.Group(); ch.position.set(x2 + .35, 0, (z1 + z2) / 2 - .6); ch.rotation.y = -Math.PI / 2; site.add(ch);   // faces the car (west)
+    const dark = std('#3a3c3e', { metalness: .4, roughness: .5 }), white = std('#eceeee', { roughness: .35 }), glassC = std('#1b1e21', { metalness: .3, roughness: .12 });
+    box(ch, -.06, .06, 0, 1.28, -.05, .05, dark); box(ch, -.16, .16, 0, .04, -.12, .12, dark);                          // pedestal + foot
+    box(ch, -.085, .085, .78, 1.12, .05, .14, white); box(ch, -.06, .06, .82, 1.08, .14, .142, glassC);                   // wall connector
+    const led = new THREE.Mesh(new THREE.PlaneGeometry(.06, .006), new THREE.MeshBasicMaterial({ color: '#7fd17a' })); led.position.set(0, 1.0, .143); ch.add(led);
+    const coil = new THREE.Mesh(new THREE.TorusGeometry(.14, .012, 6, 24), std('#202224', { roughness: .6 })); coil.position.set(0, .62, .07); ch.add(coil);
+    box(ch, -.025, .025, .64, .72, .09, .15, white);                                                                      // the plug on its holster
+    // bin screen north-east of the car (aerial + Gustav 19 Oct): two large wheelie bins inside a lower black slatted
+    // screen in the same boards as the fence, open towards the drive (west)
+    {
+      const bs = new THREE.Group(); bs.position.set(15.5, 0, -38.4); bs.rotation.y = .35 + Math.PI / 2; site.add(bs);   // turned 90° (Gustav 19 Oct): opens towards the parking/drive
+      const fb = std('#1f1d1b', { roughness: .85 }), HB = 1.3, W2 = 1.05, D2 = .6;
+      const run = (ax, az, bx, bz) => { const len = Math.hypot(bx - ax, bz - az), seg = new THREE.Group(); seg.position.set(ax, 0, az); seg.rotation.y = -Math.atan2(bz - az, bx - ax); bs.add(seg);
+        for (let y = .08; y + .12 <= HB + .01; y += .145) box(seg, 0, len, y, y + .12, -.012, .012, fb);
+        for (const x of [0, len]) box(seg, x - .045, x + .045, 0, HB + .08, -.045, .045, fb); };
+      run(-D2, -W2, D2, -W2); run(D2, -W2, D2, W2); run(D2, W2, -D2, W2);   // U open to the west
+      const binC = std('#3d4a3b', { roughness: .6 }), lidC = std('#2e3a2d', { roughness: .5 });
+      for (const z of [-.47, .47]) {
+        const b = new THREE.Group(); b.position.set(.05, 0, z); bs.add(b);
+        const body = new THREE.Mesh(new THREE.CylinderGeometry(.42, .34, 1.02, 4, 1), binC); body.rotation.y = Math.PI / 4; body.scale.set(1.15, 1, .95); body.position.y = .55; body.castShadow = true; b.add(body);
+        box(b, -.42, .42, 1.06, 1.11, -.4, .4, lidC); box(b, .38, .46, .98, 1.08, -.3, .3, lidC);   // lid + handle
+        for (const zz of [-.3, .3]) { const w = cyl(b, .32, .1, zz, .1, .06, M.black, 12); w.rotation.x = Math.PI / 2; w.position.y = .1; }
+      }
+      label(site, 15.5, 1.8, -38.4, 'Soptunnor', '', { eyebrow: 'Tomten', title: 'Soptunnor', rows: [['Plats', 'Nordost om bilplatsen, vid uppfarten'], ['Skärm', 'Lägre svart plank, ca 1,3 m, öppet mot bilplatsen']], text: 'Två stora soptunnor i ett lägre svart plank i samma brädor som planket vid kalkstensytan.', focus: [site, 15.5, -38.4] });
+      labels[labels.length - 1].key = 'site';
+    }
+    label(site, 11.2, 1.6, -31.0, 'Parkering', 'laddstolpe', { eyebrow: 'Tomten', title: 'Parkering med laddstolpe', rows: [['Yta', 'ca 55 m² grus'], ['Laddning', 'Tesla Wall Connector på stolpe'], ['Plats', 'Grusficka öster om uppfartens kurva, ca 30 m norr om huset']], text: 'Grusad bilplats i en ficka vid uppfarten, med laddstolpe för Teslan – som på flygbilden.', focus: [site, 11.2, -31.0] });
+    labels[labels.length - 1].key = 'site';
+  }
+  // limestone crazy paving on a rectangle, cut from another part of the patio texture so it never looks repeated
+  // (the concrete tiles by the entrance and under the dining table were replaced with limestone, Gustav 19 Oct 2026)
+  const flagRect = (x1, x2, z1, z2, ou, ov, rot, y = .03) => {
+    const P = [[x1, z1], [x2, z1], [x2, z2], [x1, z2]], pos = [], uv = [];
+    for (const [x, z] of P) { pos.push(x, y, z); const a = rot ? z - z1 : x - x1, b = rot ? x - x1 : z - z1; uv.push(ou + a / FLAG.w, 1 - (ov + b / FLAG.h)); }
+    const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); geo.setIndex([0, 2, 1, 0, 3, 2]); geo.computeVertexNormals();
+    const m = new THREE.Mesh(geo, M.flag); m.receiveShadow = true; site.add(m);
+    box(site, x1, x2, 0, y - .002, z1, z2, std('#8f877a', { roughness: 1 }), false);   // bedding under the slabs
+  };
+  flagRect(-1.8, 5.8, -6.5, -2.8, .0, .3, true);   // 50 cm of gravel to the entrance limestone (Gustav 19 Oct)
+      // under the dining table: widened 0.4 m every way and run west to 0.4 m short of the gravel's end (Gustav 19 Oct)
+  // limestone crazy paving west of the attefallshus, ca 52 m² (55 before 19 Oct), running south to the main house wall (photos 2025)
+  { // one slab of paving with an irregular, straight-cut outline like the photos; UVs in world metres so the slabs never repeat
+    const out = [[15.2, -11.5], [19.7, -11.5], [19.7, -2.3], [20.2, -2.3], [20.2, -.2], [15.2, -.2]];   // + 50 cm into the passage south of the attefallshus (Gustav 19 Oct)
+      // 20 cm of gravel against the main house and the attefallshus (Gustav 19 Oct)   // straight west edge, the strip round the fig taken up (Gustav 19 Oct)
+    const geo = new THREE.ExtrudeGeometry(new THREE.Shape(out.map(([x, z]) => new THREE.Vector2(x, -z))), { depth: .05, bevelEnabled: false });
+    const pos = geo.attributes.position, uv = geo.attributes.uv;
+    for (let i = 0; i < uv.count; i++) uv.setXY(i, (pos.getX(i) - FLAG.x0) / FLAG.w, 1 - (-pos.getY(i) - FLAG.z0) / FLAG.h);
+    const m = new THREE.Mesh(geo, M.flag); m.rotation.x = -Math.PI / 2; m.receiveShadow = true; site.add(m);
+  }
+  // outside the entrance D6 (photo 2026, now limestone): four rows deep, a 30 cm pebble strip along the wall
+  flagRect(4.2, 11.4, -2.3, -.3, .3, .05, true);     // outside the entrance D6 (was 50 × 50 concrete tiles)
+  // (the raised 15 cm gravel bank along the north wall removed – Gustav 19 Oct)   // (no bank under the limestone patio)   // a 15 cm gravel bank along the north wall (courtyard photo 2026)
+  { // black slatted bench on two pedestals of stacked concrete rings, right of the door
+    const bx1 = 4.85, bx2 = 6.75, bz1 = -.95, bz2 = -.5;   // right of the door seen from outside = west of D6 (Gustav 19 Oct)
+    for (const x of [5.25, 6.35]) for (let i = 0; i < 4; i++) { const r = cyl(site, x, .03 + i * .105, (bz1 + bz2) / 2, .19, .1, std(['#a9a6a0', '#b5b2ab', '#9e9b95'][i % 3], { roughness: .95 }), 28); r.scale.x = r.scale.z = 1 + (i % 2) * .03; }
+    for (let i = 0; i < 4; i++) { const z = bz1 + i * .115; F(box(site, bx1, bx2, .45, .49, z, z + .1, M.black)); }   // on the limestone, 15 cm up
+  }
+  // grey timber brackets from the wall up under the eaves (photos)
+  for (const x of [5.15, 9.15]) { const st = box(canopy, x - .06, x + .06, 0, 1.14, -.06, .06, M.greyWood); st.rotation.x = -Math.atan2(.55, 1.0); st.position.set(x, 2.3, -.275); }
+  // south deck with corrugated canopy (I3, photos)
+  // the raised deck (photos 2025): grey weathered boards running out from the wall on a black frame, ~0.42 high,
+  // a long loose step board in front and a black slatted screen at the west end
+  {
+    const DT = .33, Z1 = W, Z2 = 7.4, blk = std('#1c1b1a', { roughness: .9 }), galv = std('#b9bdbf', { metalness: .75, roughness: .35 });
+    // weathered grey planks: one long grain texture stretched along each board, a few tones, dark gaps between
+    const grain = canvasTex(64, 512, (c, w, h) => { c.fillStyle = '#a19c93'; c.fillRect(0, 0, w, h); for (let i = 0; i < 40; i++) { c.strokeStyle = `rgba(${70 + rnd() * 30},${66 + rnd() * 26},${60 + rnd() * 22},${.12 + rnd() * .2})`; c.lineWidth = .6 + rnd() * 1.4; const x = rnd() * w; c.beginPath(); c.moveTo(x, 0); c.bezierCurveTo(x + (rnd() - .5) * 8, h * .33, x + (rnd() - .5) * 8, h * .66, x + (rnd() - .5) * 6, h); c.stroke(); } for (let i = 0; i < 5; i++) { c.fillStyle = 'rgba(60,55,48,.35)'; c.beginPath(); c.ellipse(rnd() * w, rnd() * h, 2 + rnd() * 3, 4 + rnd() * 6, 0, 0, 6.3); c.fill(); } });
+    const plankM = ['#b1aca3', '#a39e95', '#bab5ab', '#9a958c', '#aaa59b'].map(col => std(col, { map: grain, roughness: .95 }));
+    for (let x = 2.6, i = 0; x < 9.0 - .05; x += .145, i++) box(site, x, Math.min(x + .132, 9.0), DT - .035, DT, Z1, Z2, plankM[(i * 7 + (rnd() * 2 | 0)) % plankM.length]);
+    box(site, 2.62, 8.98, .04, DT - .035, Z1 + .05, Z2 - .06, blk);                                     // the shadowed frame underneath
+    box(site, 2.6, 9.0, DT - .2, DT - .035, Z2 - .06, Z2, blk);                                          // rim joist
+    for (const x of [2.65, 4.2, 5.8, 7.4, 8.95]) box(site, x - .05, x + .05, 0, DT - .2, Z2 - .3, Z2 - .2, blk);
+    for (const [z1, z2] of [[Z2 + .35, Z2 + .48], [Z2 + .495, Z2 + .615], [Z2 + .63, Z2 + .75]]) box(site, 2.3, 8.75, .12, .17, z1, z2, plankM[(z1 * 10 | 0) % plankM.length]);   // the step: three boards lengthwise                                          // the step board
+    for (const x of [2.5, 4.6, 6.6, 8.55]) box(site, x - .045, x + .045, 0, .12, Z2 + .5, Z2 + .6, blk);
+    // (the galvanised handrail at the east end was removed – Gustav 19 Oct)
+    for (let y = DT + .08; y < DT + 1.7; y += .16) box(site, 2.72, 2.76, y, y + .13, Z1 + .1, Z1 + 1.35, blk);   // screen
+    for (const z of [Z1 + .1, Z1 + 1.35]) box(site, 2.7, 2.78, DT, DT + 1.75, z - .04, z + .04, blk);
+  }
+  slab(canopy, 3.6, 9.3, W + 1.6, 2.5, W, 2.7, .03, M.corr, .25);
+  for (const x of [3.7, 6.4, 9.2]) { box(canopy, x - .03, x + .03, 2.3, 2.75, W, W + .05, M.greyWood); }
+  slab(canopy, 5.0, 9.3, -1.1, 2.55, 0, 2.7, .03, M.corr, .25);   // north canopy over D6
+
+  // driveway from the samfällighet road in the north to the garage doors (aerials)
+  // gravel drive traced from the aerial photo (16.9 px/m, origin = main house NW corner): in from the road to the north,
+  // down west of the copse and round to the garage doors D15; a branch splits off at the top towards 418C
+  const roadPts = [];
+  const road = (path, half) => {
+    const curve = new THREE.CatmullRomCurve3(path.map(([x, z]) => new THREE.Vector3(x, 0, z)));
+    const pts = curve.getPoints(Math.round(curve.getLength() * 1.5)), pos = [], idx = [], uvs = [];
+    pts.forEach((p, i) => { const q = pts[Math.min(i + 1, pts.length - 1)], r = pts[Math.max(i - 1, 0)], d = new THREE.Vector3().subVectors(q, r).normalize(), n = new THREE.Vector3(-d.z, 0, d.x).multiplyScalar(half); pos.push(p.x + n.x, .025, p.z + n.z, p.x - n.x, .025, p.z - n.z); uvs.push(0, i / 4, 1, i / 4); if (i) idx.push(2 * i - 2, 2 * i - 1, 2 * i, 2 * i - 1, 2 * i + 1, 2 * i); });
+    const dg = new THREE.BufferGeometry(); dg.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); dg.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2)); dg.setIndex(idx); dg.computeVertexNormals();
+    const m = new THREE.Mesh(dg, M.drive); m.receiveShadow = true; site.add(m); roadPts.push(...pts);
+    // two worn wheel tracks
+    for (const off of [-.75, .75]) {
+      const tp = [], ti = [];
+      pts.forEach((p, i) => { const q = pts[Math.min(i + 1, pts.length - 1)], r = pts[Math.max(i - 1, 0)], d = new THREE.Vector3().subVectors(q, r).normalize(), n = new THREE.Vector3(-d.z, 0, d.x); const c = p.clone().add(n.clone().multiplyScalar(off)); tp.push(c.x + n.x * .22, .03, c.z + n.z * .22, c.x - n.x * .22, .03, c.z - n.z * .22); if (i) ti.push(2 * i - 2, 2 * i - 1, 2 * i, 2 * i - 1, 2 * i + 1, 2 * i); });
+      const tg = new THREE.BufferGeometry(); tg.setAttribute('position', new THREE.Float32BufferAttribute(tp, 3)); tg.setIndex(ti); tg.computeVertexNormals();
+      const tm = new THREE.Mesh(tg, M.track); tm.receiveShadow = true; site.add(tm);
+    }
+  };
+  road([[9, -90], [10.5, -62], [12.4, -42], [8.5, -38.6], [4.6, -31], [4.2, -24], [7.6, -18.6], [12.2, -15.2], [12.8, -12.6], [12.2, -10.6]], 1.7);
+  road([[11.8, -46], [17.5, -43.5], [24, -35.5], [32, -28.4], [40, -24.2], [46, -21.5]], 1.4);
+  var SPUR = [];   // the separate spur was removed again – the bay opens straight off the drive (aerial photo)
+  const pts = roadPts;
+  window.__drive = pts;
+}
+// plot boundary Hulehällar 1:26 (situationsplan 2022; matches Lantmäteriet)
+const PLOT = [[2.78, 39.7], [-12.42, -4.55], [6.02, -36.2], [18.78, -40.4], [41.68, 26.27]];
+const plotG = new THREE.Group(); scene.add(plotG);
+{
+  const ring = [...PLOT, PLOT[0]], red = std('#b4553f');
+  for (let i = 0; i < PLOT.length; i++) {
+    const [ax, az] = ring[i], [bx, bz] = ring[i + 1], len = Math.hypot(bx - ax, bz - az), ang = Math.atan2(bx - ax, bz - az);
+    for (let s = 0; s < len - .2; s += 1.6) {
+      const t1 = s / len, t2 = Math.min(1, (s + 1) / len);
+      const m = new THREE.Mesh(boxGeo, red); m.scale.set(.08, .03, (t2 - t1) * len); m.rotation.y = ang;
+      m.position.set(ax + (bx - ax) * (t1 + t2) / 2, .04, az + (bz - az) * (t1 + t2) / 2); plotG.add(m);
+    }
+    cyl(plotG, ax, 0, az, .07, .5, red, 8);
+  }
+  let A2 = 0; for (let i = 0; i < PLOT.length; i++) { const [x1, z1] = ring[i], [x2, z2] = ring[i + 1]; A2 += x1 * z2 - x2 * z1; }
+  window.__plotArea = Math.abs(A2 / 2);
+}
+// neighbour 418C on Hulehällar 1:27 (aerials): pale volumes only
+const nbG = new THREE.Group(); scene.add(nbG);
+{
+  const g = new THREE.Group(); g.position.set(47, 0, -15); g.rotation.y = .37; nbG.add(g);
+  box(g, -7, 7, 0, 2.8, -3, 3, M.nb); prismZY(g, [[-3.6, 2.8], [3.6, 2.8], [0, 4.2]], -7.3, 7.3, M.nb);
+  box(g, -5.5, 2, 0, .15, 3, 6.5, M.nb);
+  const lg = new THREE.Group(); g.add(lg);
+  label(g, 0, 5, 0, 'Grannhus 418C', 'Hulehällar 1:27', { eyebrow: 'Grannfastighet', title: 'Hulehällar 1:27 (418C)', text: 'Grannens hus visas förenklat utifrån flygbilder, för att ge sammanhang. Gränsen mellan 1:26 och 1:27 följer Lantmäteriets karta.' }, 'ghost');
+  labels[labels.length - 1].key = 'nb';
+}
+
+// courtyard furniture and garden things (photos)
+const yard = new THREE.Group(); scene.add(yard); yard.userData.key = 'site';
+{
+  const g = yard;
+  // the long weathered table with HAY Palissade dining chairs on the limestone (Gustav's photo 19 Oct): four grey planks
+  // with gaps on chunky square legs and a long stretcher, three galvanised chairs a side, a parasol base at the west end
+  {
+    const tw = std('#7d766d', { roughness: .95, map: canvasTex(256, 32, (c, w, h) => { c.fillStyle = '#8a8378'; c.fillRect(0, 0, w, h);
+      for (let i = 0; i < 26; i++) { c.strokeStyle = `rgba(55,50,44,${.15 + rnd() * .25})`; c.lineWidth = .6 + rnd(); const y = rnd() * h; c.beginPath(); c.moveTo(0, y); c.bezierCurveTo(w * .3, y + (rnd() - .5) * 4, w * .7, y + (rnd() - .5) * 4, w, y + (rnd() - .5) * 3); c.stroke(); } }) });
+    const X1 = .9, X2 = 4.6, Z1 = -4.97, Z2 = -4.03, TY = .76;
+    for (let k = 0; k < 4; k++) { const a = Z1 + k * (Z2 - Z1) / 4; F(box(g, X1, X2, TY - .065, TY, a + .006, a + (Z2 - Z1) / 4 - .006, tw)); }
+    for (const x of [X1 + .45, X2 - .45]) for (const z of [Z1 + .14, Z2 - .14]) F(box(g, x - .06, x + .06, 0, TY - .065, z - .06, z + .06, tw));
+    for (const x of [X1 + .45, X2 - .45]) F(box(g, x - .04, x + .04, .38, .5, Z1 + .1, Z2 - .1, tw));
+    F(box(g, X1 + .45, X2 - .45, .5, .6, (Z1 + Z2) / 2 - .04, (Z1 + Z2) / 2 + .04, tw));
+    const gv = std('#b6babc', { metalness: .8, roughness: .38 }), up = new THREE.Vector3(0, 1, 0);
+    const tube = (p, a, b, r = .011) => { const A = new THREE.Vector3(...a), B = new THREE.Vector3(...b), d = B.clone().sub(A);
+      const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, d.length(), 8), gv); m.position.copy(A).addScaledVector(d, .5);
+      m.quaternion.setFromUnitVectors(up, d.normalize()); m.castShadow = true; p.add(m); };
+    const strip = (p, pts, x, w = .04) => { for (let i = 1; i < pts.length; i++) { const [z1, y1] = pts[i - 1], [z2, y2] = pts[i];
+      const m = new THREE.Mesh(new THREE.BoxGeometry(w, .005, Math.hypot(z2 - z1, y2 - y1) + .004), gv);
+      m.position.set(x, (y1 + y2) / 2, (z1 + z2) / 2); m.rotation.x = -Math.atan2(y2 - y1, z2 - z1); m.castShadow = true; p.add(m); } };
+    const pchair = (x, z, r) => { const c = new THREE.Group(); c.position.set(x, 0, z); c.rotation.y = r; g.add(c);   // local +z faces the table
+      for (const sx of [-.21, .21]) { tube(c, [sx, 0, .2], [sx, .44, .2]); tube(c, [sx, 0, -.2], [sx, .44, -.2]); tube(c, [sx, .44, -.2], [sx, .84, -.27]);
+        tube(c, [sx, .42, .2], [sx, .42, -.2]); tube(c, [sx, .14, .2], [sx, .14, -.2], .008); }
+      tube(c, [-.21, .84, -.27], [.21, .84, -.27]); tube(c, [-.21, .42, .2], [.21, .42, .2]);
+      for (let i = 0; i < 6; i++) { const sx = -.175 + i * .07;
+        strip(c, [[.22, .4], [.24, .44], [.2, .455], [-.18, .45]], sx);                                          // seat strips, rolled front
+        strip(c, [[-.19, .47], [-.21, .55], [-.26, .83]], sx); }                                                  // back strips
+      for (const m of c.children) F(m); };
+    for (const x of [1.75, 2.75, 3.75]) { pchair(x, Z1 - .35, 0); pchair(x, Z2 + .35, Math.PI); }
+    const base = cyl(g, X1 - .45, 0, (Z1 + Z2) / 2, .3, .08, std('#3d3c3a', { roughness: .8 }), 28); F(base);   // parasol base + stub of the pole
+    F(cyl(g, X1 - .45, .08, (Z1 + Z2) / 2, .028, .5, gv, 12));
+  }
+  // round bistro table with umbrella (photo)
+  // fig tree on the gravel by the patio (photo)
+  // ONE big fig planted in the ground where the small fig and the buckthorn barrel stood (Gustav 19 Oct): multi-stemmed,
+  // a broad crown of big palmate leaves (instanced, 3–5 lobes), ca 2.8 m high and 2.6 m across.
+  {
+    const fx = 14.95, fz = -7.6;    // on Gustav's red dot (19 Oct): on the gravel just west of the patio edge, north of the raised bed
+    const soil = new THREE.Mesh(new THREE.CircleGeometry(.7, 24), std('#5a4a3a', { roughness: 1 })); soil.rotation.x = -Math.PI / 2; soil.position.set(fx, .012, fz); soil.receiveShadow = true; g.add(soil);   // planting bed in the gravel
+    const barkF = std('#8d877c', { roughness: .9 }), V = (a, b, c) => new THREE.Vector3(fx + a, b, fz + c), tips = [];
+    const limb = (a, b, r1, r2) => { const v = new THREE.Vector3().subVectors(b, a), m = new THREE.Mesh(new THREE.CylinderGeometry(r2, r1, v.length(), 7), barkF); m.position.copy(a).addScaledVector(v, .5); m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), v.clone().normalize()); m.castShadow = true; g.add(m); };
+    for (let k = 0; k < 4; k++) {   // four stems leaning out, each forking twice
+      const a = k / 4 * Math.PI * 2 + .4, b0 = V(Math.cos(a) * .08, 0, Math.sin(a) * .08), b1 = V(Math.cos(a) * .38, 1.05, Math.sin(a) * .38);
+      limb(b0, b1, .06, .045);
+      for (const d of [-.5, .5]) { const b2 = V(Math.cos(a + d) * .72, 1.65 + rnd() * .2, Math.sin(a + d) * .72); limb(b1, b2, .04, .025); tips.push(b2, b1.clone().lerp(b2, .5)); }
+    }
+    // a fig leaf: palmate, 3 deep lobes + 2 small, on a short stalk
+    const sh = new THREE.Shape(); const lobe = [[0, 0], [-.05, .05], [-.16, .1], [-.2, .2], [-.11, .2], [-.07, .26], [-.1, .36], [-.03, .33], [0, .42], [.03, .33], [.1, .36], [.07, .26], [.11, .2], [.2, .2], [.16, .1], [.05, .05]];
+    sh.moveTo(0, 0); lobe.slice(1).forEach(([x, y]) => sh.lineTo(x, y)); sh.lineTo(0, 0);
+    const leafGeo = new THREE.ShapeGeometry(sh); leafGeo.scale(.9, .9, .9);
+    const leaves = new THREE.InstancedMesh(leafGeo, std('#ffffff', { side: THREE.DoubleSide, roughness: .7 }), 400); leaves.castShadow = true;
+    const o = new THREE.Object3D(), c = new THREE.Color(), LC = ['#4f7a35', '#5d8a3e', '#6a9a45', '#46702f', '#57843a'];
+    for (let i = 0; i < 400; i++) {
+      const t = tips[i % tips.length], u = rnd() * Math.PI * 2, r = Math.sqrt(rnd()) * .48;
+      o.position.set(t.x + Math.cos(u) * r, t.y - .12 + rnd() * .42, t.z + Math.sin(u) * r);
+      if (Math.hypot(o.position.x - fx, o.position.z - fz) > 1.05) o.position.y -= .12;
+      o.rotation.set(-Math.PI / 2 + (rnd() - .3) * 1.1, rnd() * Math.PI * 2, (rnd() - .5) * .8); o.scale.setScalar(.62 + rnd() * .4); o.updateMatrix();
+      leaves.setMatrixAt(i, o.matrix); leaves.setColorAt(i, c.set(LC[(rnd() * LC.length) | 0]));
+    }
+    g.add(leaves);
+    label(g, fx, 2.5, fz, 'Fikonträd', '', { eyebrow: 'Tomten', title: 'Fikonträdet', rows: [['Plats', 'Planterat i marken vid kalkstensytan, mot planket'], ['Storlek', 'ca 2,2 m högt, 2 m brett']], text: 'Ett stort fikonträd med flera stammar, planterat direkt i jorden.', focus: [g, fx, fz] });
+    labels[labels.length - 1].key = 'site';
+  }
+  // wood-fired bathtub (Gustav 19 Oct): aluminium chequer plate and oak, 212 × 92 × 66 cm, 600 l – stands west of the
+  // glasveranda, set diagonally, the chimney end towards the main house. Vertical chimney end, slanted far end.
+  {
+    const TX = -7.33, TZ = 5.06, tub = new THREE.Group(); tub.position.set(TX, 0, TZ); tub.rotation.y = Math.atan2(.81, .59); g.add(tub);   // moved again 19 Oct: south-west by the plot line, set diagonally; chimney end (local x 0) nearest the house
+    var TUB = [TX - 1.06 * .59, TZ + 1.06 * .81];
+    // local x: 0 = chimney end (towards the house) … −2.12 = slanted far end; local z across, width .92
+    const dpl = canvasTex(256, 256, (c, w, h) => { c.fillStyle = '#aeb2b5'; c.fillRect(0, 0, w, h); for (let j = 0; j < 8; j++) for (let i = 0; i < 8; i++) { const x = i * 32 + 16, y = j * 32 + 16, a = (i + j) % 2 ? .8 : -.8; c.save(); c.translate(x, y); c.rotate(a); for (const d of [-5, 5]) { c.fillStyle = 'rgba(255,255,255,.55)'; c.fillRect(-9, d - 2, 18, 3); c.fillStyle = 'rgba(40,44,48,.35)'; c.fillRect(-9, d + 1, 18, 1.5); } c.restore(); } }, [6, 3]);
+    const alu = std('#ffffff', { map: dpl, metalness: .75, roughness: .38 }), oakT = std('#b98a55', { roughness: .65 }), inox2 = std('#c9ccce', { metalness: .85, roughness: .3 });
+    const LT = 2.12, WT = .92, HT = .6, y0 = .06, LB = 1.62;
+    const sh = new THREE.Shape([new THREE.Vector2(0, y0), new THREE.Vector2(-LB, y0), new THREE.Vector2(-LT, y0 + HT), new THREE.Vector2(0, y0 + HT)]);
+    const geo = new THREE.ExtrudeGeometry(sh, { depth: WT, bevelEnabled: false }); geo.translate(0, 0, -WT / 2);
+    const P = geo.attributes.position; for (let i = 0; i < P.count; i++) { const t = (P.getY(i) - y0) / HT, k = .86 + .14 * Math.sin(t * Math.PI / 2); P.setZ(i, P.getZ(i) * k); }   // sides bulge out towards the rim
+    geo.computeVertexNormals(); const body = new THREE.Mesh(geo, alu); body.castShadow = body.receiveShadow = true; tub.add(body);
+    const water = new THREE.Mesh(new THREE.PlaneGeometry(LT - .14, WT - .14), std('#23343a', { metalness: .2, roughness: .08 })); water.rotation.x = -Math.PI / 2; water.position.set(-LT / 2, y0 + HT + .004, 0); tub.add(water);
+    const rim = (x1, x2, z1, z2) => box(tub, x1, x2, y0 + HT, y0 + HT + .045, z1, z2, oakT);
+    rim(-LT - .04, .04, -WT / 2 - .04, -WT / 2 + .05); rim(-LT - .04, .04, WT / 2 - .05, WT / 2 + .04); rim(-.07, .04, -WT / 2, WT / 2); rim(-LT - .04, -LT + .07, -WT / 2, WT / 2);
+    for (const x of [-.25, -LB + .2]) box(tub, x - .05, x + .05, 0, y0, -WT / 2 + .05, WT / 2 - .05, oakT);   // oak runners
+    // stove box + chimney at the house end, oak backrest in front of it
+    box(tub, -.42, -.07, y0 + HT - .04, y0 + HT + .03, -.2, .2, inox2);
+    const cx2 = -.25, cyl2 = (r, y1, y2, mat, open = false) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, y2 - y1, 24, 1, open), mat); m.position.set(cx2, (y1 + y2) / 2, 0); m.castShadow = true; tub.add(m); return m; };
+    cyl2(.06, y0 + HT, 2.05, inox2);
+    const mesh = canvasTex(64, 64, (c, w, h) => { c.fillStyle = '#c9ccce'; c.fillRect(0, 0, w, h); c.clearRect(0, 0, 0, 0); for (let j = 0; j < 4; j++) for (let i = 0; i < 4; i++) c.clearRect(i * 16 + 3, j * 16 + 3, 10, 10); }, [8, 6]);
+    cyl2(.09, y0 + HT + .02, 1.3, std('#ffffff', { map: mesh, metalness: .8, roughness: .35, transparent: true, alphaTest: .5, side: THREE.DoubleSide }), true);
+    const cap = new THREE.Mesh(new THREE.ConeGeometry(.13, .05, 24, 1, true), inox2); cap.position.set(cx2, 2.15, 0); tub.add(cap);
+    for (let k = 0; k < 3; k++) { const a = k / 3 * Math.PI * 2; box(tub, cx2 + Math.cos(a) * .055 - .005, cx2 + Math.cos(a) * .055 + .005, 2.05, 2.13, Math.sin(a) * .055 - .005, Math.sin(a) * .055 + .005, inox2); }
+    const back = new THREE.Group(); back.position.set(-.48, y0 + .1, 0); back.rotation.z = .42; tub.add(back);
+    for (let i = 0; i < 7; i++) box(back, -.012, .012, i * .085, i * .085 + .065, -.34, .34, oakT);
+    label(g, TX, 2.5, TZ, 'Vedeldat badkar', '600 l', { eyebrow: 'Tomten', title: 'Vedeldat badkar', rows: [['Mått', '212 × 92 × 66 cm, baddjup 54 cm'], ['Volym', '600 liter'], ['Material', 'Aluminium (räfflad plåt) och ek'], ['Plats', 'Sydväst om glasverandan vid tomtgränsen, snett ställt – skorstenen mot huset'], ['Plats för', 'Två vuxna och två barn']], text: 'Eldas med ved i kaminen vid huvudänden; ryggstöd i ek framför skorstenen.', focus: [g, TX, TZ] });
+    labels[labels.length - 1].key = 'site';
+  }
+  // the grill place south-west of the house, beyond the deck (photo GPS 2025–26): a round gravel floor, a black Ofyr
+  // (steel cooking plate on a conical bowl, logs in its square foot) and a wood-fired pizza oven on a timber stand
+  {
+    const gp = new THREE.Group(); gp.position.set(1.7, 0, 13.5); g.add(gp);   // Ofyr + oven moved 0.8 m and then 1 m more west (Gustav 19 Oct); the gravel floor and the Grythyttan set stay
+    // a natural gravel patch (Gustav 19 Oct): irregular outline, dense in the middle, thinning out into the grass –
+    // one canvas with gravel specks and an alpha that frays at a noisy edge
+    const gcv = document.createElement('canvas'); gcv.width = gcv.height = 512; const gx = gcv.getContext('2d'), gid = gx.createImageData(512, 512), gd = gid.data;
+    const lobes = Array.from({ length: 7 }, () => [rnd() * 6.28, .05 + rnd() * .09, 2 + (rnd() * 5 | 0)]);
+    for (let y = 0; y < 512; y++) for (let x = 0; x < 512; x++) {
+      const dx = (x - 256) / 256, dy = (y - 256) / 256, d = Math.hypot(dx, dy), th = Math.atan2(dy, dx);
+      let R = .78; for (const [ph, amp, f] of lobes) R += amp * Math.sin(th * f + ph) * .5;
+      const n = rnd(), edge = Math.min(1, Math.max(0, (R - d) / .22)), a = edge * edge * (3 - 2 * edge) * (n < .1 + .9 * edge ? 1 : 0);
+      const v = 170 + rnd() * 70 - (rnd() < .06 ? 70 : 0), i = (y * 512 + x) * 4;
+      gd[i] = v; gd[i + 1] = v * .97; gd[i + 2] = v * .9; gd[i + 3] = 255 * Math.min(1, a * (.75 + .25 * rnd()));
+    }
+    gx.putImageData(gid, 0, 0); const gtx = new THREE.CanvasTexture(gcv); gtx.colorSpace = THREE.SRGBColorSpace; gtx.anisotropy = 8;
+    const fl = new THREE.Mesh(new THREE.PlaneGeometry(7.8, 7.8), std('#ffffff', { map: gtx, transparent: true, depthWrite: false, roughness: 1, polygonOffset: true, polygonOffsetFactor: -2 }));
+    fl.rotation.x = -Math.PI / 2; fl.rotation.z = .4; fl.position.set(.8, .012, 0); fl.receiveShadow = true; gp.add(fl);
+    const steel = std('#1d1c1b', { roughness: .55, metalness: .5 });
+    // Ofyr: foot 0.48 × 0.48 × 0.58 open at the front with logs, bowl up to a 1.0 m plate at 0.9 m
+    box(gp, -.24, .24, 0, .58, -.24, -.2, steel); box(gp, -.24, -.2, 0, .58, -.24, .24, steel); box(gp, .2, .24, 0, .58, -.24, .24, steel); box(gp, -.24, .24, .55, .58, -.24, .24, steel); box(gp, -.24, .24, 0, .03, -.24, .24, steel);
+    for (let i = 0; i < 9; i++) { const lg = cyl(gp, -.12 + (i % 3) * .12, .0, 0, .055, .4, std(['#cdbb9a', '#a98d68', '#ddd6c8'][i % 3], { roughness: .95 }), 7); lg.rotation.x = Math.PI / 2; lg.position.set(-.13 + (i % 3) * .13, .09 + Math.floor(i / 3) * .12, .02); }
+    const bowl = new THREE.Mesh(new THREE.LatheGeometry([[.2, 0], [.26, .05], [.42, .22], [.5, .3]].map(([r, y]) => new THREE.Vector2(r, y)), 40), std('#1d1c1b', { roughness: .6, metalness: .45, side: THREE.DoubleSide }));
+    bowl.position.y = .6; bowl.castShadow = true; gp.add(bowl);
+    const plate = new THREE.Mesh(new THREE.RingGeometry(.27, .52, 48), std('#2a2826', { roughness: .4, metalness: .6, side: THREE.DoubleSide })); plate.rotation.x = -Math.PI / 2; plate.position.y = .905; plate.castShadow = true; gp.add(plate);
+    const ember = new THREE.Mesh(new THREE.CircleGeometry(.24, 24), new THREE.MeshBasicMaterial({ color: '#c8642b' })); ember.rotation.x = -Math.PI / 2; ember.position.y = .8; gp.add(ember);
+    F(box(gp, -.2, .2, .93, .95, -.12, .12, std('#5b5f63', { metalness: .7, roughness: .4 })));   // grill grate on the fire
+    // Grythyttan furniture east of the Ofyr (Gustav 19 Oct): round slatted oak table on a crossed galvanised frame and
+    // five A2 armchairs – tall back of five rounded oak slats, slatted seat, oak arms, galvanised cantilever frame
+    {
+      const fg = new THREE.Group(); fg.position.set(3.75, 0, -.15); gp.add(fg);
+      const oakG = std('#a8794b', { roughness: .7 }), galv = std('#c3c7c9', { metalness: .75, roughness: .35 });
+      const rodG = (p, a, b, r = .012) => { const v = new THREE.Vector3().subVectors(b, a), m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, v.length(), 6), galv); m.position.copy(a).addScaledVector(v, .5); m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), v.clone().normalize()); m.castShadow = true; p.add(m); };
+      const V = (x, y, z) => new THREE.Vector3(x, y, z);
+      // table Ø 1.0 m, 0.72 high: nine planks cut to the circle
+      for (let i = 0; i < 9; i++) { const z = -.45 + i * .1125 + .05, w = 2 * Math.sqrt(Math.max(0, .25 - z * z)); if (w > .1) box(fg, -w / 2, w / 2, .7, .73, z - .048, z + .048, oakG); }
+      for (const a of [0, Math.PI / 2]) { const c = Math.cos(a), s2 = Math.sin(a); rodG(fg, V(-c * .42, .02, -s2 * .42), V(c * .3, .69, s2 * .3), .014); rodG(fg, V(c * .42, .02, s2 * .42), V(-c * .3, .69, -s2 * .3), .014); }
+      const chair = ang => {
+        const c = new THREE.Group(); c.position.set(Math.cos(ang) * .82, 0, Math.sin(ang) * .82); c.rotation.y = -ang - Math.PI / 2; fg.add(c);   // local +z faces the table
+        for (let i = 0; i < 5; i++) box(c, -.24 + i * .1, -.24 + i * .1 + .085, .42, .45, -.22, .22, oakG);                  // seat slats
+        const back = new THREE.Group(); back.position.set(0, .45, -.24); back.rotation.x = -.22; c.add(back);
+        for (let i = 0; i < 5; i++) { const x = -.22 + i * .11, h = .55 + (i === 2 ? .04 : i % 2 ? .02 : 0); box(back, x - .045, x + .045, 0, h, -.012, .012, oakG); }
+        for (const x of [-.29, .29]) { box(c, x - .025, x + .025, .62, .645, -.22, .2, oakG); rodG(c, V(x, .45, .12), V(x, .62, .1)); rodG(c, V(x, .45, -.22), V(x, .62, -.2)); }
+        rodG(c, V(-.25, .02, .3), V(.25, .02, .3)); for (const x of [-.25, .25]) { rodG(c, V(x, .02, .3), V(x, .02, -.18)); rodG(c, V(x, .02, -.18), V(x, .42, .02)); }   // cantilever runners
+      };
+      for (let k = 0; k < 5; k++) chair(k / 5 * Math.PI * 2 + Math.PI / 2);
+      [...fg.children].forEach(F);
+    }
+    // pizza oven: timber stand 1.15 × 1.0 × 0.8 with birch underneath, white render slab, brick dome with grey bands,
+    // black steel front and door, stainless flue – the opening faces the Ofyr
+    const po = new THREE.Group(); po.position.set(-2.1, 0, -.9); po.rotation.y = Math.atan2(2.1, .9) - Math.PI / 2; gp.add(po);
+    const tw = std('#b39874', { roughness: .85 });
+    for (const [x, z] of [[-.52, -.45], [.52, -.45], [-.52, .45], [.52, .45]]) box(po, x - .05, x + .05, 0, .8, z - .05, z + .05, tw);
+    box(po, -.58, .58, .76, .82, -.5, .5, tw); box(po, -.55, .55, .12, .16, -.48, .48, tw);
+    for (let i = 0; i < 10; i++) { const lg = cyl(po, 0, 0, 0, .05 + (i % 3) * .01, .44, std(i % 2 ? '#e8e3d8' : '#c9ab78', { roughness: .95 }), 8); lg.rotation.z = Math.PI / 2; lg.rotation.y = Math.PI / 2; lg.position.set(-.4 + (i % 5) * .2, .21 + Math.floor(i / 5) * .1, (rnd() - .5) * .05); }
+    const slab0 = cyl(po, 0, .82, 0, .6, .1, std('#e9e6df', { roughness: .95 }), 36);
+    const brick = canvasTex(256, 128, (c, w, h) => { c.fillStyle = '#7e7a73'; c.fillRect(0, 0, w, h); for (let y = 0, r = 0; y < h; y += 16, r++) { c.fillStyle = r % 3 === 2 ? '#8a867f' : '#d17a3f'; for (let x = (r % 2) * 16 - 16; x < w; x += 32) c.fillRect(x + 1, y + 2, 30, 12); } });
+    const dome = new THREE.Mesh(new THREE.SphereGeometry(.52, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2), std('#ffffff', { map: brick, roughness: .85 }));
+    dome.scale.y = .78; dome.position.y = .92; dome.castShadow = true; po.add(dome);
+    const cap = new THREE.Mesh(new THREE.SphereGeometry(.42, 24, 10, 0, Math.PI * 2, 0, .9), std('#e9e6df', { roughness: .95 })); cap.scale.y = .78; cap.position.y = .96; po.add(cap);
+    box(po, .38, .56, .92, 1.27, -.27, .27, steel);                       // black steel front
+    box(po, .555, .565, .95, 1.17, -.2, .2, std('#120c08'));                // the mouth
+    const glow = new THREE.Mesh(new THREE.PlaneGeometry(.36, .14), new THREE.MeshBasicMaterial({ color: '#e0782f' })); glow.rotation.y = Math.PI / 2; glow.position.set(.567, 1.0, 0); po.add(glow);
+    cyl(po, .32, 1.27, 0, .075, .55, std('#c9cbcc', { metalness: .85, roughness: .25 }), 20);
+    cyl(po, .32, 1.27, 0, .085, .2, std('#3a2f28', { roughness: .7 }), 20);
+    label(yard, 3.5, 1.9, 13.5, 'Grillplats', 'Ofyr · pizzaugn', { eyebrow: 'Tomten', title: 'Grillplatsen', rows: [['Plats', 'Sydväst om huset, bortom trädäcket'], ['Grill', 'Svart Ofyr – stekhäll runt elden, ved i foten'], ['Pizzaugn', 'Vedeldad, tegelvalv på träbord, ved under'], ['Möbler', 'Grythyttan: runt ekbord Ø 1 m och fem karmstolar A2, öster om Ofyren']], text: 'Placerad efter fotonas GPS-position, alltså ungefärligt. Säg till om den ska flyttas.', focus: [yard, 3.5, 13.5] });
+    labels[labels.length - 1].key = 'site';
+  }
+  // trampoline: straight south of the house, in line with the entrance (Gustav, 18 Oct):
+  // 4.3 m frame on W legs, black mat, pale pads, safety net on eight curved poles
+  {
+    const tp = new THREE.Group(); tp.position.set(7.7, 0, 39.8); g.add(tp);   // just outside the southern plot line (Gustav 19 Oct: it really stands outside)
+    const R = 2.15, H = .85, blk = std('#202224', { roughness: .6, metalness: .3 });
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(R, .035, 8, 64), std('#9fa3a6', { metalness: .7, roughness: .35 })); ring.rotation.x = Math.PI / 2; ring.position.y = H; ring.castShadow = true; tp.add(ring);
+    const mat = new THREE.Mesh(new THREE.CircleGeometry(R - .32, 48), std('#18191a', { roughness: .9, side: THREE.DoubleSide })); mat.rotation.x = -Math.PI / 2; mat.position.y = H - .02; mat.receiveShadow = true; tp.add(mat);
+    const pad = new THREE.Mesh(new THREE.RingGeometry(R - .34, R + .04, 64), std('#e7e5df', { roughness: .8, side: THREE.DoubleSide })); pad.rotation.x = -Math.PI / 2; pad.position.y = H + .03; pad.castShadow = true; tp.add(pad);
+    for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2, x = Math.cos(a) * R, z = Math.sin(a) * R; for (const d of [-.18, .18]) { const lg = box(tp, -.02, .02, 0, H, -.02, .02, std('#9fa3a6', { metalness: .7, roughness: .35 })); lg.position.set(x + Math.cos(a + Math.PI / 2) * d, H / 2, z + Math.sin(a + Math.PI / 2) * d); } }
+    const NH = 1.8, net = new THREE.Mesh(new THREE.CylinderGeometry(R - .05, R - .05, NH, 48, 1, true), new THREE.MeshStandardMaterial({ color: '#222', transparent: true, opacity: .28, side: THREE.DoubleSide, depthWrite: false }));
+    net.position.y = H + NH / 2; tp.add(net);
+    const top = new THREE.Mesh(new THREE.TorusGeometry(R - .05, .02, 6, 64), blk); top.rotation.x = Math.PI / 2; top.position.y = H + NH; tp.add(top);
+    for (let i = 0; i < 8; i++) { const a = (i + .5) / 8 * Math.PI * 2, p = box(tp, -.025, .025, 0, NH + .05, -.025, .025, std('#e7e5df', { roughness: .7 })); p.position.set(Math.cos(a) * (R - .02), H + NH / 2, Math.sin(a) * (R - .02)); }
+    label(yard, 7.7, 3.1, 39.8, 'Studsmatta', 'ca 4,3 m', { eyebrow: 'Tomten', title: 'Studsmattan', rows: [['Storlek', 'ca 4,3 m med skyddsnät'], ['Plats', 'Strax utanför tomtgränsen i söder, i linje med entrén']], text: 'Står strax utanför tomtgränsen söder om huset, i linje med entrén.', focus: [yard, 7.7, 39.8] });
+    labels[labels.length - 1].key = 'site';
+  }
+  // black slatted fence north of the limestone patio (planned, Gustav 18 Oct): from the attefallshus' north-west corner
+  // out onto the gravel, west along the patio and back towards the main house – horizontal boards ~12 cm with
+  // narrow gaps, 1.8 m high, square posts every ~1.8 m standing a hand above the boards (like the bin screen photo)
+  {
+    const fb = std('#1f1d1b', { roughness: .85 }), HB = 1.8;
+    // second run (Gustav 18 Oct): closes the gap between the main house's north-east corner and the attefallshus' south-east corner
+    // runs re-laid 19 Oct (Gustav's red lines): 1) from the patio corner north 1.35 m, east to the attefallshus, back along its
+    // gable; 2) from just east of the main house's east gable a short leg east, then north flush with the attefallshus' back
+    // (east) wall, stopping 20 cm short of its south gable
+    for (const run of [[[15.05, -12.6], [15.05, -13.95], [19.85, -13.95], [19.85, -11.5]], [[22.05, 1.65], [23.2, 1.65], [23.2, -2.3]]]) for (let i = 0; i < run.length - 1; i++) {
+      const [ax, az] = run[i], [bx, bz] = run[i + 1], len = Math.hypot(bx - ax, bz - az), ang = Math.atan2(bz - az, bx - ax);
+      const seg = new THREE.Group(); seg.position.set(ax, 0, az); seg.rotation.y = -ang; g.add(seg);
+      for (let y = .08; y + .12 <= HB + .01; y += .145) box(seg, 0, len, y, y + .12, -.012, .012, fb);
+      const n = Math.max(1, Math.ceil(len / 1.8));
+      for (let k = 0; k <= n; k++) { const x = len * k / n; box(seg, x - .045, x + .045, 0, HB + .1, .012, .102, fb); }
+    }
+  }
+  // five bike-shed proposals (Gustav 19 Oct 2026) against the north side of the new fence, opening towards the
+  // driveway; all stay between the fence's two ends (never past the attefallshus end at x 18.6). Room for 5 bikes.
+  var BIKES = [];
+  {
+    const X1 = 15.15, X2 = 19.75, ZB = -14.07, D = 1.95, ZF = ZB - D, LEN = X2 - X1, fb = std('#1f1d1b', { roughness: .85 });
+    const steel = std('#2a2b2c', { metalness: .6, roughness: .45 }), sedum = std('#7a8a52', { roughness: 1 }), oak = std('#a9865d', { roughness: .8 });
+    const rod = (p, a, b, r, mat) => { const v = new THREE.Vector3().subVectors(b, a), m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, v.length(), 6), mat); m.position.copy(a).addScaledVector(v, .5); m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), v.clone().normalize()); m.castShadow = true; p.add(m); };
+    const bike = (p, x, s, col) => {   // a bike parked with its front wheel towards the fence
+      const c = new THREE.Group(); c.position.set(x, 0, ZB - .95); c.scale.setScalar(s); p.add(c); const fr = std(col, { metalness: .4, roughness: .5 }), V = (a, b, d) => new THREE.Vector3(a, b, d);
+      for (const z of [.52, -.52]) { const w = new THREE.Mesh(new THREE.TorusGeometry(.33, .022, 6, 28), M.black); w.rotation.y = Math.PI / 2; w.position.set(0, .35, z); w.castShadow = true; c.add(w); }
+      rod(c, V(0, .35, -.52), V(0, .5, -.05), .016, fr); rod(c, V(0, .5, -.05), V(0, .8, .25), .018, fr); rod(c, V(0, .35, .52), V(0, .82, .38), .016, fr);
+      rod(c, V(0, .5, -.05), V(0, .82, -.12), .016, fr); rod(c, V(0, .82, -.12), V(0, .82, .32), .018, fr); rod(c, V(0, .35, -.52), V(0, .82, -.12), .012, fr);
+      rod(c, V(-.24, .92, .36), V(.24, .92, .36), .014, M.black); box(c, -.06, .06, .86, .9, -.2, -.05, M.black);
+    };
+    const bikes = p => [[15.75, 1, '#4a5a66'], [16.5, 1, '#2e2e2e'], [17.25, .88, '#8c3b2e'], [17.95, .8, '#d7d2c6'], [18.6, .72, '#3f6b54']].forEach(([x, s, c]) => bike(p, x, s, c));
+    const slats = (p, ax, az, bx, bz, h, y0 = 0, vertical = false) => {   // the fence's own board pattern
+      const len = Math.hypot(bx - ax, bz - az), seg = new THREE.Group(); seg.position.set(ax, 0, az); seg.rotation.y = -Math.atan2(bz - az, bx - ax); p.add(seg);
+      if (vertical) for (let x = .02; x + .1 <= len; x += .135) box(seg, x, x + .1, y0, y0 + h, -.012, .012, fb);
+      else for (let y = y0 + .08; y + .12 <= y0 + h + .01; y += .145) box(seg, 0, len, y, y + .12, -.012, .012, fb);
+    };
+    const post = (p, x, z, h, mat = fb, w = .09) => box(p, x - w / 2, x + w / 2, 0, h, z - w / 2, z + w / 2, mat);
+    const make = (title, rows, text) => { const v = new THREE.Group(); v.visible = false; g.add(v); BIKES.push({ v, inf: { eyebrow: 'Cykelförråd · förslag ' + (BIKES.length + 1), title, rows: [['Mått', `${LEN.toFixed(2).replace('.', ',')} × ${D.toFixed(2).replace('.', ',')} m (ca ${(LEN * D).toFixed(1).replace('.', ',')} m²)`], ...rows, ['Plats', 'Mot planket, norr om kalkstensytan – öppnas mot uppfarten']], text: text + ' Under 15 m² och lägre än 3 m kan det byggas som friggebod utan bygglov – stäm av med Region Gotland, särskilt avståndet till tomtgränsen.' } }); return v; };
+
+    { // 1 · the fence becomes the shed: same black boards, flat black roof, two sliding board doors
+      const v = make('Planket som förråd', [['Höjd', '2,0 m'], ['Väggar', 'Samma liggande svarta läkt som planket'], ['Tak', 'Svart plåt, nästan plant'], ['Dörrar', 'Två skjutdörrar i läkt']], 'Förrådet ser ut som en förlängning av planket – samma brädor, samma höjd, inget nytt material.');
+      slats(v, X1, ZB, X1, ZF, 1.8); slats(v, X2, ZF, X2, ZB, 1.8); slats(v, X1, ZF, X1 + 1.2, ZF, 1.8); slats(v, X2 - 1.2, ZF, X2, ZF, 1.8);
+      slats(v, X1 + 1.05, ZF - .06, X1 + 2.25, ZF - .06, 1.8);   // a door slid half open
+      for (const [x, z] of [[X1, ZF], [X2, ZF], [X1, ZB], [X2, ZB], [X1 + 1.2, ZF], [X2 - 1.2, ZF]]) post(v, x, z, 1.95);
+      box(v, X1 - .08, X2 + .08, 1.95, 2.02, ZF - .12, ZB + .04, M.black); box(v, X1 + 1.1, X2 - 1.1, 1.88, 1.92, ZF - .1, ZF - .06, steel);   // roof + door rail
+      bikes(v);
+    }
+    { // 2 · a little sister of the attefallshus: black boards, mono-pitch standing seam, white trim, double doors
+      const v = make('Lillasyster till attefallshuset', [['Höjd', '2,0–2,4 m'], ['Väggar', 'Stående svart panel som attefallshuset'], ['Tak', 'Pulpettak i bandtäckt plåt, 11° som attefallshuset'], ['Dörrar', 'Pardörrar mot uppfarten + högt fönsterband']], 'Samma material och takvinkel som attefallshuset, så de tre svarta husen hör ihop. Helt stängt och låsbart.');
+      const H1 = 2.0, H2 = 2.0 + D * Math.tan(11 * Math.PI / 180), tw = .1;
+      box(v, X1, X2, 0, H2, ZB - tw, ZB, M.blackBoard);
+      for (const x of [X1, X2 - tw]) { box(v, x, x + tw, 0, H1, ZF, ZB, M.blackBoard); prismZY(v, [[ZF, H1], [ZB, H1], [ZB, H2]], x, x + tw, M.blackBoard); }
+      box(v, X1, X1 + 1.25, 0, H1, ZF, ZF + tw, M.blackBoard); box(v, X2 - 1.25, X2, 0, H1, ZF, ZF + tw, M.blackBoard);
+      box(v, X1 + 1.25, X2 - 1.25, 1.95, H1, ZF, ZF + tw, M.blackBoard);
+      box(v, X1 + 1.25, X1 + 2.2, 0, 1.95, ZF - .02, ZF + .02, M.black); const dr = box(v, 0, .95, 0, 1.95, -.02, .02, M.black); dr.position.set(X2 - 2.2, 0, ZF - .02); dr.rotation.y = .9;   // one door open
+      box(v, X1 - .02, X2 + .02, H1 - .12, H1 - .02, ZF - .02, ZF, M.white);
+      box(v, X1 - .01, X1 + .01, 1.55, 1.85, ZF + .3, ZB - .3, M.glass);
+      slab(v, X1 - .15, X2 + .15, ZF - .3, H1 - .06, ZB + .1, H2 + .02, .05, M.roof, .5);
+      bikes(v);
+    }
+    { // 3 · an open bike roof: slim black steel posts, a thin standing-seam roof, the fence as the back wall
+      const v = make('Öppet cykeltak', [['Höjd', '2,1 m'], ['Stomme', 'Svarta stålstolpar 80 × 80'], ['Tak', 'Tunn bandtäckt plåt, svart kant'], ['Ställ', 'Hjulställ i galv mot planket']], 'Lättast och billigast: inga väggar, planket blir bakvägg. Cyklarna står torrt och syns från uppfarten – passar om ni mest vill ha regnskydd.');
+      for (const [x, z] of [[X1 + .1, ZF + .1], [X2 - .1, ZF + .1], [X1 + .1, ZB - .1], [X2 - .1, ZB - .1], [(X1 + X2) / 2, ZF + .1]]) post(v, x, z, 2.1, steel, .08);
+      slab(v, X1 - .1, X2 + .1, ZF - .35, 2.12, ZB + .02, 2.04, .04, M.roof, .5); box(v, X1 - .1, X2 + .1, 2.08, 2.18, ZF - .38, ZF - .33, M.black);
+      box(v, X1 + .2, X2 - .2, .02, .08, ZB - .55, ZB - .5, M.galv); for (let x = X1 + .4; x < X2 - .3; x += .35) box(v, x - .01, x + .01, .02, .45, ZB - .55, ZB - .2, M.galv);
+      bikes(v);
+    }
+    { // 4 · green roof: vertical black slats, sedum on a flat roof that the house and the attefallshus look down on
+      const v = make('Sedumtak och stående läkt', [['Höjd', '2,1 m'], ['Väggar', 'Stående svart läkt med luft emellan'], ['Tak', 'Sedum på platt tak, ek-list runt'], ['Öppning', 'Öppen front mot uppfarten']], 'Ett grönt tak som ser ut som en del av trädgården när man tittar ner från huset, och stående läkt som skiljer det från planket utan att krocka.');
+      slats(v, X1, ZB, X1, ZF, 1.95, 0, true); slats(v, X2, ZF, X2, ZB, 1.95, 0, true); slats(v, X1, ZF, X1 + .9, ZF, 1.95, 0, true); slats(v, X2 - .9, ZF, X2, ZF, 1.95, 0, true);
+      for (const [x, z] of [[X1, ZF], [X2, ZF], [X1, ZB], [X2, ZB]]) post(v, x, z, 2.0);
+      box(v, X1 - .12, X2 + .12, 1.98, 2.1, ZF - .12, ZB + .05, oak); box(v, X1 - .06, X2 + .06, 2.1, 2.16, ZF - .06, ZB, sedum);
+      for (let i = 0; i < 60; i++) { const x = X1 + rnd() * LEN, z = ZF + rnd() * D, r = .06 + rnd() * .1, m = new THREE.Mesh(new THREE.IcosahedronGeometry(r, 0), std(['#8a9a5b', '#a3a35e', '#b07a54', '#6f8150'][i % 4], { flatShading: true })); m.position.set(x, 2.17, z); m.scale.y = .5; v.add(m); }
+      bikes(v);
+    }
+    { // 5 · limestone and gable: dry-stacked Gotland limestone ends, black slats above, a small 16° saddle roof like the house
+      const v = make('Kalksten och sadeltak', [['Höjd', '2,0 m till takfot, ca 2,3 m nock'], ['Väggar', 'Kalkstensmur 0,9 m + svart läkt'], ['Tak', 'Sadeltak 16° i bandtäckt plåt som huvudhuset'], ['Öppning', 'Öppen front mellan murarna']], 'Knyter ihop kalkstensytan och huvudhusets tak: kalksten nedtill, samma svarta läkt som planket ovanpå och samma taklutning som boningshuset.');
+      const stoneWall = (x1, x2, z1, z2, h) => { for (let y = 0; y < h - .01; y += .15) { let along = x2 - x1 > z2 - z1, p0 = along ? x1 : z1, p1 = along ? x2 : z2, q = (y / .15) % 2 ? .12 : 0; let a = p0 - q; while (a < p1) { const b = Math.min(p1, a + .28 + rnd() * .3), mat = std(['#d6cdb9', '#c8bfab', '#ddd5c4', '#bfb7a6', '#cfc4ae'][(rnd() * 5) | 0], { roughness: .95 }); if (b > p0) along ? box(v, Math.max(a, p0) + .006, b - .006, y, y + .14, z1, z2, mat) : box(v, x1, x2, y, y + .14, Math.max(a, p0) + .006, b - .006, mat); a = b; } } };
+      stoneWall(X1, X1 + .3, ZF, ZB, .9); stoneWall(X2 - .3, X2, ZF, ZB, .9); stoneWall(X1, X1 + 1.0, ZF, ZF + .3, .9); stoneWall(X2 - 1.0, X2, ZF, ZF + .3, .9);
+      slats(v, X1 + .15, ZB, X1 + .15, ZF, 1.05, .9); slats(v, X2 - .15, ZF, X2 - .15, ZB, 1.05, .9);
+      for (const [x, z] of [[X1 + .15, ZF + .15], [X2 - .15, ZF + .15], [X1 + .15, ZB - .15], [X2 - .15, ZB - .15]]) post(v, x, z, 1.98);
+      const PT = Math.tan(16 * Math.PI / 180), mid = (ZF + ZB) / 2, ov = .3, rid = 2.0 + (D / 2 + ov) * PT;
+      slab(v, X1 - .2, X2 + .2, ZF - ov, 2.0, mid, rid, .05, M.roof, .5); slab(v, X1 - .2, X2 + .2, ZB + ov, 2.0, mid, rid, .05, M.roof, .5);
+      for (const x of [X1 - .02, X2 - .08]) prismZY(v, [[ZF, 2.0], [ZB, 2.0], [mid, rid - .05]], x, x + .1, M.blackBoard);
+      bikes(v);
+    }
+    { // 6 · the black slatted shed of Gustav's photo (IMG_3154), built together with the new fence (19 Oct): the fence is its
+      // back wall, slatted sides, open to the drive in the north, a felt mono-pitch on exposed rafters rising towards the
+      // opening with an open strip above the side boards, concrete blocks. 3.0 × 2.4 m.
+      const v = new THREE.Group(); v.visible = false; g.add(v);
+      BIKES.push({ v, inf: { eyebrow: 'Cykelförråd · förslag 6', title: 'Svart läktförråd ihopbyggt med planket', rows: [['Mått', '3,0 × 2,4 m (ca 7,2 m²)'], ['Höjd', 'ca 2,35 m mot uppfarten, 2,0 m vid planket'], ['Väggar', 'Planket är bakvägg; gavlarna i samma liggande svarta läkt'], ['Tak', 'Pulpettak med svart takpapp på synliga takstolar'], ['Grund', 'Betongplintar'], ['Plats', 'Norr om planket vid kalkstensytan, öppet mot uppfarten, ca 8 m till tomtgränsen']],
+        text: 'Som på bilden, men ihopbyggt med planket så att det ser ut som en del av det. Lov: under 15 m², lägre än 3 m och mer än 4,5 m från tomtgränsen – det kan byggas som friggebod utan bygglov. Men glashuset på ritningen BA4 är också en friggebod på 15 m², och tillsammans får friggebodar vara högst 15 m². Byggs glashuset behöver förrådet alltså bygglov eller anmälas som attefallsbyggnad om det finns utrymme kvar – stäm av med Region Gotland.' } });
+      const A = 15.15, B = 18.15, C = ZB - 2.4, E = ZB, y0 = .2, felt = std('#1c1c1d', { roughness: .95 }), conc = std('#b9b5ad', { roughness: .95 });
+      const H = z => 2.0 + (E - z) * .35 / (E - C);
+      for (const x of [A + .1, (A + B) / 2, B - .1]) for (const z of [C + .1, E - .15]) box(v, x - .1, x + .1, 0, y0, z - .1, z + .1, conc);
+      box(v, A, B, y0 - .06, y0, C, E - .05, fb);                                                   // floor frame
+      slats(v, A + .03, C, A + .03, E, 1.55, y0); slats(v, B - .03, E, B - .03, C, 1.55, y0);
+      for (const x of [A + .05, B - .05]) for (const z of [C + .05, E - .08]) post(v, x, z, H(z), fb, .09);
+      post(v, (A + B) / 2, C + .05, H(C), fb, .09);
+      box(v, A, B, H(C) - .14, H(C), C - .02, C + .08, fb); box(v, A, B, H(E) - .14, H(E), E - .12, E - .02, fb);   // top beams
+      const ang = Math.atan(.35 / (E - C));
+      for (let x = A + .02; x < B; x += .6) { const r = new THREE.Mesh(new THREE.BoxGeometry(.045, .12, E - C + .7), fb); r.position.set(Math.min(x, B - .03), (H(C) + H(E)) / 2 + .06, (C + E) / 2 - .1); r.rotation.x = ang; r.castShadow = true; v.add(r); }   // rafters
+      { const L2 = (E - C + .7) / Math.cos(ang), m = new THREE.Mesh(new THREE.BoxGeometry(B - A + .5, .04, L2), felt); m.position.set((A + B) / 2, (H(C) + H(E)) / 2 + .14, (C + E) / 2 - .1); m.rotation.x = ang; m.castShadow = m.receiveShadow = true; v.add(m); }
+      [[15.6, 1, '#4a5a66'], [16.3, 1, '#2e2e2e'], [17.0, .88, '#8c3b2e'], [17.7, .8, '#d7d2c6']].forEach(([x, sc, c]) => bike(v, x, sc, c));
+      v.userData.clear = [A - .5, B + .5, C - .5, E + .2];
+    }
+    // 7–9 (Gustav 26 Oct): the roof of proposal 2 – standing-seam mono-pitch at 11°, like the attefallshus – on every one,
+    // and the front towards the drive left completely open: no doors at all
+    const P2 = { tw: .1, H1: 2.0, H2: 2.0 + D * Math.tan(11 * Math.PI / 180) };
+    const roof2 = (v, front = .3) => slab(v, X1 - .15, X2 + .15, ZF - front, P2.H1 - .06 - (front - .3) * Math.tan(11 * Math.PI / 180), ZB + .1, P2.H2 + .02, .05, M.roof, .5);
+    const rack = v => { box(v, X1 + .2, X2 - .2, .02, .08, ZB - .55, ZB - .5, M.galv); for (let x = X1 + .4; x < X2 - .3; x += .35) box(v, x - .01, x + .01, .02, .45, ZB - .55, ZB - .2, M.galv); };
+    { // 7 · the little sister with its front taken away: black standing panel on three sides, white trim along the open front
+      const v = make('Lillasyster – helt öppen', [['Höjd', '2,0–2,4 m'], ['Väggar', 'Stående svart panel på tre sidor'], ['Tak', 'Pulpettak i bandtäckt plåt, 11° som attefallshuset'], ['Front', 'Helt öppen mot uppfarten, vit list under takfoten']], 'Förslag 2 utan dörrar: samma svarta panel och samma tak, men hela framsidan öppen så att man rullar rakt in. Hjulställ i galv längs bakväggen.');
+      const { tw, H1, H2 } = P2;
+      box(v, X1, X2, 0, H2, ZB - tw, ZB, M.blackBoard);
+      for (const x of [X1, X2 - tw]) { box(v, x, x + tw, 0, H1, ZF, ZB, M.blackBoard); prismZY(v, [[ZF, H1], [ZB, H1], [ZB, H2]], x, x + tw, M.blackBoard); }
+      box(v, X1, X2, H1 - .16, H1, ZF, ZF + tw, M.blackBoard); box(v, X1 - .02, X2 + .02, H1 - .2, H1 - .14, ZF - .02, ZF + .01, M.white);
+      for (const x of [X1, X2 - .04]) box(v, x, x + .04, 0, H1 - .14, ZF - .02, ZF + .01, M.white);
+      roof2(v); rack(v); bikes(v);
+    }
+    { // 8 · light and air: vertical slats with gaps on the sides and back, slim steel posts at the open front, an oak shelf for helmets and pump
+      const v = make('Stående läkt och ljusinsläpp', [['Höjd', '2,0–2,4 m'], ['Väggar', 'Stående svart läkt med glipor – ljus och luft igenom'], ['Stomme', 'Smala svarta stålstolpar i fronten'], ['Tak', 'Pulpettak i bandtäckt plåt, 11°'], ['Inne', 'Ekhylla för hjälmar och pump på östra gaveln']], 'Luftigare än en sluten bod: läkten släpper igenom ljus, så det känns lätt från gården, men cyklarna står ändå skyddade. Fronten är helt öppen mellan två smala stålstolpar.');
+      const { H1, H2 } = P2;
+      slats(v, X1, ZB, X1, ZF, H1, 0, true); slats(v, X2, ZF, X2, ZB, H1, 0, true); slats(v, X1, ZB - .02, X2, ZB - .02, H1, 0, true);
+      for (const x of [X1, X2 - .05]) prismZY(v, [[ZF, H1], [ZB, H1], [ZB, H2]], x, x + .05, M.blackBoard);
+      box(v, X1, X2, H1, H2, ZB - .07, ZB - .02, M.blackBoard);
+      for (const x of [X1 + .05, X2 - .05]) post(v, x, ZF + .05, H1, steel, .07);
+      box(v, X1, X2, H1 - .14, H1, ZF, ZF + .1, steel);
+      box(v, X2 - .35, X2 - .05, 1.42, 1.46, ZF + .4, ZB - .4, oak); box(v, X2 - .35, X2 - .05, 1.72, 1.76, ZF + .4, ZB - .4, oak);
+      for (const z of [ZF + .7, ZF + 1.0]) { const hm = new THREE.Mesh(new THREE.SphereGeometry(.13, 12, 8, 0, Math.PI * 2, 0, Math.PI / 2), std(z < ZF + .8 ? '#c9452f' : '#e8e4da', { roughness: .5 })); hm.position.set(X2 - .2, 1.46, z); hm.castShadow = true; v.add(hm); }
+      roof2(v); bikes(v);
+    }
+    { // 9 · a deep porch roof: half-height black walls, open above, the roof carried 0.9 m out over the drive on two posts with a bench under it
+      const v = make('Djupt tak med bänk', [['Höjd', '2,0–2,4 m, väggar 1,1 m'], ['Väggar', 'Halvhöga väggar i liggande svart läkt, öppet ovanför'], ['Tak', 'Pulpettak i bandtäckt plåt, 11°, 0,9 m utskjutande på två stolpar'], ['Front', 'Helt öppen, ekbänk under taksprånget']], 'Taket fortsätter ut över uppfarten som ett litet skärmtak – man kan stå torrt när man låser cykeln, och bänken under blir en plats att sätta på sig skorna. Halvhöga väggar gör att det känns öppet.');
+      const { H1, H2 } = P2, OUT = .9, slope = Math.tan(11 * Math.PI / 180);
+      slats(v, X1, ZB, X1, ZF, 1.1); slats(v, X2, ZF, X2, ZB, 1.1); slats(v, X1, ZB - .02, X2, ZB - .02, 1.1);
+      for (const [x, z] of [[X1 + .05, ZB - .05], [X2 - .05, ZB - .05], [X1 + .05, ZF + .05], [X2 - .05, ZF + .05]]) post(v, x, z, z > ZF + 1 ? H2 : H1, fb, .09);
+      for (const x of [X1 + .05, X2 - .05]) post(v, x, ZF - OUT + .1, H1 - (OUT - .1) * slope, steel, .08);
+      box(v, X1, X2, H1 - .14 - OUT * slope, H1 - OUT * slope, ZF - OUT + .05, ZF - OUT + .15, fb);
+      box(v, X1, X2, H2 - .14, H2, ZB - .1, ZB, fb);
+      box(v, X1 + .3, X1 + 1.9, .42, .46, ZF - .65, ZF - .3, oak); for (const x of [X1 + .4, X1 + 1.8]) box(v, x - .03, x + .03, 0, .42, ZF - .6, ZF - .35, fb);
+      roof2(v, OUT + .2); rack(v); bikes(v);
+    }
+  }
+  // deck furniture
+  // HAY Palissade in hot-dip galvanised steel (Gustav 19 Oct): two low lounge chairs along the long side with their backs
+  // to the wall, the lounge table to their right (east), the lounge sofa on the west short side against the screen
+  {
+    const gv = std('#b6babc', { metalness: .8, roughness: .38 }), up = new THREE.Vector3(0, 1, 0);
+    const tube = (p, a, b, r = .0125) => { const A = new THREE.Vector3(...a), B = new THREE.Vector3(...b), d = B.clone().sub(A);
+      const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, d.length(), 10), gv); m.position.copy(A).addScaledVector(d, .5);
+      m.quaternion.setFromUnitVectors(up, d.normalize()); m.castShadow = true; p.add(m); };
+    const strip = (p, x, pts, w = .045, th = .005) => { for (let i = 1; i < pts.length; i++) { const [z1, y1] = pts[i - 1], [z2, y2] = pts[i];
+      const len = Math.hypot(z2 - z1, y2 - y1), m = new THREE.Mesh(new THREE.BoxGeometry(w, th, len + .004), gv);
+      m.position.set(x, (y1 + y2) / 2, (z1 + z2) / 2); m.rotation.x = -Math.atan2(y2 - y1, z2 - z1); m.castShadow = true; p.add(m); } };
+    // the curled front, the dipping seat and the leaning back of every strip (side profile: z forward, y up)
+    const PROF = [[.31, .33], [.37, .345], [.39, .385], [.36, .41], [.28, .395], [.05, .35], [-.15, .34], [-.25, .37], [-.3, .45], [-.36, .66], [-.37, .69], [-.385, .68]];
+    const lounge = (x, z, rot, w) => { const p = new THREE.Group(); p.position.set(x, .33, z); p.rotation.y = rot; g.add(p);
+      const hw = w / 2, D = .4;
+      for (const sx of [-hw, hw]) { tube(p, [sx, 0, -D], [sx, .66, -D]); tube(p, [sx, 0, D - .04], [sx, .55, D - .04]);
+        tube(p, [sx, .55, D - .04], [sx, .57, -D + .02]); tube(p, [sx, .22, -D], [sx, .22, D - .04], .01); }   // legs, armrest, side rail
+      tube(p, [-hw, .68, -D + .01], [hw, .68, -D + .01]); tube(p, [-hw, .3, D - .06], [hw, .3, D - .06]); tube(p, [-hw, .3, -.2], [hw, .3, -.2]);
+      tube(p, [-hw, .2, 0], [hw, .2, 0], .009);
+      const n = Math.round((w - .08) / .07); for (let i = 0; i < n; i++) strip(p, -hw + .06 + i * (w - .12) / (n - 1), PROF);
+      for (const c of p.children) F(c); return p; };
+    lounge(4.25, 5.87, 0, .76); lounge(5.13, 5.87, 0, .76);
+    lounge(3.22, 6.39, Math.PI / 2, 1.68);
+    { const p = new THREE.Group(); p.position.set(6.2, .33, 5.95); g.add(p); const hw = .41, hd = .41, h = .38;   // lounge table
+      for (const sx of [-hw, hw]) for (const sz of [-hd, hd]) tube(p, [sx, 0, sz], [sx, h - .03, sz], .014);
+      for (const sz of [-hd, hd]) tube(p, [-hw, h - .03, sz], [hw, h - .03, sz], .014);
+      for (const sx of [-hw, hw]) tube(p, [sx, h - .06, -hd], [sx, h - .06, hd], .01);
+      for (let i = 0; i < 20; i++) { const x = -hw + .03 + i * (2 * hw - .06) / 19;
+        strip(p, x, [[-hd - .01, h - .06], [-hd + .02, h - .005], [-hd + .06, h], [hd - .06, h], [hd - .02, h - .005], [hd + .01, h - .06]], .03); }
+      for (const c of p.children) F(c); }
+  }
+  // wine-barrel planters with sea buckthorn, raised beds
+  // half wine barrels (courtyard photo 2026): weathered grey oak staves with dark joints, widest at the cut top, three
+  // galvanised hoops, a thick rim, soil, and a sea-buckthorn of thin stems with narrow silvery leaves
+  const staveTex = canvasTex(512, 128, (c, w, h) => { c.fillStyle = '#9d968a'; c.fillRect(0, 0, w, h); const n = 24;
+    for (let i = 0; i < n; i++) { const x = i * w / n; c.fillStyle = `hsl(${30 + rnd() * 12},${6 + rnd() * 6}%,${50 + rnd() * 14}%)`; c.fillRect(x, 0, w / n, h);
+      for (let k = 0; k < 7; k++) { c.strokeStyle = `rgba(60,55,48,${.12 + rnd() * .15})`; c.lineWidth = 1; c.beginPath(); const gx = x + rnd() * w / n; c.moveTo(gx, 0); c.bezierCurveTo(gx + 2, h * .3, gx - 2, h * .7, gx + 1, h); c.stroke(); }
+      c.fillStyle = 'rgba(35,32,28,.75)'; c.fillRect(x, 0, 2, h); } }, [1, 1]);
+  const barrelMat = std('#ffffff', { map: staveTex, roughness: .9 }), hoopMat = std('#8a8e90', { metalness: .55, roughness: .5 }), soilMat = std('#3f342a', { roughness: 1 });
+  const barrel = (x, z, r = .52, h = 1.0, plant = true) => {
+    const R = y => r * (.86 + .14 * Math.sin(Math.min(1, y / h) * Math.PI / 2)), th = .035, prof = [];
+    for (let i = 0; i <= 12; i++) { const y = h * i / 12; prof.push(new THREE.Vector2(R(y), y)); }
+    prof.push(new THREE.Vector2(R(h) - th, h), new THREE.Vector2(R(h - .12) - th, h - .12));
+    const b = new THREE.Mesh(new THREE.LatheGeometry(prof, 48), barrelMat); b.position.set(x, 0, z); b.castShadow = b.receiveShadow = true; g.add(b);
+    for (const y of [.1, h * .6, h - .08]) { const t = new THREE.Mesh(new THREE.TorusGeometry(R(y) + .004, .012, 4, 40), hoopMat); t.rotation.x = Math.PI / 2; t.scale.z = 2.6; t.position.set(x, y, z); g.add(t); }
+    const soil = new THREE.Mesh(new THREE.CircleGeometry(R(h - .1) - th, 32), soilMat); soil.rotation.x = -Math.PI / 2; soil.position.set(x, h - .1, z); g.add(soil);
+    if (!plant) return;
+    const barkS = std('#6b5d4e', { roughness: .9 }), tips = [];
+    for (let k = 0; k < 7; k++) { const a = rnd() * Math.PI * 2, d = rnd() * r * .4, top = new THREE.Vector3(x + Math.cos(a) * (d + .25 + rnd() * .4), h + .9 + rnd() * .9, z + Math.sin(a) * (d + .25 + rnd() * .4)), base = new THREE.Vector3(x + Math.cos(a) * d, h - .1, z + Math.sin(a) * d);
+      const v = new THREE.Vector3().subVectors(top, base), m = new THREE.Mesh(new THREE.CylinderGeometry(.008, .018, v.length(), 5), barkS); m.position.copy(base).addScaledVector(v, .5); m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), v.normalize()); m.castShadow = true; g.add(m); tips.push(base, top); }
+    const leaf = new THREE.PlaneGeometry(.022, .14), LM = new THREE.InstancedMesh(leaf, std('#ffffff', { side: THREE.DoubleSide, roughness: .8 }), 900), o = new THREE.Object3D(), c = new THREE.Color();
+    for (let i = 0; i < 900; i++) { const k = (rnd() * 7) | 0, a = tips[k * 2], bb = tips[k * 2 + 1], t = .35 + rnd() * .65; o.position.lerpVectors(a, bb, t).add(new THREE.Vector3((rnd() - .5) * .35, (rnd() - .5) * .2, (rnd() - .5) * .35));
+      o.rotation.set(rnd() * 3, rnd() * 6.3, rnd() * 3); o.updateMatrix(); LM.setMatrixAt(i, o.matrix); LM.setColorAt(i, c.set(['#a3ad97', '#8f9a83', '#b7bea9', '#7d886f'][(rnd() * 4) | 0])); }
+    LM.castShadow = true; g.add(LM);
+    // havtorn berries: dense orange clusters along the upper stems (sea buckthorn – used for jam and juice)
+    const BM = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(.012, 0), std('#ffffff', { roughness: .4, emissive: '#5a2a00', emissiveIntensity: .35 }), 600);
+    for (let i = 0; i < 600; i++) { const k = (rnd() * 7) | 0, a = tips[k * 2], bb = tips[k * 2 + 1]; o.position.lerpVectors(a, bb, .45 + rnd() * .5).add(new THREE.Vector3((rnd() - .5) * .05, (rnd() - .5) * .05, (rnd() - .5) * .05));
+      o.rotation.set(0, 0, 0); o.scale.setScalar(.8 + rnd() * .5); o.updateMatrix(); BM.setMatrixAt(i, o.matrix); BM.setColorAt(i, c.set(['#ffa23a', '#ffb44a', '#f28c2a'][(rnd() * 3) | 0])); }
+    g.add(BM);
+  };
+  for (const [x, z] of [[7.5, -3.96], [10.6, -3.96], [12.9, -3.96]]) barrel(x, z, .62, 1.2);   // 20 % bigger (Gustav 19 Oct)
+  // a small barrel (a third of the big ones) with a ficus, by the garage's south-east corner (Gustav 19 Oct)
+  { const fx = 10.95, fz = -7.85, r = .62 / 3, h = 1.2 / 3; barrel(fx, fz, r, h, false);   // by the garage's south-east corner, just past the shortened canopy (Gustav 19 Oct)
+    const tr = std('#8a7f72', { roughness: .8 }), V = (a, b, c) => new THREE.Vector3(a, b, c), lim = (a, b, w) => { const v = new THREE.Vector3().subVectors(b, a), m = new THREE.Mesh(new THREE.CylinderGeometry(w * .7, w, v.length(), 6), tr); m.position.copy(a).addScaledVector(v, .5); m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), v.clone().normalize()); m.castShadow = true; g.add(m); };
+    const top = V(fx + .03, h + .85, fz - .02); lim(V(fx, h - .05, fz), top, .03); const tips = [];
+    for (let k = 0; k < 6; k++) { const a = k / 6 * 6.283 + rnd() * .4, t = V(fx + Math.cos(a) * (.25 + rnd() * .15), h + .95 + rnd() * .35, fz + Math.sin(a) * (.25 + rnd() * .15)); lim(top, t, .015); tips.push(t); }
+    const leafG = new THREE.CircleGeometry(.05, 10); leafG.scale(1, 1.8, 1);
+    const LF = new THREE.InstancedMesh(leafG, std('#ffffff', { side: THREE.DoubleSide, roughness: .35, metalness: .05 }), 520), o = new THREE.Object3D(), c = new THREE.Color();
+    for (let i = 0; i < 520; i++) { const t = tips[i % tips.length], u = rnd() * 6.283, d = Math.sqrt(rnd()) * .28; o.position.set(t.x + Math.cos(u) * d, t.y - .1 + rnd() * .3, t.z + Math.sin(u) * d); o.rotation.set(rnd() * 3, rnd() * 6.3, rnd() * 3); o.updateMatrix(); LF.setMatrixAt(i, o.matrix); LF.setColorAt(i, c.set(['#2f5a25', '#3a6a2c', '#27501f', '#456f30'][(rnd() * 4) | 0])); }
+    LF.castShadow = true; g.add(LF);
+    const soil2 = new THREE.Mesh(new THREE.CircleGeometry(r * .88, 20), soilMat); soil2.rotation.x = -Math.PI / 2; soil2.position.set(fx, h - .1, fz); g.add(soil2); }
+  barrel(22.2, 6.0, .42, .85, false);
+  const crate = (x1, x2, z1, z2, h) => { const gw = M.greyWood; box(g, x1 + .05, x2 - .05, .05, h - .05, z1 + .05, z2 - .05, soilMat);
+    for (let y = 0; y < h - .05; y += .16) { box(g, x1, x2, y, y + .14, z1, z1 + .03, gw); box(g, x1, x2, y, y + .14, z2 - .03, z2, gw); box(g, x1, x1 + .03, y, y + .14, z1, z2, gw); box(g, x2 - .03, x2, y, y + .14, z1, z2, gw); }
+    const n = Math.max(1, Math.round((x2 - x1) / 1.2)); for (let k = 0; k <= n; k++) { const x = x1 + (x2 - x1) * k / n; for (const z of [z1, z2]) box(g, Math.max(x1, x - .045), Math.min(x2, x + .045), 0, h + .14, z - .045, z + .045, gw); } };
+  // sunflowers (long bed by the garage) and rhubarb (the bed by the patio, now a third longer) – Gustav 19 Oct
+  const headTex = canvasTex(256, 256, (c, w, h) => { c.clearRect(0, 0, w, h); c.translate(w / 2, h / 2);
+    for (let r = 0; r < 2; r++) for (let i = 0; i < 26; i++) { c.save(); c.rotate(i / 26 * 6.283 + r * .12); c.fillStyle = r ? '#f6c21c' : '#e8a812'; c.beginPath(); c.ellipse(0, -78, 13, 46, 0, 0, 6.283); c.fill(); c.restore(); }
+    const gr = c.createRadialGradient(0, 0, 4, 0, 0, 52); gr.addColorStop(0, '#2c1a0c'); gr.addColorStop(1, '#5a3412'); c.fillStyle = gr; c.beginPath(); c.arc(0, 0, 52, 0, 6.283); c.fill();
+    for (let i = 0; i < 300; i++) { const a = i * 2.39996, d = Math.sqrt(i) * 2.9; c.fillStyle = 'rgba(20,12,6,.6)'; c.fillRect(Math.cos(a) * d, Math.sin(a) * d, 2, 2); } });
+  const headMat = std('#ffffff', { map: headTex, transparent: true, alphaTest: .4, side: THREE.DoubleSide, roughness: .7 });
+  const stemMat = std('#5d7f2f', { roughness: .8 }), sfLeaf = std('#4f7a2a', { side: THREE.DoubleSide, roughness: .75 });
+  const heart = (() => { const sh = new THREE.Shape(); sh.moveTo(0, 0); sh.bezierCurveTo(-.5, .25, -.45, .85, 0, 1); sh.bezierCurveTo(.45, .85, .5, .25, 0, 0); return new THREE.ShapeGeometry(sh, 10); })();
+  const sunflower = (x, z, hgt) => {
+    const st = cyl(g, x, .73, z, .018, hgt, stemMat, 6); st.rotation.z = (rnd() - .5) * .08;
+    for (let i = 0; i < 5; i++) { const y = .95 + i * (hgt - .5) / 5, lf = new THREE.Mesh(heart, sfLeaf); lf.scale.setScalar(.22 + (4 - i) * .03); lf.position.set(x, y, z); lf.rotation.set(-1.0 - rnd() * .4, i * 2.4 + rnd(), 0); lf.castShadow = true; g.add(lf); }
+    const hd = new THREE.Mesh(new THREE.PlaneGeometry(.42, .42), headMat); hd.position.set(x, .73 + hgt + .08, z + .08); hd.rotation.x = -.35; hd.castShadow = true; g.add(hd);
+    const back = new THREE.Mesh(new THREE.CircleGeometry(.1, 16), stemMat); back.position.set(x, .73 + hgt + .08, z + .06); back.rotation.x = Math.PI - .35; g.add(back);
+  };
+  const rhuStalk = std('#a8323a', { roughness: .6 }), rhuLeaf = std('#4c7a2c', { side: THREE.DoubleSide, roughness: .85 });
+  const rhubarb = (x, z) => {
+    for (let i = 0; i < 7; i++) { const a = i / 7 * 6.283 + rnd() * .5, len = .45 + rnd() * .25, tip = new THREE.Vector3(x + Math.cos(a) * len * .7, .73 + .35 + rnd() * .25, z + Math.sin(a) * len * .7);
+      const base = new THREE.Vector3(x, .73, z), v = new THREE.Vector3().subVectors(tip, base), m = new THREE.Mesh(new THREE.CylinderGeometry(.012, .018, v.length(), 6), rhuStalk); m.position.copy(base).addScaledVector(v, .5); m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), v.clone().normalize()); g.add(m);
+      const lf = new THREE.Mesh(heart, rhuLeaf); lf.scale.set(.62 + rnd() * .15, .58 + rnd() * .15, 1); lf.position.copy(tip); lf.rotation.order = 'YXZ'; lf.rotation.set(-1.45 + rnd() * .25, -a - Math.PI / 2, (rnd() - .5) * .3); lf.castShadow = true; g.add(lf); }
+  };
+  crate(7.07, 11.0, -6.48, -5.39, .78);
+  for (let k = 0; k < 9; k++) sunflower(7.35 + k * .42 + (rnd() - .5) * .08, k % 2 ? -5.7 : -6.15, 1.45 + rnd() * .5);
+  crate(13.4, 16.87, -6.7, -5.8, .78);
+  for (const x of [13.95, 15.1, 16.25]) rhubarb(x, -6.25);
+  // the second bed runs parallel to the main house, west of the patio, with a low grey rail along its house side (photos)
+  for (const x of [13.45, 14.6, 15.75, 16.82]) box(g, x - .045, x + .045, 0, 1.05, -5.85, -5.76, M.greyWood);   // bed + rail (bed a third longer to the east, Gustav 19 Oct)
+  for (const y of [.82, 1.0]) box(g, 13.4, 16.87, y, y + .07, -5.85, -5.79, M.greyWood);
+  // firewood under the band window F6 (photo 2026): black boards with gaps and a post sticking up behind; split birch and
+  // pine of mixed shapes – halves, quarters, wedges, a few rounds – ends towards you, heaped and falling away at the west end
+  const fw = new THREE.Group(); fw.position.y = .012; g.add(fw);
+  for (let i = 0; i < 6; i++) { const y = .06 + i * .19; box(fw, 10.68, 14.36, y, y + .16, -.22, -.18, M.blackTrim); }
+  for (const x of [10.75, 12.32, 13.84]) box(fw, x - .05, x + .05, .9, 1.26, -.25, -.21, M.blackTrim);   // posts sticking up (photo)
+  for (const z of [-.33, -.57]) box(fw, 10.0, 14.45, 0, .07, z - .04, z + .04, M.greyWood);
+  // solid cross-sections extruded along the log: wedge, half, quarter, round; end grain (caps) light, bark (sides) grey-brown
+  const sec = pts => { const sh = new THREE.Shape(pts.map(([a, b]) => new THREE.Vector2(a, b))); const geo = new THREE.ExtrudeGeometry(sh, { depth: 1, bevelEnabled: false, curveSegments: 7 }); geo.translate(0, 0, -.5); return geo; };
+  const arc = (a0, a1, n, cx = 0, cy = 0) => Array.from({ length: n + 1 }, (_, i) => { const a = a0 + (a1 - a0) * i / n; return [cx + Math.cos(a), cy + Math.sin(a)]; });
+  const logGeo = [
+    sec([[0, -.55], ...arc(Math.PI * .2, Math.PI * .8, 4, 0, -.55).map(([x, y]) => [x * 1.1, y + .15])]),   // wedge with a bark arc
+    sec(arc(0, Math.PI, 8)),                                                                                 // half
+    sec([[0, 0], ...arc(0, Math.PI / 2, 5)]),                                                                // quarter
+    sec(arc(0, Math.PI * 2, 10).slice(0, -1)),                                                               // round
+  ];
+  const LOGC = ['#d8cfc2', '#cfc3ae', '#e6d6b8', '#f2dfbd', '#e9c99a', '#dcd7cf', '#bfb4a3', '#f5efe4', '#c9b79a', '#a99c88'];
+  const endMat = std('#f0dcb4', { roughness: .95, flatShading: true }), barkMat = std('#a39684', { roughness: 1, flatShading: true });
+  const IM = logGeo.map(geo => { const m = new THREE.InstancedMesh(geo, [endMat, barkMat], 700); m.count = 0; m.castShadow = m.receiveShadow = true; fw.add(m); return m; });
+  const lo = new THREE.Object3D(), lc = new THREE.Color();
+  const put = (x, y, r) => {
+    const t = rnd(), gi = t < .32 ? 0 : t < .62 ? 1 : t < .88 ? 2 : 3, m = IM[gi]; if (m.count >= 700) return;
+    lo.position.set(x, y, -.45 + (rnd() - .5) * .04); lo.rotation.set((rnd() - .5) * .08, (rnd() - .5) * .08, rnd() * 6.28);
+    lo.scale.set(r * (gi === 3 ? .8 : 1.1), r * (gi === 3 ? .8 : 1.1), .3 + rnd() * .08); lo.updateMatrix();
+    m.setMatrixAt(m.count, lo.matrix); m.setColorAt(m.count, lc.set(LOGC[(rnd() * LOGC.length) | 0]).offsetHSL(0, 0, (rnd() - .5) * .06)); m.count++;
+  };
+  const top = x => { const t = (x - 10.0) / 4.45; return 1.0 - .25 * t + .05 * Math.sin(x * 7.3) - (t < .07 ? (.07 - t) * 6 : 0); };   // highest at the west, ~0.75 at the east end, falling away at the west tip (photo)
+  for (let y = .12; y < 1.1; y += .1) { let x = 10.0 + rnd() * .05; while (x < 14.4) { const r = .05 + rnd() * .035; if (y < top(x)) put(x + r, y + (rnd() - .5) * .03, r); x += r * 1.75; } }
+  IM.forEach(m => { m.instanceMatrix.needsUpdate = true; if (m.instanceColor) m.instanceColor.needsUpdate = true; });
+}
+
+// vegetation: junipers (enbuskar), pines, a few broadleaves; instanced for speed
+function bush(x, y, z, r, h, pal) {
+  for (let i = 0; i < 4; i++) {
+    const m = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 1), std(pal[i % pal.length], { flatShading: true }));
+    m.scale.set(r * (.6 + rnd() * .4), h * (.4 + rnd() * .3), r * (.6 + rnd() * .4)); m.position.set(x + (rnd() - .5) * r, y + h * .35 + rnd() * h * .2, z + (rnd() - .5) * r);
+    m.castShadow = true; yard.add(m);
+  }
+}
+{
+  const blocked = (x, z, m = 1.6) => {
+    const zones = [[-2.9, L + .9, -1.0, W + .8], [-2.5, 21.4, -13.6, -1.0], [11.0, 23.5, -13.2, 0], [2.4, 9.4, W, 7.8], [-.5, 7.5, 9.8, 17.2], [5.2, 10.4, 37.4, 42.4], [13.3, 19.0, -16.3, -11.2], [45, 49, -19, -11], [-11.3, -7.3, 9.4, 12.6]];
+    for (const [a, b, c, d] of zones) if (x > a - m && x < b + m && z > c - m && z < d + m) return true;
+    for (const p of window.__drive) if ((p.x - x) ** 2 + (p.z - z) ** 2 < (2.8 + m * .5) ** 2) return true;
+    const g2 = new THREE.Vector3(47, 0, -15); if ((x - 47) ** 2 + (z + 15) ** 2 < 100) return true;
+    return false;
+  };
+  const jun = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(1, 1), std('#ffffff', { flatShading: true, roughness: 1 }), 900);
+  const JC = ['#3f5a2f', '#4a6636', '#36502a', '#5a7040', '#556b3c', '#2f4626'];
+  let n = 0; const o = new THREE.Object3D(), c = new THREE.Color();
+  const put = (x, z, r, h) => {
+    for (let i = 0; i < 3 && n < 900; i++) {
+      o.position.set(x + (rnd() - .5) * r * .7, h * (.3 + rnd() * .25), z + (rnd() - .5) * r * .7); o.rotation.set(rnd(), rnd() * 6, rnd() * .3);
+      o.scale.set(r * (.55 + rnd() * .35), h * (.45 + rnd() * .25), r * (.55 + rnd() * .35)); o.updateMatrix(); jun.setMatrixAt(n, o.matrix);
+      jun.setColorAt(n++, c.set(JC[(rnd() * JC.length) | 0]));
+    }
+  };
+  // hand-placed junipers close to the house (south facade photos)
+  for (const [x, z, r, h] of [[1.0, 8.6, 1.4, 2.4], [4.8, 8.8, 1.6, 2.2], [11.5, 8.0, 1.5, 2.6], [15.6, 8.4, 1.7, 2.8], [19.0, 7.9, 1.3, 2.3], [-3.6, 7.2, 1.5, 2.4], [-4.2, -.5, 1.6, 2.5], [23.3, 3.6, 1.5, 2.6], [25.5, -9.5, 1.8, 2.8], [12.5, -14.8, 1.6, 2.6], [-3.6, -11.5, 1.5, 2.4]]) put(x, z, r, h);
+  let tries = 0;
+  while (n < 520 && tries++ < 6000) {
+    const x = -55 + rnd() * 125, z = -70 + rnd() * 120;
+    if (blocked(x, z)) continue;
+    const forest = x < -14 && z < -8;
+    if (forest && rnd() < .6) continue;
+    const near = Math.hypot(x - 12, z + 2) < 35;
+    if (!near && rnd() < .75) continue;
+    const s = .7 + rnd() * 1.1; put(x, z, s, s * (1.2 + rnd() * .9));
+  }
+  // clear junipers on the parking bay, by the tub and on the spur – after placement, so nothing else moves
+  { const m4 = new THREE.Matrix4(), p = new THREE.Vector3(), zero = new THREE.Matrix4().makeScale(0, 0, 0);
+    const inPoly = (x, z) => { let c = false; for (let i = 0, j = PARK_POLY.length - 1; i < PARK_POLY.length; j = i++) { const [xi, zi] = PARK_POLY[i], [xj, zj] = PARK_POLY[j]; if ((zi > z) !== (zj > z) && x < (xj - xi) * (z - zi) / (zj - zi) + xi) c = !c; } return c; };
+    for (let i = 0; i < n; i++) { jun.getMatrixAt(i, m4); p.setFromMatrixPosition(m4); if ([[0, 0], [1.2, 0], [-1.2, 0], [0, 1.2], [0, -1.2]].some(([dx, dz]) => inPoly(p.x + dx, p.z + dz)) || Math.hypot(p.x - TUB[0], p.z - TUB[1]) < 2.2 || Math.hypot(p.x - 12.5, p.z + 14.8) < 1.7 || Math.hypot(p.x - 15.5, p.z + 38.4) < 2.0 || Math.hypot(p.x - 20.0, p.z + 18.9) < 1.2 || SPUR.some(q => Math.hypot(p.x - q.x, p.z - q.z) < 2.4)) jun.setMatrixAt(i, zero); } }
+  jun.count = n; jun.castShadow = true; jun.receiveShadow = true; jun.instanceColor.needsUpdate = true; yard.add(jun);
+  // pines: the pine wood to the north-west (aerials) plus scattered trees
+  const crown = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(1, 1), std('#ffffff', { flatShading: true }), 600), trunk = new THREE.InstancedMesh(new THREE.CylinderGeometry(.14, .22, 1, 6), M.bark, 200);
+  let nc = 0, nt = 0;
+  const pine = (x, z, h) => {
+    o.position.set(x, h * .4, z); o.rotation.set(0, 0, (rnd() - .5) * .12); o.scale.set(1, h * .8, 1); o.updateMatrix(); trunk.setMatrixAt(nt++, o.matrix);
+    for (let i = 0; i < 3; i++) { o.position.set(x + (rnd() - .5) * 1.8, h * (.62 + i * .13), z + (rnd() - .5) * 1.8); o.rotation.set(0, rnd() * 6, 0); o.scale.set(1.6 + rnd() * 1.2, .7 + rnd() * .4, 1.6 + rnd() * 1.2); o.updateMatrix(); crown.setMatrixAt(nc, o.matrix); crown.setColorAt(nc++, c.set(['#2f4a2a', '#3a5530', '#2a4024'][i % 3])); }
+  };
+  for (let i = 0; i < 160 && nt < 190; i++) { const x = -70 + rnd() * 56, z = -80 + rnd() * 74; if (x > -16 && z > -12) continue; if (blocked(x, z, 3)) continue; pine(x, z, 8 + rnd() * 6); }
+  for (const [x, z] of [[-9, 14], [30, 22], [-14, -22], [58, 8]]) pine(x, z, 9 + rnd() * 3);
+  crown.count = nc; trunk.count = nt; crown.castShadow = trunk.castShadow = true; crown.instanceColor.needsUpdate = true; yard.add(crown, trunk);
+  // broadleaves (ash, whitebeam) by the house
+  const BROAD = [];
+  for (const [x, z, h] of [[-4.6, 9.5, 6.5], [26.5, 9.5, 7], [9.5, 14.5, 6]]) {   // the one at (−5, −6) removed (Gustav 19 Oct)
+    const n0 = yard.children.length;
+    cyl(yard, x, 0, z, .18, h * .55, M.bark, 8);
+    bush(x, h * .42, z, 2.6, h * .6, ['#6f9a46', '#5f8a3c', '#7fa652']);
+    BROAD.push({ x, z, ms: yard.children.slice(n0) });
+  }
+  // deck and pool ideas for the west and south side round the glasveranda's extension (Gustav 19 Oct: 'radera tidigare
+  // förslag … gör nya på denna sida av huset … 5 idéer'), from a plain deck to a lap pool. Hidden groups; showing one
+  // clears the trees standing on it (junipers, pines, the broadleaves) and puts them back when hidden again.
+  var POOLS = [];
+  {
+    const keep = new Map(), m4 = new THREE.Matrix4(), p = new THREE.Vector3(), zero = new THREE.Matrix4().makeScale(0, 0, 0);
+    const active = {};   // key ('pool', 'bike') → the rectangle shown now
+    POOLS.clear = (key, r) => { active[key] = r; const rs = Object.values(active).filter(Boolean), inR = (x, z, m) => rs.some(q => x > q[0] - m && x < q[1] + m && z > q[2] - m && z < q[3] + m);
+      for (const im of [jun, crown, trunk]) { if (!keep.has(im)) keep.set(im, Array.from({ length: im.count }, (_, i) => { im.getMatrixAt(i, m4); return m4.clone(); }));
+        keep.get(im).forEach((M0, i) => { p.setFromMatrixPosition(M0); im.setMatrixAt(i, inR(p.x, p.z, 1.2) ? zero : M0); }); im.instanceMatrix.needsUpdate = true; }
+      for (const b of BROAD) { const hide = inR(b.x, b.z, 1.6); b.ms.forEach(m => m.visible = !hide); } };
+    const water = std('#4f9aa6', { roughness: .08, metalness: .15, transparent: true, opacity: .92 }), plaster = std('#dfe7e6', { roughness: .6 }), lime = std('#d9d3c4', { roughness: .8 });
+    const greyOak = std('#a19c93', { map: oakTex, roughness: .9 }), galvP = std('#b6babc', { metalness: .8, roughness: .38 }), DY = .33;
+    const make = (title, r, rows, text) => { const v = new THREE.Group(); v.visible = false; yard.add(v); POOLS.push({ v, r, inf: { eyebrow: 'Trall & pool · idé ' + (POOLS.length + 1), title, rows, text } }); return v; };
+    const deck = (v, x1, x2, z1, z2) => { for (let x = x1; x < x2 - .02; x += .145) box(v, x, Math.min(x + .132, x2), DY - .035, DY, z1, z2, greyOak); box(v, x1 + .03, x2 - .03, 0, DY - .035, z1 + .03, z2 - .03, M.black); };
+    const steps = (v, x1, x2, z) => { for (const [d, y] of [[.0, .22], [.32, .11]]) box(v, x1, x2, y - .04, y, z + d, z + d + .3, greyOak); };
+    const pool = (v, X1, X2, Z1, Z2, depth = 1.4) => {   // a pool let into the deck: limestone coping, white walls, water just under the deck
+      for (const [a, b, c, d] of [[X1 - .3, X2 + .3, Z1 - .3, Z1], [X1 - .3, X2 + .3, Z2, Z2 + .3], [X1 - .3, X1, Z1, Z2], [X2, X2 + .3, Z1, Z2]]) box(v, a, b, DY - .05, DY + .01, c, d, lime);
+      for (const [a, b, c, d] of [[X1, X2, Z1, Z1 + .05], [X1, X2, Z2 - .05, Z2], [X1, X1 + .05, Z1, Z2], [X2 - .05, X2, Z1, Z2]]) box(v, a, b, DY - depth, DY - .05, c, d, plaster);
+      box(v, X1, X2, DY - depth - .05, DY - depth, Z1, Z2, plaster); box(v, X1 + .02, X2 - .02, DY - .14, DY - .1, Z1 + .02, Z2 - .02, water); };
+    const deckAround = (v, x1, x2, z1, z2, X1, X2, Z1, Z2) => {   // a deck with a pool-sized hole (incl. 0.3 m coping)
+      const a = X1 - .3, b = X2 + .3, c = Z1 - .3, d = Z2 + .3;
+      if (c > z1) deck(v, x1, x2, z1, c); if (d < z2) deck(v, x1, x2, d, z2); if (a > x1) deck(v, x1, a, Math.max(c, z1), Math.min(d, z2)); if (b < x2) deck(v, b, x2, Math.max(c, z1), Math.min(d, z2)); };
+    const lounger = (v, x, z, rot) => { const c = new THREE.Group(); c.position.set(x, DY, z); c.rotation.y = rot; v.add(c);
+      box(c, -.32, .32, .3, .36, -.95, .5, greyOak); box(c, -.32, .32, .36, .7, .5, .62, greyOak); for (const [a, b] of [[-.28, -.9], [.28, -.9], [-.28, .45], [.28, .45]]) box(c, a - .025, a + .025, 0, .3, b - .025, b + .025, galvP);
+      box(c, -.3, .3, .36, .42, -.9, .5, M.linen); };
+    const spa = (v, cx, cz, y0) => { cyl(v, cx, y0, cz, 1.1, .9, greyOak, 32); cyl(v, cx, y0 + .9, cz, 1.12, .05, std('#3b3e41', { roughness: .5 }), 32);
+      cyl(v, cx, y0 + .78, cz, 1.0, .12, water, 32); box(v, cx - 1.05, cx - .55, y0 + .95, y0 + 1.05, cz - .8, cz + .8, std('#3b3e41', { roughness: .6 })); };
+    const southDeck = v => { deck(v, -6.4, 2.6, 5.18, 7.4); deck(v, -6.4, -4.2, 1.2, 5.18); steps(v, -3.0, .0, 7.4); };   // round the extension, joining the present south deck at x 2.6
+    const FRIG = 'Friggebod/glashuset i norr påverkas inte.';
+    { // 1 · the deck alone
+      const v = make('Trädäck runt glasverandan', [-6.6, 2.6, 1.0, 7.8],
+        [['Däck', 'ca 29 m² i golvhöjd (0,33 m), grånad trall som det befintliga däcket'], ['Form', 'L-format: 2,2 m väster om tillbyggnaden + 2,2 m längs hela södersidan'], ['Sol', 'Söder hela dagen, väster eftermiddag–kväll'], ['Lov', 'Ett markplant däck under 1,2 m behöver normalt inget lov']],
+        'Grundidén som de andra bygger vidare på: tillbyggnaden får ett trädäck i samma höjd som golvet, som går runt hörnet och knyter ihop med däcket i söder. Man kliver rakt ut från glasverandan, och hela södersidan blir en sammanhängande uteplats. ' + FRIG);
+      southDeck(v); lounger(v, -5.3, 2.4, Math.PI / 2); lounger(v, -5.3, 3.6, Math.PI / 2);
+    }
+    { // 2 · deck + sunken hot tub + outdoor shower, next to the wood-fired tub
+      const v = make('Spadäck med bubbelpool', [-6.6, 2.6, 0.6, 7.8],
+        [['Däck', 'Som idé 1, västra delen bredare (från z 0,6)'], ['Spa', 'Bubbelpool Ø 2,2 m infälld halvvägs i däcket väster om tillbyggnaden'], ['Dusch', 'Utedusch vid däckets sydvästra hörn'], ['Badtunnan', 'Står kvar strax väster om däcket – ett samlat badställe']],
+        'Det enklaste sättet att få ett riktigt badställe: ingen grävning för pool, bara ett varmt kar i däcket intill verandan – åretrunt-bad med några steg från dörren, och badtunnan bredvid för vedeldade kvällar.');
+      deck(v, -6.4, 2.6, 5.18, 7.4); deck(v, -6.4, -4.2, .6, 5.18); steps(v, -3.0, .0, 7.4); spa(v, -5.3, 2.2, -.3);
+      box(v, -6.25, -6.17, DY, DY + 2.2, 6.9, 6.98, galvP); box(v, -6.25, -5.85, DY + 2.15, DY + 2.2, 6.9, 6.98, galvP); cyl(v, -5.9, DY + 2.05, 6.94, .12, .03, galvP, 16);
+    }
+    { // 3 · a reflecting pool on the house's axis, out from the extension's west glass
+      const X1 = -8.0, X2 = -4.7, Z1 = 2.9, Z2 = 4.46;
+      const v = make('Vattenspegel i husets axel', [-8.6, 2.6, 1.0, 7.8],
+        [['Vatten', 'Smal grund bassäng 3,3 × 1,6 m, ca 0,5 m djup, i husets mittaxel'], ['Däck', 'Runt spegeln väster om tillbyggnaden + längs södersidan'], ['Känsla', 'Speglar himlen och tallarna, ljud av vatten, svalka för fötterna'], ['Obs', 'Ca 1 m kvar till tomtgränsen i väster']],
+        'Arkitektens lugna variant: i stället för en stor pool förlänger en smal vattenspegel husets axel genom glasverandan ut mot skogen. Litet underhåll, ingen pooltekniksbod, och den ser lika vacker ut i november som i juli.');
+      deckAround(v, -8.6, -4.2, 1.6, 5.18, X1, X2, Z1, Z2); deck(v, -6.4, 2.6, 5.18, 7.4); steps(v, -3.0, .0, 7.4); pool(v, X1, X2, Z1, Z2, .5);
+    }
+    { // 4 · a plunge pool in the sheltered room between the glass house and the glasveranda
+      const X1 = -3.8, X2 = -1.0, Z1 = -.9, Z2 = 1.7;
+      const v = make('Atriumpool mellan glashusen', [-4.4, 2.6, -1.5, 7.8],
+        [['Pool', 'Doppbassäng 2,8 × 2,6 m, 1,4 m djup'], ['Läge', 'I rummet mellan glashuset (friggeboden) och glasverandan – båda öppnar sig mot vattnet'], ['Däck', 'Runt poolen och vidare runt tillbyggnaden till södersidan'], ['Sol', 'Mitt på dagen och eftermiddag; lä åt alla håll']],
+        'Den mest arkitektoniska idén: poolen blir mittpunkten i ett litet atrium mellan de två glasbyggnaderna. Glashuset med kamin blir poolhus för kalla kvällar, verandan blir omklädning, och köket ligger några steg bort.');
+      deckAround(v, -4.2, -.05, -1.43, 2.18, X1, X2, Z1, Z2); southDeck(v); pool(v, X1, X2, Z1, Z2);
+      lounger(v, -5.3, 2.4, Math.PI / 2);
+    }
+    { // 5 · a lap pool along the south side, out from the extension
+      const X1 = -5.6, X2 = 1.8, Z1 = 7.2, Z2 = 9.8;
+      const v = make('Långpool längs södersidan', [-6.6, 2.6, 1.0, 10.6],
+        [['Pool', 'Simbassäng 7,4 × 2,6 m (ca 19 m² vatten), 1,4 m djup'], ['Läge', 'Parallellt med huset, söder om tillbyggnaden och glasverandan'], ['Däck', 'Stor trall runt poolen som går ihop med det befintliga däcket'], ['Sol', 'Hela dagen'], ['Obs', 'Lövträdet söder om verandan och några enar tas ner']],
+        'Den stora lösningen: en smal simbassäng längs husets södersida, infälld i en sammanhängande trall. Från glasverandan går man ut på däcket och ner i vattnet; det befintliga däcket blir solplats vid poolens östra ände.');
+      deck(v, -6.4, -4.2, 1.2, 5.18); deckAround(v, -6.4, 2.6, 5.18, 10.4, X1, X2, Z1, Z2); pool(v, X1, X2, Z1, Z2);
+      for (const x of [-1.2, .2, 1.6]) lounger(v, x, 6.2, 0);
+    }
+  }
+}
+
+// ---------- sun: Gotland, 57.3° N, 18.4° E ----------
+const LAT = 57.27 * Math.PI / 180;
+const COMPASS = ['N', 'NO', 'O', 'SO', 'S', 'SV', 'V', 'NV'];
+const sunH = document.getElementById('sun-h'), sunM = document.getElementById('sun-m');
+for (let m = 0; m < 12; m++) sunM.append(new Option(new Date(2026, m, 15).toLocaleDateString('sv-SE', { month: 'short' }), m));
+sunM.value = '6';
+function updateSun() {
+  const hour = +sunH.value, mo = +sunM.value, n = 15 + 30.4 * mo, dec = 23.44 * Math.PI / 180 * Math.sin(2 * Math.PI * (284 + n) / 365);
+  const noon = mo >= 3 && mo <= 9 ? 12.78 : 11.78;   // CEST / CET, longitude 18.4° E
+  const ha = (hour - noon) * 15 * Math.PI / 180;
+  const el = Math.asin(Math.sin(LAT) * Math.sin(dec) + Math.cos(LAT) * Math.cos(dec) * Math.cos(ha));
+  const az = Math.atan2(Math.sin(ha), Math.cos(ha) * Math.sin(LAT) - Math.tan(dec) * Math.cos(LAT)) + Math.PI;   // from north, clockwise
+  const d = 110, up = Math.max(el, .03);
+  sun.position.set(SCX + Math.sin(az) * Math.cos(up) * d, Math.sin(up) * d, SCZ - Math.cos(az) * Math.cos(up) * d);
+  const day = Math.max(0, Math.min(1, el / .1));
+  sun.intensity = 2.7 * day; sun.color.set(el < .2 ? '#ffc28a' : '#fff1dc');
+  hemi.intensity = .3 + .85 * day;
+  scene.background.set(day > .3 ? '#dfe8ec' : el > -.1 ? '#e6c7a6' : '#273040'); scene.fog.color.copy(scene.background);
+  const hh = Math.floor(hour), mm = Math.round((hour - hh) * 60);
+  const dir = COMPASS[Math.round(((az * 180 / Math.PI) % 360) / 45) % 8];
+  document.getElementById('sun-t').textContent = `${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')} · ` + (el > 0 ? `solen i ${dir} · ${Math.round(el * 180 / Math.PI)}° höjd` : 'solen har gått ner');
+}
+sunH.oninput = sunM.onchange = updateSun;
+
+// ---------- info card ----------
+const infoEl = document.getElementById('info');
+const swatch = code => `<span class="chip"><i style="background:${NC[code]}"></i>NCS ${code}</span>`;
+const SITE = {
+  eyebrow: 'Fritidshus på Gotland', title: 'Hamra Hulehällar 418D',
+  rows: [['Fastighet', 'Hulehällar 1:26, Hamra'], ['Tomt', `ca ${Math.round(window.__plotArea / 10) * 10} m² (ur situationsplan)`], ['Huvudhus', '122,5 m², varav bostad 114 m²'], ['Glasveranda', '7,5 m²'], ['Gäststuga/garage', '50 m² biyta'], ['Attefallshus', '30 m² (2022)'], ['Uppvärmning', 'Bergvärme, radiatorer'], ['Vatten/avlopp', 'Kommunalt']],
+  text: 'Huvudhus i lättbetong med puts och pannplåtstak, ritat av Jan Jansson ark. (bygglov 2009, arbetsritningar 2010). Ingår i en samfällighet med 28 fastigheter.',
+  src: 'Källor: arbetsritningar A2-1–A2-40, A3-1–A3-5 (2010), bygglov dnr 90346, bygganmälan 2022, kulörbeskrivning, mäklarplan och foton. Placering på tomten ur situationsplanen 2022, kontrollerad mot Lantmäteriets karta och flygbilder.'
+};
+function showInfo(inf = SITE) {
+  infoEl.innerHTML = `${inf !== SITE ? '<button type="button" class="close" id="info-x" aria-label="Stäng">×</button>' : ''}<div class="eyebrow">${inf.eyebrow || ''}</div><h2>${inf.title}</h2>`
+    + (inf.rows ? `<dl>${inf.rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>` : '')
+    + (inf.colors ? `<div class="chips">${inf.colors.map(swatch).join('')}</div>` : '')
+    + (inf.text ? `<p>${inf.text}</p>` : '') + (inf.src ? `<div class="src">${inf.src}</div>` : '');
+  const x = document.getElementById('info-x'); if (x) x.onclick = () => showInfo(SITE);
+  if (inf.focus && mode !== 'walk') { const [g, lx, lz] = inf.focus; const p = g.localToWorld(new THREE.Vector3(lx, 0, lz)); flyTo(null, [p.x, 0, p.z], Math.min(14, camera.position.distanceTo(controls.target))); }
+}
+
+// ---------- buildings, modes, views ----------
+const BLD = {
+  site: { name: 'Hela tomten', cam: [34, 30, 46], tgt: [12, 0, -3] },
+  main: { name: 'Huvudhuset', cam: [10.6, 19, 13], tgt: [10.6, 0, 2.4] },
+  gar: { name: 'Gäststuga & garage', cam: [5.0, 11, 1.5], tgt: [4.8, 0, -10.5] },
+  att: { name: 'Attefallshus', cam: [12.2, 10, -2], tgt: [19.7, 0, -7.5] },
+};
+let bld = 'site', mode = '3d';
+const keyOf = k => k === 'main_v' ? 'main' : k;
+function apply() {
+  const cut = mode === 'plan';
+  for (const k of Object.keys(roofs)) {
+    const kk = keyOf(k), open = mode !== 'walk' && (cut || (bld !== 'site' && kk === bld));
+    roofs[k].visible = !open; ceilings[k].visible = !open;
+  }
+  canopy.visible = roofs.main.visible;
+  for (const c of cuttable) {
+    const top = cut ? Math.min(c.y2, 1.25) : c.y2;
+    c.m.visible = top > c.y1 + .01;
+    if (c.base === undefined) c.base = c.m.scale.y;
+    if (c.m.visible) { const now = top - c.y1; c.m.scale.y = c.base * now / (c.y2 - c.y1); c.m.position.y = c.y1 + now / 2; }
+  }
+  updateLabels();
+  document.querySelectorAll('#blds button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.k === bld)));
+  document.querySelectorAll('#modes button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.k === mode)));
+}
+function updateLabels() {
+  const showRooms = document.getElementById('t-lbl').checked;
+  for (const l of labels) {
+    let v;
+    if (mode === 'walk') v = false;
+    else if (l.key === 'plan') v = plannedG.visible;
+    else if (l.key === 'glass') v = glassG.visible;
+    else if (l.key === 'nb') v = nbG.visible && bld === 'site';
+    else if (l.cls === 'bld') v = bld === 'site' && mode === '3d';
+    else if (l.key === 'site') v = bld === 'site';
+    else v = showRooms && (mode === 'plan' ? (bld === 'site' || keyOf(l.key) === bld) : keyOf(l.key) === bld);
+    l.o.visible = v;
+  }
+}
+// camera flights
+let flight = null;
+function flyTo(pos, tgt, dist) {
+  const p0 = camera.position.clone(), t0 = controls.target.clone(), t1 = new THREE.Vector3(...tgt);
+  let p1;
+  if (pos) p1 = new THREE.Vector3(...pos);
+  else { const dir = p0.clone().sub(t0).normalize(); p1 = t1.clone().add(dir.multiplyScalar(dist)); }
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  flight = { p0, t0, p1, t1, t: reduce ? 1 : 0 };
+}
+function setBld(k) {
+  bld = k; if (mode === 'walk') setMode('3d');
+  const B = BLD[k];
+  if (mode === 'plan') flyTo([B.tgt[0], k === 'site' ? 85 : 26, B.tgt[2] + .01], B.tgt); else flyTo(B.cam, B.tgt);
+  apply(); showInfo(k === 'site' ? SITE : ({ main: MAININFO, gar: labels.find(l => l.key === 'gar' && l.cls === 'bld').o.element.__info, att: labels.find(l => l.key === 'att' && l.cls === 'bld').o.element.__info })[k] || SITE);
+}
+const MAININFO = { eyebrow: 'Byggnad', title: 'Huvudhuset', rows: [['Yta', '122,5 m², bostad 114 m²'], ['Mått', '21,18 × 5,38 m'], ['Tak', 'Sadeltak 16°, pannplåt'], ['Höjd', 'Nock ca 3,55 m, skorsten 4,35 m'], ['Rumshöjd', '2,40 m'], ['Golv', 'Massiv såpad ekparkett'], ['Väggar', 'Lättbetong, puts ute, slamfärg inne']], colors: ['S 1502-Y', 'S 2002-Y', 'S 2502-Y'], text: 'Ett långt, smalt hus i öst–västlig riktning: arbets-/gästrum och glasveranda i väster, allrum med kök och öppen spis i mitten, dusch och sovrum i öster. Stora fasta fönster mot söder, ett högt fönsterband mot norr.' };
+
+function setMode(m) {
+  mode = m;
+  document.body.classList.toggle('walking', m === 'walk');
+  document.getElementById('hint').textContent = m === 'walk' ? 'dra · titta  ·  W A S D / piltangenter · gå  ·  Esc · avsluta' : 'dra · rotera  ·  scrolla · zooma  ·  högerdra · panorera  ·  klicka på ett rum';
+  if (m === 'walk') {
+    controls.enabled = false; flight = null;
+    walker.pos.set(15.2, 1.8, 4.4); walker.yaw = Math.PI / 2; walker.pitch = -.05;
+  } else {
+    controls.enabled = true;
+    const B = BLD[bld];
+    if (m === 'plan') flyTo([B.tgt[0], bld === 'site' ? 85 : 26, B.tgt[2] + .01], B.tgt); else flyTo(B.cam, B.tgt);
+  }
+  apply();
+}
+const VIEWS = {
+  'Från söder': [[9, 2.1, 24], [10, 2.2, 0]],
+  'Gården': [[22, 5.5, -16], [5, .8, -5]],
+  'Ovanifrån': [[12, 95, -2], [12, 0, -3]],
+  'Från vägen': [[8, 4, -34], [9, 1, -6]],
+};
+const mk = (parent, items, on) => items.forEach(([k, n]) => { const b = document.createElement('button'); b.type = 'button'; b.dataset.k = k; b.textContent = n; b.onclick = () => on(k); parent.append(b); });
+mk(document.getElementById('blds'), Object.entries(BLD).map(([k, v]) => [k, v.name]), setBld);
+mk(document.getElementById('modes'), [['3d', '3D'], ['plan', 'Plan'], ['walk', 'Gå runt']], setMode);
+mk(document.getElementById('views'), Object.keys(VIEWS).map(k => [k, k]), k => { if (mode === 'walk') setMode('3d'); bld = 'site'; apply(); flyTo(...VIEWS[k]); });
+// bike-shed proposals: Av · 1–5, the chosen one shown with its card; ?cykel=n opens one directly
+function setBike(n) {
+  BIKES.forEach((b, i) => b.v.visible = i + 1 === n);
+  document.querySelectorAll('#bikes button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.k === n)));
+  if (n) { if (mode === 'walk') setMode('3d'); if (bld !== 'site') { bld = 'site'; apply(); } showInfo(BIKES[n - 1].inf); flyTo([12.2, 4.6, -23.4], [17.4, 1.1, -14.8]); }
+}
+mk(document.getElementById('bikes'), [['0', 'Av'], ...BIKES.map((b, i) => [String(i + 1), String(i + 1)])], k => setBike(+k));
+document.querySelector('#bikes button').setAttribute('aria-pressed', 'true');
+if (new URLSearchParams(location.search).get('cykel')) setTimeout(() => setBike(+new URLSearchParams(location.search).get('cykel')), 1500);
+
+// stash building infos on their label elements for setBld
+for (const l of labels) if (l.cls === 'bld') l.o.element.__info = null;
+{
+  const gi = labels.find(l => l.key === 'gar' && l.cls === 'bld'), ai = labels.find(l => l.key === 'att' && l.cls === 'bld');
+  gi.o.element.__info = { eyebrow: 'Byggnad', title: 'Gäststuga, bod och garage', rows: [['Yta', '50 m² BTA, 43,5 m² BOA'], ['Mått', '12,5 × 4,0 m'], ['Tak', 'Pulpettak, pannplåt'], ['Höjd', '3,0 m mot söder, 2,5 m mot norr'], ['Väggar', 'Regelstomme, svart träpanel'], ['Golv', 'Trä i gäststuga och bod, betong i garaget']], text: 'Ritad av Jan Jansson ark., bygglov 2009-03-13 (dnr 90346). Ritningar A3-1, A3-2.' };
+  ai.o.element.__info = { eyebrow: 'Byggnad', title: 'Attefallshuset', rows: [['Yta', '30 m² BTA, 25 m² BOA'], ['Mått', '9,0 × 3,3 m'], ['Uteplats', 'Kalkstensplatta ca 52 m²'], ['Tak', 'Pulpettak 11°, pannplåt'], ['Höjd', '3,45 m / 2,45 m'], ['Takutsprång', 'ca 0,45 m över dörrarna'], ['Grund', 'Platta på mark']], text: 'Två sovrum och en hall med svart pentry och dusch/WC, var och en med egen glasad skjutdörr ut mot kalkstensplattan (ca 55 m²) i väster. Bygganmälan 2022-04-06, Jörgen Åström ark. Står norr om huvudhusets östra del; svart liggande panel, svarta dörrkarmar.' };
+}
+const bldLabel = labels.find(l => l.cls === 'bld');
+label(main, 10.6, 4.4, 2.7, 'Huvudhus', '122,5 m²', MAININFO, 'bld');
+for (const l of labels) if (l.cls === 'bld') l.o.element.onclick = e => { e.stopPropagation(); setBld(keyOf(l.key)); };
+
+// toggles
+document.getElementById('t-furn').onchange = e => furniture.forEach(m => m.visible = e.target.checked);
+document.getElementById('t-lbl').onchange = updateLabels;
+document.getElementById('t-plot').onchange = e => plotG.visible = e.target.checked;
+document.getElementById('t-nb').onchange = e => { nbG.visible = e.target.checked; updateLabels(); };
+document.getElementById('t-plan').onchange = e => { plannedG.visible = e.target.checked; updateLabels(); };
+document.getElementById('t-glass').onchange = e => { glassG.visible = e.target.checked; glassG.userData.onToggle?.(e.target.checked); updateLabels(); };
+
+// colour swatches: highlight where each colour sits
+const swEl = document.getElementById('swatches');
+const FOCUS = { 'S 3010-B50G': R.kapp, 'S 3030-Y20R': R.sov, 'S 6500-N': R.passO, 'S 6005-Y20R': R.vard, 'S 9000-N': R.kok, 'S 6010-B50G': R.passV, 'S 2030-R80B': R.app, 'S 3040-G30Y': R.arb, 'S 1502-Y': R.forrad };
+let pulse = null;
+for (const [code, hex, what] of NCS) {
+  const b = document.createElement('button'); b.type = 'button'; b.className = 'sw';
+  b.innerHTML = `<i style="background:${hex}"></i><span><b>NCS ${code}</b><small>${what}</small></span>`;
+  b.onclick = () => {
+    const mats = Object.values(ncsMat).filter(m => m.userData.ncs === code);
+    if (code === 'S 2502-Y') mats.push(M.frame); if (code === 'S 2002-Y') mats.push(M.ceil);
+    pulse = { mats, t: 0 };
+    if (FOCUS[code]) { if (bld !== 'main' && FOCUS[code] !== R.gast) { bld = 'main'; } if (mode === 'walk') setMode('3d'); apply(); const [g, lx, lz] = FOCUS[code].focus; const p = g.localToWorld(new THREE.Vector3(lx, 0, lz)); flyTo([p.x + 2.5, 9, p.z + 7.5], [p.x, 0, p.z]); showInfo(FOCUS[code]); }
+  };
+  swEl.append(b);
+}
+
+// mobile: collapsible panel
+const panel = document.getElementById('panel'), mob = document.getElementById('mob');
+if (matchMedia('(max-width: 760px)').matches) panel.classList.add('collapsed');
+mob.onclick = () => { panel.classList.toggle('collapsed'); mob.textContent = panel.classList.contains('collapsed') ? 'Visa meny' : 'Dölj meny'; };
+
+// click on a room floor to select it (raycast against labels' rooms is handled by labels; here: buildings)
+const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+let downAt = null;
+renderer.domElement.addEventListener('pointerdown', e => { downAt = [e.clientX, e.clientY]; });
+renderer.domElement.addEventListener('pointerup', e => {
+  if (!downAt || Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]) > 5 || mode === 'walk') return;
+  const r = renderer.domElement.getBoundingClientRect(); ndc.set((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1);
+  ray.setFromCamera(ndc, camera);
+  const hit = ray.intersectObjects([groups.main, groups.main_v, groups.gar, groups.att], true).find(h => h.object.visible);
+  if (hit && bld === 'site') { let o = hit.object; while (o && !o.userData.key) o = o.parent; if (o) setBld(keyOf(o.userData.key)); }
+});
+
+// ---------- walk mode ----------
+const walker = { pos: new THREE.Vector3(), yaw: 0, pitch: 0, keys: new Set() };
+const invs = new Map();
+function collide(p) {
+  for (const c of colliders) {
+    let inv = invs.get(c.g); if (!inv) { c.g.updateMatrixWorld(true); inv = c.g.matrixWorld.clone().invert(); invs.set(c.g, inv); }
+    const lp = p.clone().applyMatrix4(inv), r = .26;
+    const cx = Math.max(c.x1, Math.min(lp.x, c.x2)), cz = Math.max(c.z1, Math.min(lp.z, c.z2));
+    const dx = lp.x - cx, dz = lp.z - cz, d2 = dx * dx + dz * dz;
+    if (d2 < r * r) {
+      const d = Math.sqrt(d2) || 1e-4;
+      const push = new THREE.Vector3(dx / d * (r - d), 0, dz / d * (r - d));
+      if (d2 === 0) push.set(0, 0, r);
+      lp.add(push); p.copy(lp.applyMatrix4(c.g.matrixWorld)); p.y = 1.8;
+    }
+  }
+}
+addEventListener('keydown', e => { if (mode !== 'walk') return; if (e.key === 'Escape') { setMode('3d'); return; } walker.keys.add(e.key.toLowerCase()); if (e.key.startsWith('Arrow')) e.preventDefault(); });
+addEventListener('keyup', e => walker.keys.delete(e.key.toLowerCase()));
+let look = null;
+renderer.domElement.addEventListener('pointerdown', e => { if (mode === 'walk') { look = [e.clientX, e.clientY, walker.yaw, walker.pitch]; renderer.domElement.setPointerCapture(e.pointerId); } });
+renderer.domElement.addEventListener('pointermove', e => { if (mode === 'walk' && look) { walker.yaw = look[2] - (e.clientX - look[0]) * .004; walker.pitch = Math.max(-1.2, Math.min(1.2, look[3] - (e.clientY - look[1]) * .004)); } });
+renderer.domElement.addEventListener('pointerup', () => look = null);
+const padHeld = new Set();
+document.querySelectorAll('#pad button').forEach(b => { b.onpointerdown = e => { e.preventDefault(); padHeld.add(b.dataset.k); }; b.onpointerup = b.onpointerleave = b.onpointercancel = () => padHeld.delete(b.dataset.k); });
+function stepWalk(dt) {
+  const k = walker.keys, f = (k.has('w') || k.has('arrowup') || padHeld.has('f') ? 1 : 0) - (k.has('s') || k.has('arrowdown') || padHeld.has('b') ? 1 : 0);
+  const s = (k.has('d') ? 1 : 0) - (k.has('a') ? 1 : 0), turn = (k.has('arrowleft') || padHeld.has('l') ? 1 : 0) - (k.has('arrowright') || padHeld.has('r') ? 1 : 0);
+  walker.yaw += turn * dt * 1.6;
+  const fw = new THREE.Vector3(-Math.sin(walker.yaw), 0, -Math.cos(walker.yaw)), rt = new THREE.Vector3(-fw.z, 0, fw.x);
+  const v = fw.multiplyScalar(f).add(rt.multiplyScalar(s));
+  if (v.lengthSq()) { v.normalize().multiplyScalar(dt * 1.6); const steps = 3; for (let i = 0; i < steps; i++) { walker.pos.add(v.clone().multiplyScalar(1 / steps)); collide(walker.pos); } }
+  camera.position.copy(walker.pos);
+  camera.rotation.set(walker.pitch, walker.yaw, 0, 'YXZ');
+}
+
+// ---------- loop ----------
+addEventListener('resize', () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); labelR.setSize(innerWidth, innerHeight); });
+let last = performance.now();
+renderer.setAnimationLoop(now => {
+  const dt = Math.min(.05, (now - last) / 1000); last = now;
+  if (flight) {
+    flight.t = Math.min(1, flight.t + dt / 1.1); const e = flight.t < .5 ? 2 * flight.t ** 2 : 1 - (-2 * flight.t + 2) ** 2 / 2;
+    camera.position.lerpVectors(flight.p0, flight.p1, e); controls.target.lerpVectors(flight.t0, flight.t1, e);
+    if (flight.t >= 1) flight = null;
+  }
+  if (pulse) {
+    pulse.t += dt; const k = pulse.t < 2.4 ? .5 + .5 * Math.sin(pulse.t * 7.5) : 0;
+    for (const m of pulse.mats) { m.emissive.set('#ffd27a'); m.emissiveIntensity = k * .55; }
+    if (pulse.t >= 2.4) pulse = null;
+  }
+  if (mode === 'walk') stepWalk(dt); else controls.update();
+  renderer.render(scene, camera); labelR.render(scene, camera);
+});
+
+camera.position.set(...BLD.site.cam); controls.target.set(...BLD.site.tgt); controls.update();
+updateSun(); apply(); showInfo(SITE);
+window.__h = { scene, groups, camera, controls, setBld, setMode };
+</script>

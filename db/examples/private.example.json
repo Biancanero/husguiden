@@ -1,0 +1,27 @@
+{
+  "_about": "INVENTED example rows for the owner's private pages (server.py --example-private). For demos only – a real guide starts empty and the owner fills it in the browser.",
+  "costs": { "rows": [
+    { "item": "Electricity (example)", "amount": 80, "per": "month", "note": "Example" },
+    { "item": "Home insurance (example)", "amount": 600, "per": "year", "note": "Example" },
+    { "item": "Property tax (example)", "amount": 900, "per": "year", "note": "Example" }
+  ] },
+  "upcoming": { "rows": [
+    { "date": "2027-03-01", "task": "Service the heat pump (example)", "done": false },
+    { "date": "2027-05-15", "task": "Clean the gutters (example)", "done": false }
+  ] },
+  "payments": { "rows": [
+    { "due": "2027-01-31", "payee": "Electricity company (example)", "amount": 80, "estimate": true, "paid": false, "note": "Example" }
+  ] },
+  "equipment": { "rows": [
+    { "name": "Dishwasher (example)", "cat": "Kitchen", "model": "Model 1000", "serial": "", "bought": "2024-05-01", "shop": "Example shop", "price": 0, "warranty": "2026-05-01", "every": "", "last": "", "receipt": "", "note": "" }
+  ] },
+  "checklist": { "rows": [
+    { "list": "Leaving the house", "item": "Close the windows", "done": false },
+    { "list": "Leaving the house", "item": "Turn down the heating", "done": false },
+    { "list": "Arriving", "item": "Turn on the water", "done": false }
+  ] },
+  "contacts": { "rows": [
+    { "group": "Emergency", "role": "Emergencies", "name": "112", "company": "", "phone": "112", "email": "", "note": "", "key": true, "public": true },
+    { "group": "Tradespeople", "role": "Plumber (example)", "name": "", "company": "Example Plumbing", "phone": "+46 70 000 00 00", "email": "", "note": "", "key": false, "public": false }
+  ] }
+}

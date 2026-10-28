@@ -1,3 +1,16 @@
 .DS_Store
 *.tar.gz
 *.log
+__pycache__/
+# built guides and running data never go into git
+dist/
+data/
+*.sqlite
+*.sqlite-*
+*.secret
+instances/*.env
+# your own list of private words for tools/check_public.py
+.private-words
+
+# owners' raw material (contracts, scans, manuals) never goes into git
+houses/*/underlag/

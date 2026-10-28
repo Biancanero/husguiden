@@ -1,0 +1,799 @@
+{
+ "articles": [
+  {
+   "id": "overview",
+   "title": "Huset i korthet",
+   "cat": "Overview",
+   "sort": 1,
+   "room": "",
+   "body": "Fritidshus på södra Gotland, ritat av arkitekt Jan Jansson och byggt 2010. Ett långt, smalt huvudhus i öst–västlig riktning med putsade lättbetongväggar och sadeltak i pannplåt, en svart träpanelad länga med gäststuga, snickarbod och garage, och ett attefallshus från 2022 med två sovrum och dusch. Mellan husen ligger en gård med kalkstenshällar, vintunnor och odlingslådor.\n\nI huvudhuset ligger arbets-/gästrummet och glasverandan i väster, allrummet med kök, matplats och öppen spis i mitten och dusch och sovrum i öster. Stora fasta fönster vetter mot söder och ett högt fönsterband mot norr.",
+   "facts": [
+    {
+     "k": "Adress",
+     "v": "Hamra Hulehällar 418D, 623 32 Burgsvik"
+    },
+    {
+     "k": "Fastighet",
+     "v": "Hulehällar 1:26, Hamra"
+    },
+    {
+     "k": "Huvudhus",
+     "v": "122,5 m², varav bostad 114 m²"
+    },
+    {
+     "k": "Glasveranda",
+     "v": "7,5 m²"
+    },
+    {
+     "k": "Gäststuga, bod och garage",
+     "v": "50 m²"
+    },
+    {
+     "k": "Attefallshus",
+     "v": "30 m² (2022)"
+    },
+    {
+     "k": "Byggt",
+     "v": "2010 (bygglov 2009)"
+    },
+    {
+     "k": "Uppvärmning",
+     "v": "Bergvärme med radiatorer"
+    },
+    {
+     "k": "Vatten och avlopp",
+     "v": "Kommunalt, via samfälligheten"
+    }
+   ],
+   "images": [
+    {
+     "src": "img/hero.jpg",
+     "caption": "Gården med kalkstenshällarna och huvudhusets norrsida"
+    },
+    {
+     "src": "img/p-3608.jpg",
+     "caption": "Gården mellan husen en sommarkväll"
+    },
+    {
+     "src": "img/p-5077.jpg",
+     "caption": "Kalkstensplattan framför attefallshuset"
+    }
+   ]
+  },
+  {
+   "id": "facades",
+   "title": "Fasader och tak",
+   "cat": "Facades & exterior",
+   "sort": 2,
+   "room": "",
+   "body": "Huvudhuset har putsade fasader i ljust grått och ett sadeltak med 16° lutning i pannplåt, med ett brett träband under takfoten och synliga takbjälkar. Längan med gäststuga och garage och attefallshuset är klädda med svart liggande träpanel och har pulpettak i pannplåt.\n\nKulörerna kommer från arkitektens kulörbeskrivning: ytterdörrar, karmar och fönster NCS S 2502-Y, alla innertak S 2002-Y och väggar S 1502-Y.",
+   "facts": [
+    {
+     "k": "Huvudhus",
+     "v": "Lättbetong, puts"
+    },
+    {
+     "k": "Tak",
+     "v": "Pannplåt, 16°"
+    },
+    {
+     "k": "Längan och attefallshuset",
+     "v": "Svart liggande träpanel"
+    },
+    {
+     "k": "Fönster och dörrar",
+     "v": "NCS S 2502-Y"
+    }
+   ],
+   "images": [
+    {
+     "src": "img/p-3817.jpg",
+     "caption": "Norrsidan med fönsterbandet och vedstapeln"
+    }
+   ]
+  },
+  {
+   "id": "garden",
+   "title": "Gården och tomten",
+   "cat": "Garden & plot",
+   "sort": 3,
+   "room": "",
+   "body": "Tomten är ungefär 2 600 m² gotländsk alvarmark med enbuskar, tallar och rullstensgrus. Mellan huvudhuset och attefallshuset ligger en plan med oregelbundna kalkstenshällar på ungefär 52 m². På gården står vintunnor med havtorn och oliv, odlingslådor i grått trä och ett fikonträd.\n\nGrusuppfarten kommer från vägen i norr och slutar vid garageportarna. Söder om huset finns ett trädäck med skärmtak, en grillplats och studsmattan.",
+   "facts": [
+    {
+     "k": "Tomt",
+     "v": "ca 2 600 m² (ur situationsplanen)"
+    },
+    {
+     "k": "Kalkstensplatta",
+     "v": "ca 52 m²"
+    },
+    {
+     "k": "Mark",
+     "v": "Alvar, enbuskar, tall och rullstensgrus"
+    }
+   ],
+   "images": [
+    {
+     "src": "img/p-5079.jpg",
+     "caption": "Kalkstenshällarna mot huvudhuset"
+    },
+    {
+     "src": "img/p-3816.jpg",
+     "caption": "Fikonträdet vid plattan"
+    }
+   ]
+  },
+  {
+   "id": "materials",
+   "title": "Material och ytskikt",
+   "cat": "Materials & finishes",
+   "sort": 4,
+   "room": "",
+   "body": "Golven i huvudhuset är massiv såpad ekparkett. Badrummet har kalksten med elvärme och är helkaklat. Köket har laminatluckor och en rostfri bänk, och köksön har en skiva i såpad ask. Mellanväggarna är av trä och målade med slamfärg i de kulörer som kulörbeskrivningen anger, bland annat svart runt köket och grönt i rummet mot väster.",
+   "facts": [
+    {
+     "k": "Golv",
+     "v": "Massiv såpad ekparkett"
+    },
+    {
+     "k": "Badrum",
+     "v": "Kalksten med elvärme, helkaklat"
+    },
+    {
+     "k": "Kök",
+     "v": "Laminat, rostfri bänk"
+    },
+    {
+     "k": "Köksö",
+     "v": "Såpad ask"
+    },
+    {
+     "k": "Fönster",
+     "v": "Isolerglas / energiglas"
+    }
+   ],
+   "images": []
+  },
+  {
+   "id": "data",
+   "title": "Mått och data",
+   "cat": "Dimensions & data",
+   "sort": 5,
+   "room": "",
+   "body": "Måtten kommer från arkitektens arbetsritningar (2010) och bygganmälan för attefallshuset (2022).",
+   "facts": [
+    {
+     "k": "Huvudhus",
+     "v": "21,18 × 5,38 m, rumshöjd 2,40 m"
+    },
+    {
+     "k": "Nockhöjd",
+     "v": "ca 3,55 m, skorstenar 4,35 m"
+    },
+    {
+     "k": "Glasveranda",
+     "v": "2,5 × 3,0 m"
+    },
+    {
+     "k": "Längan",
+     "v": "12,5 × 4,0 m, 3,0 m mot söder och 2,5 m mot norr"
+    },
+    {
+     "k": "Attefallshus",
+     "v": "9,0 × 3,3 m, pulpettak 11°, 3,45 / 2,45 m"
+    },
+    {
+     "k": "Arkitekt",
+     "v": "Jan Jansson ark. (huvudhus och länga), Jörgen Åström ark. SAR/MSA (attefallshus)"
+    }
+   ],
+   "images": [
+    {
+     "src": "img/plan-huvudhus.jpg",
+     "caption": "Arbetsritning A2-2: plan och sektioner"
+    }
+   ]
+  },
+  {
+   "id": "r-arb",
+   "title": "Arbets- och gästrum",
+   "cat": "Rooms",
+   "sort": 10,
+   "room": "0:Study / guest room",
+   "body": "Rummet mot väster, med fönster mot väster och söder och en glasdörr ut till glasverandan. Väggarna är målade i grönt, NCS S 3040-G30Y.",
+   "facts": [
+    {
+     "k": "Golvyta",
+     "v": "ca 11,6 m²"
+    },
+    {
+     "k": "Kulör",
+     "v": "S 3040-G30Y"
+    }
+   ],
+   "images": []
+  },
+  {
+   "id": "r-veranda",
+   "title": "Glasverandan",
+   "cat": "Rooms",
+   "sort": 11,
+   "room": "0:Glazed veranda",
+   "body": "Entré mot norr med dörr ut och glasdörr in till arbets-/gästrummet. Fem stora glas i karmar målade S 2502-Y. Golvet är kalksten.",
+   "facts": [
+    {
+     "k": "Yta",
+     "v": "7,5 m²"
+    },
+    {
+     "k": "Mått",
+     "v": "2,5 × 3,0 m"
+    }
+   ],
+   "images": []
+  },
+  {
+   "id": "r-kok",
+   "title": "Köket och allrummet",
+   "cat": "Rooms",
+   "sort": 12,
+   "room": "0:Kitchen",
+   "body": "Kök, matplats och vardagsrum är ett sammanhängande rum på ungefär 44 m². Köket har rostfri bänk med dubbeldisk och en köksö med skiva i såpad ask. Väggarna runt köket är svarta (S 9000-N). Matbordet står tvärs över rummet.",
+   "facts": [
+    {
+     "k": "Allrummet",
+     "v": "ca 44 m²"
+    },
+    {
+     "k": "Bänk",
+     "v": "Rostfri"
+    },
+    {
+     "k": "Köksö",
+     "v": "Såpad ask"
+    }
+   ],
+   "images": []
+  },
+  {
+   "id": "r-vard",
+   "title": "Vardagsrummet",
+   "cat": "Rooms",
+   "sort": 13,
+   "room": "0:Living room",
+   "body": "Öppen spis i obehandlad stålplåt mitt i rummet, soffa mot den panelade väggen (S 6005-Y20R) och ett stort fönster mot söder.",
+   "facts": [
+    {
+     "k": "Eldstad",
+     "v": "Stålplåt 6 mm, 1600 × 670 × 1500"
+    }
+   ],
+   "images": []
+  },
+  {
+   "id": "r-dusch",
+   "title": "Dusch och toalett",
+   "cat": "Rooms",
+   "sort": 14,
+   "room": "0:Shower & WC",
+   "body": "Helkaklat badrum med kalkstensgolv och elvärme. Porslin från Duravit (Happy D) och blandare från Hansgrohe Axor.",
+   "facts": [
+    {
+     "k": "Golv",
+     "v": "Kalksten, elvärme"
+    },
+    {
+     "k": "Handfat och toalett",
+     "v": "Duravit Happy D"
+    },
+    {
+     "k": "Blandare",
+     "v": "Hansgrohe Axor"
+    }
+   ],
+   "images": []
+  },
+  {
+   "id": "r-sov",
+   "title": "Sovrummet",
+   "cat": "Rooms",
+   "sort": 15,
+   "room": "0:Bedroom",
+   "body": "Sovrummet mot öster med stort fönster mot söder och egen ytterdörr mot öster. Väggarna är målade i S 3030-Y20R.",
+   "facts": [
+    {
+     "k": "Golvyta",
+     "v": "ca 14,3 m²"
+    }
+   ],
+   "images": []
+  },
+  {
+   "id": "r-app",
+   "title": "Tvätt och apparatrum",
+   "cat": "Rooms",
+   "sort": 16,
+   "room": "0:Laundry & plant room",
+   "body": "Tvättmaskin och varmvattenberedare. Här finns också bergvärmens utrustning.",
+   "facts": [
+    {
+     "k": "Kulör",
+     "v": "S 2030-R80B"
+    }
+   ],
+   "images": []
+  },
+  {
+   "id": "r-gast",
+   "title": "Gäststugan",
+   "cat": "Rooms",
+   "sort": 20,
+   "room": "1:Guest cottage",
+   "body": "Gäststugan i längans västra ände har två sängar, glasdörr mot gården och ett högt fönster mot väster.",
+   "facts": [
+    {
+     "k": "Golv",
+     "v": "Trä"
+    }
+   ],
+   "images": []
+  },
+  {
+   "id": "r-bod",
+   "title": "Snickarboden",
+   "cat": "Rooms",
+   "sort": 21,
+   "room": "1:Workshop",
+   "body": "Arbetsrum och bod med arbetsbänk, dörr och fönster mot gården.",
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "r-garage",
+   "title": "Förråd och garage",
+   "cat": "Rooms",
+   "sort": 22,
+   "room": "1:Storage & garage",
+   "body": "Betonggolv och pardörrar mot öster där uppfarten slutar.",
+   "facts": [
+    {
+     "k": "Golv",
+     "v": "Betong"
+    }
+   ],
+   "images": []
+  },
+  {
+   "id": "r-att",
+   "title": "Attefallshuset",
+   "cat": "Rooms",
+   "sort": 30,
+   "room": "2:Bedroom north",
+   "body": "Två sovrum och en toalett med dusch, var och en med egen glasad pardörr ut mot kalkstensplattan i väster. Byggt 2022 av Tallbergs El & Bygg AB.",
+   "facts": [
+    {
+     "k": "Yta",
+     "v": "30 m² BTA"
+    },
+    {
+     "k": "Tak",
+     "v": "Pulpettak 11°, pannplåt"
+    },
+    {
+     "k": "Byggt av",
+     "v": "Tallbergs El & Bygg AB, Gotlandstofta"
+    }
+   ],
+   "images": [
+    {
+     "src": "img/p-5078.jpg",
+     "caption": "Dörrarna mot kalkstensplattan"
+    },
+    {
+     "src": "img/p-7790.jpg",
+     "caption": "Attefallshuset från huvudhusets norrsida"
+    }
+   ]
+  },
+  {
+   "id": "r-grill",
+   "title": "Grillplatsen",
+   "cat": "Rooms",
+   "sort": 40,
+   "room": "3:Grill place",
+   "body": "Rund grusplan sydväst om huset med en svart Ofyr och en vedeldad pizzaugn på träbord.",
+   "facts": [],
+   "images": [
+    {
+     "src": "img/p-7603.jpg",
+     "caption": "Pizzaugnen"
+    }
+   ]
+  },
+  {
+   "id": "r-plank",
+   "title": "Planken",
+   "cat": "Rooms",
+   "sort": 41,
+   "room": "",
+   "body": "Svarta plank med liggande brädor och stolpar som sticker upp en bit, som skärmen vid soptunnorna. Ett plank ramar in kalkstensplattan mot norr och ett stänger glipan mellan huvudhuset och attefallshuset.",
+   "facts": [],
+   "images": [
+    {
+     "src": "img/p-2922.jpg",
+     "caption": "Förebilden: skärmen vid soptunnorna"
+    }
+   ]
+  },
+  {
+   "id": "h-bergvarme",
+   "title": "Bergvärme",
+   "cat": "How it works",
+   "sort": 50,
+   "room": "0:Laundry & plant room",
+   "body": "Huset värms med bergvärme och vattenburna radiatorer.",
+   "how": {
+    "what": "Bergvärmepump med vattenburen värme i radiatorer.",
+    "where": "I tvätt- och apparatrummet.",
+    "use": "Värmen styrs automatiskt. Huset står tomt större delen av året: höj värmen på hösten innan kylan kommer och ställ om till sommarläge på våren (påminnelserna ligger i husboken och hem-portalen).",
+    "maintenance": "Se över trycket i värmesystemet och låt en installatör serva pumpen enligt tillverkarens intervall.",
+    "call": "Rolfs Kyl o Maskin, 0498 24 87 00"
+   },
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "h-disk",
+   "title": "Diskmaskinen",
+   "cat": "How it works",
+   "sort": 52,
+   "room": "0:Kitchen",
+   "body": "",
+   "how": {
+    "what": "Diskmaskin i köket.",
+    "where": "I köksbänken.",
+    "use": "Kör programmet ”Normalläge”: välj läget, tryck Start och stäng luckan. Blått ljus = du kan öppna och lägga in mer. Rött ljus = öppna inte. Grönt ljus = klart. De stora bruna tallrikarna står på högersidan.",
+    "maintenance": "Rengör filtret ibland.",
+    "call": ""
+   },
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "h-tv",
+   "title": "Tv och Apple TV",
+   "cat": "How it works",
+   "sort": 53,
+   "room": "0:Living room",
+   "body": "",
+   "how": {
+    "what": "Tv utan kanaler – allt går via streamingtjänster på Apple TV.",
+    "where": "I vardagsrummet.",
+    "use": "Använd den lilla svarta Apple TV-fjärrkontrollen och starta med ”Menu”. SVT Play och andra appar är inloggade. Den andra kontrollen används bara för att stänga av tv:n. När ni är uppkopplade på wifi kan ni också spela musik i den gula högtalaren.",
+    "maintenance": "",
+    "call": ""
+   },
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "h-vatten",
+   "title": "Vatten och avlopp",
+   "cat": "How it works",
+   "sort": 54,
+   "room": "",
+   "body": "",
+   "how": {
+    "what": "Kommunalt vatten och avlopp via samfällighetens gemensamma anläggning (GA6).",
+    "where": "",
+    "use": "",
+    "maintenance": "Samfälligheten sköter ledningarna fram till tomten.",
+    "call": "Rör / VVS: Sudrets Rör, Burgsvik, 0707 49 09 10"
+   },
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "s-valkommen",
+   "title": "Välkommen till Hamra Hulehällar",
+   "cat": "Your stay",
+   "sort": 59,
+   "room": "",
+   "body": "Vad roligt att ni är här! Här är det ni behöver veta för att trivas under vistelsen. Koden till nyckeldosan och wifi-lösenordet får ni av oss i ett meddelande.",
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "s-sopor",
+   "title": "Sopor",
+   "cat": "Your stay",
+   "sort": 60,
+   "room": "",
+   "body": "Vi har fått en ny sopsortering. Dela upp soporna efter markeringarna i soptunnan: hushållsavfall, matavfall, metall, kartong med mera. Tunnan töms bara varannan vecka, så den blir annars snabbt full. På väg in mot Burgsvik finns en återvinningsstation där man kan lämna det mesta.",
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "s-basvaror",
+   "title": "Basvaror och ved",
+   "cat": "Your stay",
+   "sort": 61,
+   "room": "",
+   "body": "Använd gärna basvarorna i skafferierna – fyll på om något tar slut. Samma sak med veden: använder ni mycket, köp gärna mer på ICA.",
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "s-dorrar",
+   "title": "Dörrarna",
+   "cat": "Your stay",
+   "sort": 62,
+   "room": "",
+   "body": "Det blåser en del. Ställ upp alla dörrar så att de inte står och slår – alla har hakar att ställa upp dem med.",
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "s-vattning",
+   "title": "Vattning",
+   "cat": "Your stay",
+   "sort": 63,
+   "room": "",
+   "body": "Hjälp gärna till att vattna då och då, framför allt fikonträden, olivträdet och planteringslådorna.",
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "s-flugor",
+   "title": "Flugor",
+   "cat": "Your stay",
+   "sort": 64,
+   "room": "",
+   "body": "Vi bor nära en bondgård, så det blir alltid lite flugor.\n- Flugsmällare hänger på kortsidan av köksön.\n- Flugremsor ligger i första lådan i köksön och kan sättas upp i taket.\n- Flugnät finns att sätta upp i dörrarna.\n\nLämna ingen mat framme längre än det behövs och torka av ytorna.",
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "s-morklagg",
+   "title": "Mörkläggning i sovrummen",
+   "cat": "Your stay",
+   "sort": 65,
+   "room": "",
+   "body": "Båda sovrummen i huvudhuset har mörkläggningsgardiner som sätts upp varje kväll – haka bara i krokarna i taket.",
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "s-tvatt",
+   "title": "Tvätt",
+   "cat": "Your stay",
+   "sort": 66,
+   "room": "",
+   "body": "Tvättmaskinen står i tvätt- och apparatrummet. Glasverandan är ett bra ställe att torka tvätten.",
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "s-leksaker",
+   "title": "Leksaker",
+   "cat": "Your stay",
+   "sort": 67,
+   "room": "",
+   "body": "Det finns fler leksaker på översta hyllan i garaget – använd dem gärna.",
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "s-vinkyl",
+   "title": "Vinkylen",
+   "cat": "Your stay",
+   "sort": 68,
+   "room": "",
+   "body": "Vi brukar använda vinkylen som kylskåp för grönsaker och frukt. Den nya vinkylen har fel mått och ska skickas tillbaka – använd den inte alls.",
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "s-badkar",
+   "title": "Vedeldat badkar",
+   "cat": "Your stay",
+   "sort": 69,
+   "room": "",
+   "body": "Med vattenbristen på Gotland är det tyvärr svårt att använda det vedeldade badkaret.",
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "s-privat",
+   "title": "Privat rum",
+   "cat": "Your stay",
+   "sort": 70,
+   "room": "",
+   "body": "Rummet längst till vänster i garagelängan är vårt förråd för privata saker. Låt det vara låst.",
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "s-samf",
+   "title": "Samfälligheten",
+   "cat": "Your stay",
+   "sort": 71,
+   "room": "",
+   "body": "Huset ingår i Hulehällar samfällighetsförening med 28 fastigheter, som sköter vägar, vatten och avlopp, fiber och grönområden.",
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "h-ofyr",
+   "title": "Ofyren",
+   "cat": "How it works",
+   "sort": 55,
+   "room": "3:Grill place",
+   "body": "",
+   "how": {
+    "what": "Rund grill där man steker på stålhällen runt elden.",
+    "where": "På grillplatsen sydväst om huset.",
+    "use": "Elda med ved. Skrapa rent hällen med skraporna i kökslådan och lite olivolja.",
+    "maintenance": "",
+    "call": ""
+   },
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "h-pizza",
+   "title": "Pizzaugnen",
+   "cat": "How it works",
+   "sort": 56,
+   "room": "3:Grill place",
+   "body": "",
+   "how": {
+    "what": "Vedeldad pizzaugn på träbord.",
+    "where": "På grillplatsen, bredvid Ofyren. Skorstenen förvaras i garaget.",
+    "use": "Sätt på skorstenen. Elda i flera timmar innan ni bakar – ugnen ska upp i ca 400–500 grader för att pizzan ska bli bra.",
+    "maintenance": "",
+    "call": ""
+   },
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "h-eldstad",
+   "title": "Öppna spisen",
+   "cat": "How it works",
+   "sort": 51,
+   "room": "0:Living room",
+   "body": "",
+   "how": {
+    "what": "Öppen spis i obehandlad stålplåt, ritad för huset.",
+    "where": "Mitt i vardagsrummet.",
+    "use": "Använd den gärna, men det blir snabbt väldigt varmt i huset. Elda långt inne i spisen så att röken inte kommer ut i rummet. Ryker det ändå in står spjällets reglage i av-läge – vrid det så att det står rakt, då är det öppet.",
+    "maintenance": "Sotning enligt kommunens schema.",
+    "call": ""
+   },
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "h-kolgrill",
+   "title": "Kolgrillen",
+   "cat": "How it works",
+   "sort": 57,
+   "room": "1:Storage & garage",
+   "body": "",
+   "how": {
+    "what": "En mindre kolgrill.",
+    "where": "I garaget.",
+    "use": "Använd den gärna. Fyll på med kol om det tar slut.",
+    "maintenance": "",
+    "call": ""
+   },
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "h-cyklar",
+   "title": "Elcyklarna (Rawbike)",
+   "cat": "How it works",
+   "sort": 58,
+   "room": "1:Storage & garage",
+   "body": "",
+   "how": {
+    "what": "Rawbike-elcyklar som räcker ca 5 mil på en laddning.",
+    "where": "I garaget. Laddarna sitter vid hyllan.",
+    "use": "Använd dem gärna – de är fulladdade. Ladda genom att koppla laddaren rakt in i cykeln.",
+    "maintenance": "",
+    "call": ""
+   },
+   "facts": [],
+   "images": []
+  },
+  {
+   "id": "h-ladcykel",
+   "title": "Lådcykeln",
+   "cat": "How it works",
+   "sort": 59,
+   "room": "1:Workshop",
+   "body": "",
+   "how": {
+    "what": "Elassisterad lådcykel.",
+    "where": "Batteriet laddas i snickarboden.",
+    "use": "Använd den gärna – den är fulladdad. Ta loss batteriet och ladda det i snickarboden.",
+    "maintenance": "",
+    "call": ""
+   },
+   "facts": [],
+   "images": []
+  }
+ ],
+ "contacts": [
+  {
+   "group": "Emergency",
+   "role": "Nödsituation (polis, brand, ambulans)",
+   "name": "112",
+   "company": "",
+   "phone": "112",
+   "email": "",
+   "note": "",
+   "key": true,
+   "public": true
+  },
+  {
+   "group": "Tradespeople",
+   "role": "Rör / VVS",
+   "name": "",
+   "company": "Sudrets Rör, Burgsvik",
+   "phone": "0707 49 09 10",
+   "email": "",
+   "note": "Även 0707 49 09 11",
+   "key": false,
+   "public": true
+  },
+  {
+   "group": "Tradespeople",
+   "role": "Rör / VVS",
+   "name": "",
+   "company": "Rolle Öja Rör",
+   "phone": "076-875 90 07",
+   "email": "",
+   "note": "",
+   "key": false,
+   "public": true
+  },
+  {
+   "group": "Service",
+   "role": "Bergvärme",
+   "name": "",
+   "company": "Rolfs Kyl o Maskin",
+   "phone": "0498 24 87 00",
+   "email": "",
+   "note": "Även 0706 01 51 24",
+   "key": true,
+   "public": true
+  }
+ ],
+ "timeline": [
+  {
+   "date": "2009-03-13",
+   "what": "Bygglov för fritidshus med gäststuga och garage (Gotlands kommun, dnr 90346)",
+   "public": true
+  },
+  {
+   "date": "2010-09-17",
+   "what": "Arbetsritningar klara (Jan Jansson ark.)",
+   "public": true
+  },
+  {
+   "date": "2019-10-15",
+   "what": "Tillträde – Gustav och Evelina Westman tar över huset",
+   "public": true
+  },
+  {
+   "date": "2022-04-06",
+   "what": "Bygganmälan för attefallshus, tillbyggnad av fritidshuset och nybyggnad av gäststuga (ärende MBN 2022-001209)",
+   "public": true
+  }
+ ],
+ "places": []
+}

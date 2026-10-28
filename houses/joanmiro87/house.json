@@ -1,0 +1,19 @@
+{
+  "id": "jm87",
+  "kind": "shell",
+  "slug": "husbok-palma",
+  "name": "Joan Miró 87",
+  "place": "El Terreno · Palma",
+  "town": "Palma",
+  "address": "Avinguda de Joan Miró 87 · El Terreno · Palma",
+  "country": "es",
+  "lat": 39.558828,
+  "lng": 2.624574,
+  "lang": "en",
+  "currency": "EUR",
+  "sat": [300000, 60000, 12000, 2500, 600, 150, 40],
+  "c": [3.4, 0, 9],
+  "north": [0.982, 0.191],
+  "url": "",
+  "_note": "kind 'shell': this house's 3D model is the one written into engine/shell.html (Joan Miró 87 is the reference house). sat = half-widths in metres of the satellite photos in sat/ for the trip; c + north = the same spot and north in the 3D scene."
+}

@@ -1,0 +1,100 @@
+{
+  "id": "exempel",
+  "kind": "plan",
+  "slug": "husbok-exempel",
+  "name": "Exempelhuset",
+  "place": "Exempelby · Gotland",
+  "town": "Exempelby",
+  "address": "Exempelvägen 1 · Exempelby",
+  "country": "se",
+  "lat": 57.6348,
+  "lng": 18.2948,
+  "tz": 1,
+  "lang": "sv",
+  "currency": "SEK",
+  "type_line": "Villa · Exempelby · Gotland",
+  "about": "a one-and-a-half-storey timber villa from the 1930s on Gotland, Sweden (an invented example house)",
+  "agency": "",
+  "buyer": false,
+  "whole": "Hela",
+  "whole_sub": "huset",
+  "sat": [],
+  "c": [
+    5.5,
+    0,
+    4
+  ],
+  "north": [
+    0,
+    -1
+  ],
+  "url": "",
+  "plans": [],
+  "i18n": {
+    "Ground floor": [
+      "Bottenvåning",
+      "Planta baja",
+      "Erdgeschoss"
+    ],
+    "Upper floor": [
+      "Övervåning",
+      "Planta alta",
+      "Obergeschoss"
+    ],
+    "Garage": [
+      "Garage",
+      "Garaje",
+      "Garage"
+    ],
+    "The plot": [
+      "Tomten",
+      "La parcela",
+      "Das Grundstück"
+    ],
+    "Hall": [
+      "Hall",
+      "Recibidor",
+      "Diele"
+    ],
+    "Bathroom": [
+      "Badrum",
+      "Baño",
+      "Bad"
+    ],
+    "Dining": [
+      "Matplats",
+      "Comedor",
+      "Essplatz"
+    ],
+    "Family room": [
+      "Allrum",
+      "Sala de estar",
+      "Familienzimmer"
+    ],
+    "Bedroom north": [
+      "Sovrum norr",
+      "Dormitorio norte",
+      "Schlafzimmer Nord"
+    ],
+    "Bedroom south": [
+      "Sovrum söder",
+      "Dormitorio sur",
+      "Schlafzimmer Süd"
+    ],
+    "Kitchen": [
+      "Kök",
+      "Cocina",
+      "Küche"
+    ],
+    "Living room": [
+      "Vardagsrum",
+      "Salón",
+      "Wohnzimmer"
+    ],
+    "Bedroom": [
+      "Sovrum",
+      "Dormitorio",
+      "Schlafzimmer"
+    ]
+  }
+}

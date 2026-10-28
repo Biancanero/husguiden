@@ -1,0 +1,8 @@
+{
+  "title": "Westmans hus i 3D",
+  "slug": "family",
+  "first": "jm87",
+  "homes": ["jm87", "hamra"],
+  "hub": null,
+  "_note": "Every house in 'homes' goes into ONE page (dist/family/) with the globe trip between them. 'first' keeps its data at the database root, the others under '<id>-'. hub = {name, url} adds an 'All our homes' link to the switch menu (optional)."
+}

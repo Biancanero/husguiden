@@ -1,0 +1,96 @@
+{
+  "_about": "Exempelhuset – an invented 1½-storey villa that shows every part of plan.json. tools/new_house.py fills the building, plot, neighbours, trees and aerial photo from open data; rooms, walls and openings come from your floor plans (docs/PLAN-JSON.md).",
+  "storey_height": 2.5,
+  "front": "N",
+  "colors": { "facade": "#8e3b2c", "frames": "#f3f0e8", "door": "#2f3a35", "roof": "#3b3d3f", "inner": "#efebe3" },
+  "slots": [
+    { "name": "Ground floor", "sub": "84 m²", "type": "storey", "level": 0 },
+    { "name": "Upper floor", "sub": "52 m²", "type": "storey", "level": 1 },
+    { "name": "Garage", "sub": "24 m²", "type": "building", "building": "garage" },
+    { "name": "The plot", "sub": "1 050 m²", "type": "plot" }
+  ],
+  "buildings": [
+    {
+      "id": "main", "x": 0, "z": 0, "rot": 0, "w": 11, "d": 8, "wall": 0.3, "floor": 0.45, "cladding": "boards",
+      "roof": { "type": "gable", "pitch": 38, "ridge": "x", "overhang": 0.45, "material": "metal" },
+      "terraces": [{ "side": "S", "a": 5.5, "w": 5.2, "depth": 3.2, "kind": "deck" }],
+      "storeys": [
+        {
+          "rooms": [
+            { "name": "Hall", "x1": 0.3, "x2": 3.0, "z1": 0.3, "z2": 3.2 },
+            { "name": "Kitchen", "x1": 3.1, "x2": 6.6, "z1": 0.3, "z2": 3.9 },
+            { "name": "Bathroom", "x1": 0.3, "x2": 3.0, "z1": 3.3, "z2": 5.2 },
+            { "name": "Bedroom", "x1": 0.3, "x2": 3.0, "z1": 5.3, "z2": 7.7 },
+            { "name": "Living room", "x1": 3.1, "x2": 10.7, "z1": 4.0, "z2": 7.7 },
+            { "name": "Dining", "x1": 6.7, "x2": 10.7, "z1": 0.3, "z2": 3.9 }
+          ],
+          "walls": [
+            { "x1": 3.05, "z1": 0.3, "x2": 3.05, "z2": 7.7, "doors": [{ "a": 1.6, "w": 0.9 }, { "a": 5.4, "w": 0.9 }] },
+            { "x1": 0.3, "z1": 3.25, "x2": 3.05, "z2": 3.25, "doors": [{ "a": 1.0, "w": 0.8 }] },
+            { "x1": 0.3, "z1": 5.25, "x2": 3.05, "z2": 5.25, "doors": [] },
+            { "x1": 3.05, "z1": 3.95, "x2": 10.7, "z2": 3.95, "doors": [{ "a": 3.0, "w": 1.6, "open": true }] }
+          ],
+          "stairs": [{ "x1": 1.9, "x2": 2.9, "z1": 0.4, "z2": 3.1, "dir": "n" }],
+          "openings": [
+            { "side": "N", "a": 1.0, "w": 1.0, "kind": "door", "h": 2.1 },
+            { "side": "N", "a": 4.2, "w": 1.2, "sill": 0.9, "h": 1.2 },
+            { "side": "N", "a": 8.0, "w": 1.2, "sill": 0.9, "h": 1.2 },
+            { "side": "S", "a": 0.9, "w": 1.0, "sill": 0.9, "h": 1.2 },
+            { "side": "S", "a": 4.0, "w": 1.4, "sill": 0.6, "h": 1.5 },
+            { "side": "S", "a": 6.6, "w": 1.8, "kind": "door", "h": 2.2, "glass": true },
+            { "side": "S", "a": 9.0, "w": 1.2, "sill": 0.6, "h": 1.5 },
+            { "side": "W", "a": 3.5, "w": 0.6, "sill": 1.2, "h": 0.8 },
+            { "side": "E", "a": 1.6, "w": 1.2, "sill": 0.9, "h": 1.2 },
+            { "side": "E", "a": 5.0, "w": 1.2, "sill": 0.6, "h": 1.5 }
+          ]
+        },
+        {
+          "height": 2.4,
+          "rooms": [
+            { "name": "Bedroom north", "x1": 0.3, "x2": 4.5, "z1": 1.3, "z2": 3.9 },
+            { "name": "Bedroom south", "x1": 0.3, "x2": 4.5, "z1": 4.1, "z2": 6.7 },
+            { "name": "Bathroom", "x1": 6.6, "x2": 8.6, "z1": 1.3, "z2": 3.9 },
+            { "name": "Family room", "x1": 4.6, "x2": 10.7, "z1": 4.1, "z2": 6.7 }
+          ],
+          "walls": [
+            { "x1": 0.3, "z1": 4.0, "x2": 10.7, "z2": 4.0, "doors": [{ "a": 3.0, "w": 0.8 }, { "a": 7.0, "w": 0.8 }] },
+            { "x1": 4.55, "z1": 4.0, "x2": 4.55, "z2": 6.7, "doors": [] },
+            { "x1": 6.55, "z1": 1.3, "x2": 6.55, "z2": 4.0, "doors": [{ "a": 0.4, "w": 0.8 }] }
+          ],
+          "openings": [
+            { "side": "W", "a": 2.2, "w": 1.0, "sill": 0.8, "h": 1.1 },
+            { "side": "W", "a": 4.8, "w": 1.0, "sill": 0.8, "h": 1.1 },
+            { "side": "E", "a": 2.2, "w": 1.0, "sill": 0.8, "h": 1.1 },
+            { "side": "E", "a": 4.8, "w": 1.0, "sill": 0.8, "h": 1.1 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "garage", "x": 15, "z": -4, "rot": 0, "w": 6, "d": 4, "wall": 0.2, "floor": 0.1, "cladding": "boards",
+      "roof": { "type": "mono", "pitch": 10, "high": "s", "material": "felt", "overhang": 0.3 },
+      "storeys": [
+        {
+          "height": 2.4,
+          "rooms": [{ "name": "Garage", "x1": 0.2, "x2": 5.8, "z1": 0.2, "z2": 3.8, "floor": "concrete", "furnish": false }],
+          "openings": [
+            { "side": "W", "a": 0.6, "w": 2.6, "kind": "door", "h": 2.2 },
+            { "side": "S", "a": 4.4, "w": 0.9, "kind": "door", "h": 2.0 }
+          ]
+        }
+      ]
+    }
+  ],
+  "plot": { "polygon": [[-9, -12], [24, -12], [24, 20], [-9, 20]] },
+  "surfaces": [
+    { "kind": "gravel", "polygon": [[12, -12], [21.5, -12], [21.5, -4], [12, -4]] },
+    { "kind": "stone", "polygon": [[0.5, -1.6], [2.5, -1.6], [2.5, 0], [0.5, 0]] }
+  ],
+  "neighbours": [
+    { "polygon": [[-26, -4], [-16, -4], [-16, 6], [-26, 6]], "h": 7.5 },
+    { "polygon": [[32, 2], [42, 2], [42, 11], [32, 11]], "h": 7 }
+  ],
+  "trees": [[-6, 14, 3, 9], [20, 16, 2.6, 7.5], [-6, -8, 2.2, 6], [10, 17, 2, 6], [22, 6, 1.8, 5]],
+  "pools": [],
+  "ground": null
+}

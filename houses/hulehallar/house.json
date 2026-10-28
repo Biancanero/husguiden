@@ -1,0 +1,19 @@
+{
+  "id": "hamra",
+  "kind": "scene",
+  "slug": "husbok-gotland",
+  "name": "Hulehällar 418D",
+  "place": "Hamra · Gotland",
+  "town": "Hamra",
+  "address": "Hamra · Gotland",
+  "country": "se",
+  "lat": 56.968237,
+  "lng": 18.291475,
+  "lang": "sv",
+  "currency": "SEK",
+  "sat": [300000, 60000, 12000, 2500, 600, 130],
+  "c": [10.6, 0, 2.7],
+  "north": [0, -1],
+  "url": "",
+  "_note": "kind 'scene': a hand-written 3D scene (scene.html) patched into the shell by build_book.py."
+}
